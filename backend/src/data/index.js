@@ -96,7 +96,9 @@ async function shutdownData() {
   logger.info("Database connection closed");
 }
 
-const tables = Object.freeze({});
+const tables = Object.freeze({
+  townhall: "townhall",
+});
 
 module.exports = {
   tables,
