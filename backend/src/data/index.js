@@ -98,6 +98,8 @@ async function shutdownData() {
 
 const tables = Object.freeze({
   townhall: "townhall",
+  clan: "clan",
+  account: "account",
 });
 
 module.exports = {
