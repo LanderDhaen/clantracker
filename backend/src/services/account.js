@@ -22,7 +22,7 @@ const getAllAccounts = async () => {
       `${tables.account}.left as left`,
       `${tables.clan}.name as clan`,
       `${tables.townhall}.level as townhall`,
-      "main.name as main",
+      "main.username as main",
     ]);
 
   return accounts;

@@ -65,7 +65,7 @@ export const columns = [
       );
     },
     cell: ({ getValue }) => {
-      return format(new Date(getValue()), "yyyy-MM-dd");
+      return format(new Date(getValue()), "dd-MM-yyyy");
     },
   },
   {
@@ -86,7 +86,7 @@ export const columns = [
       if (value === null || value === undefined) {
         return "-";
       }
-      return format(new Date(value), "yyyy-MM-dd");
+      return format(new Date(value), "dd-MM-yyyy");
     },
   },
   {
