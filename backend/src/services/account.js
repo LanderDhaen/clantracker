@@ -21,6 +21,7 @@ const getAllAccounts = async () => {
       `${tables.account}.joined as joined`,
       `${tables.account}.left as left`,
       `${tables.clan}.name as clan`,
+      `${tables.clan}.ID as clanID`,
       `${tables.townhall}.level as townhall`,
       "main.username as main",
     ]);

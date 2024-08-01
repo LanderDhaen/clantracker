@@ -3,6 +3,8 @@ import { formatRole } from "@/lib/formatRole";
 
 import { Button } from "@/components/ui/Button";
 import { ArrowUpDown } from "lucide-react";
+import { filterFns } from "@tanstack/react-table";
+import { formatClan } from "@/lib/formatClan";
 
 export const columns = [
   {
@@ -50,6 +52,12 @@ export const columns = [
     cell: ({ getValue }) => {
       return formatRole(getValue());
     },
+    enableColumnFilters: true,
+    filterFn: (row, columnId, filterRoles) => {
+      if (filterRoles.length === 0) return true;
+      const role = row.getValue(columnId);
+      return filterRoles.includes(role);
+    },
   },
   {
     accessorKey: "joined",
@@ -90,7 +98,7 @@ export const columns = [
     },
   },
   {
-    accessorKey: "clan",
+    accessorKey: "clanID",
     header: ({ column }) => {
       return (
         <Button
@@ -101,6 +109,15 @@ export const columns = [
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
+    },
+    cell: ({ getValue }) => {
+      return formatClan(getValue());
+    },
+    enableColumnFilters: true,
+    filterFn: (row, columnId, filterClans) => {
+      if (filterClans.length === 0) return true;
+      const clan = row.getValue(columnId);
+      return filterClans.includes(clan);
     },
   },
   {

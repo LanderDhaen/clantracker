@@ -1,4 +1,4 @@
-export const roleType = {
+export const roles = {
   LEADER: 10,
   COLEADER: 20,
   ELDER: 30,
@@ -6,10 +6,10 @@ export const roleType = {
 };
 
 export const roleLabel = {
-  [roleType.LEADER]: "Leader",
-  [roleType.COLEADER]: "Co-leader",
-  [roleType.ELDER]: "Elder",
-  [roleType.MEMBER]: "Member",
+  [roles.LEADER]: "Leader",
+  [roles.COLEADER]: "Co-leader",
+  [roles.ELDER]: "Elder",
+  [roles.MEMBER]: "Member",
 };
 
 export const formatRole = (role) => roleLabel[role];
