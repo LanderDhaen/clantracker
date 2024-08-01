@@ -19,7 +19,7 @@ import {
 
 import Filters from "./Filters";
 
-export function MemberTable({ columns, data }) {
+export function MemberTable({ columns, data, clans, townhalls }) {
   const [sorting, setSorting] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
 
@@ -43,6 +43,8 @@ export function MemberTable({ columns, data }) {
         <Filters
           columnFilters={columnFilters}
           setColumnFilters={setColumnFilters}
+          clans={clans}
+          townhalls={townhalls}
         />
       </div>
       <div className="rounded-md border p-2">

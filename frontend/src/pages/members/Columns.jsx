@@ -133,6 +133,12 @@ export const columns = [
         </Button>
       );
     },
+    enableColumnFilters: true,
+    filterFn: (row, columnId, filterTownhalls) => {
+      if (filterTownhalls.length === 0) return true;
+      const townhall = row.getValue(columnId);
+      return filterTownhalls.includes(townhall);
+    },
   },
   {
     accessorKey: "main",

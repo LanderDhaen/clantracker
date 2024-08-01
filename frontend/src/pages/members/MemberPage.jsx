@@ -6,6 +6,19 @@ import { MemberTable } from "./MemberTable";
 
 export default function MemberPage() {
   const { data, isLoading, isError } = useSWR(`/accounts`, get);
+  const { data: clans } = useSWR(`/clans`, get);
+  const { data: townhalls } = useSWR(`/townhalls`, get);
 
-  return <>{data && <MemberTable columns={columns} data={data} />}</>;
+  return (
+    <>
+      {data && clans && townhalls && (
+        <MemberTable
+          columns={columns}
+          data={data}
+          clans={clans}
+          townhalls={townhalls}
+        />
+      )}
+    </>
+  );
 }
