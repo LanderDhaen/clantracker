@@ -3,8 +3,11 @@ import { formatRole } from "@/lib/formatRole";
 
 import { Button } from "@/components/ui/Button";
 import { ArrowUpDown } from "lucide-react";
-import { filterFns } from "@tanstack/react-table";
+
 import { formatClan } from "@/lib/formatClan";
+import { formatTownhall } from "@/lib/formatTownhall";
+
+import { cn } from "@/lib/utils";
 
 export const columns = [
   {
@@ -72,29 +75,21 @@ export const columns = [
         </Button>
       );
     },
-    cell: ({ getValue }) => {
-      return format(new Date(getValue()), "dd-MM-yyyy");
-    },
-  },
-  {
-    accessorKey: "left",
-    header: ({ column }) => {
+    cell: ({ row, getValue }) => {
+      const formattedDate = format(new Date(getValue()), "dd-MM-yyyy");
+      const left = row.original.left;
+
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Left
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
+        <div className={"flex items-center justify-center"}>
+          <span
+            className={cn(
+              "w-2 h-2 rounded-full mr-2",
+              left === null ? "bg-green-500" : "bg-red-500"
+            )}
+          ></span>
+          {formattedDate}
+        </div>
       );
-    },
-    cell: ({ getValue }) => {
-      const value = getValue();
-      if (value === null || value === undefined) {
-        return "-";
-      }
-      return format(new Date(value), "dd-MM-yyyy");
     },
   },
   {
@@ -131,6 +126,19 @@ export const columns = [
           Townhall
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
+      );
+    },
+    cell: ({ getValue }) => {
+      const townhall = getValue();
+      const color = formatTownhall(townhall);
+
+      return (
+        <div className={"flex items-center justify-center"}>
+          <span
+            className={cn("w-2 h-2 bg-current rounded-full mr-2", color)}
+          ></span>
+          TH {townhall}
+        </div>
       );
     },
     enableColumnFilters: true,

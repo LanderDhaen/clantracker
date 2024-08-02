@@ -12,8 +12,6 @@ export default function TownhallFilterPopover({
   filterTownhalls,
   handleTownhallChange,
 }) {
-  console.log(filterTownhalls);
-
   return (
     <Popover>
       <PopoverTrigger asChild>
