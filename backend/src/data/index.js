@@ -101,6 +101,7 @@ const tables = Object.freeze({
   clan: "clan",
   account: "account",
   cwl: "clanwarleague",
+  performance: "performance",
 });
 
 module.exports = {
