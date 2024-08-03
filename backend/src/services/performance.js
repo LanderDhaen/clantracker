@@ -22,17 +22,19 @@ const getAllPerformances = async () => {
       `${tables.performance}.damage`,
       `${tables.cwl}.month`,
       `${tables.cwl}.year`,
-      `${tables.account}.name as account`,
+      `${tables.account}.username as account`,
       `${tables.account}.ID as accountID`,
       `${tables.townhall}.level as townhall`,
     ]);
 
   performances.forEach((performance) => {
-    performance.average = performance.stars / performance.attacks;
+    performance.avgStars = performance.stars / performance.attacks;
+    performance.avgDamage = performance.damage / performance.attacks;
   });
 
   const aggregatedData = performances.reduce((acc, performance) => {
-    const { accountID, account, townhall, year, average } = performance;
+    const { accountID, account, townhall, year, avgStars, avgDamage } =
+      performance;
 
     if (!acc[accountID]) {
       acc[accountID] = {
@@ -40,7 +42,8 @@ const getAllPerformances = async () => {
         account,
         townhall,
         performances: {},
-        totalAverage: 0,
+        totalAvgStars: 0,
+        totalAvgDamage: 0,
         count: 0,
       };
     }
@@ -48,32 +51,42 @@ const getAllPerformances = async () => {
     if (!acc[accountID].performances[year]) {
       acc[accountID].performances[year] = {
         year,
-        totalAverage: 0,
+        totalAvgStars: 0,
+        totalAvgDamage: 0,
         count: 0,
       };
     }
 
     const yearPerformance = acc[accountID].performances[year];
-    yearPerformance.totalAverage += average;
+    yearPerformance.totalAvgStars += avgStars;
+    yearPerformance.totalAvgDamage += avgDamage;
     yearPerformance.count += 1;
 
     const accountData = acc[accountID];
-    accountData.totalAverage += average;
+    accountData.totalAvgStars += avgStars;
+    accountData.totalAvgDamage += avgDamage;
     accountData.count += 1;
 
     return acc;
   }, {});
 
   const results = Object.values(aggregatedData).map((accountData) => {
-    const totalAvg = parseFloat(
-      (accountData.totalAverage / accountData.count).toFixed(1)
+    const totalAvgStars = parseFloat(
+      (accountData.totalAvgStars / accountData.count).toFixed(1)
+    );
+
+    const totalAvgDamage = parseFloat(
+      (accountData.totalAvgDamage / accountData.count).toFixed(0)
     );
 
     const performances = Object.values(accountData.performances).map(
       (performance) => ({
         year: performance.year,
-        avg: parseFloat(
-          (performance.totalAverage / performance.count).toFixed(1)
+        avgStars: parseFloat(
+          (performance.totalAvgStars / performance.count).toFixed(1)
+        ),
+        avgDamage: parseFloat(
+          (performance.totalAvgDamage / performance.count).toFixed(0)
         ),
       })
     );
@@ -82,7 +95,8 @@ const getAllPerformances = async () => {
       accountID: accountData.accountID,
       account: accountData.account,
       townhall: accountData.townhall,
-      totalAvg,
+      totalAvgStars,
+      totalAvgDamage,
       performances,
     };
   });
