@@ -10,12 +10,16 @@ import {
 import Root from "./components/Root.jsx";
 
 import MemberPage from "./pages/members/MemberPage.jsx";
+import PerformancePage from "./pages/performance/PerformancePage.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    children: [{ path: "/members", element: <MemberPage /> }],
+    children: [
+      { path: "/members", element: <MemberPage /> },
+      { path: "/performance", element: <PerformancePage /> },
+    ],
   },
 ]);
 

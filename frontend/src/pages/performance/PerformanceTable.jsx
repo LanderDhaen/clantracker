@@ -17,9 +17,9 @@ import {
   TableRow,
 } from "@/components/ui/Table";
 
-import MemberFilters from "./MemberFilters";
+import PerformanceFilters from "./PerformanceFilters";
 
-export function MemberTable({ columns, data, clans, townhalls }) {
+export function PerformanceTable({ columns, data, townhalls }) {
   const [sorting, setSorting] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
 
@@ -40,10 +40,9 @@ export function MemberTable({ columns, data, clans, townhalls }) {
   return (
     <>
       <div className="flex p-2 items-center">
-        <MemberFilters
+        <PerformanceFilters
           columnFilters={columnFilters}
           setColumnFilters={setColumnFilters}
-          clans={clans}
           townhalls={townhalls}
         />
       </div>

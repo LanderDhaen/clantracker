@@ -734,6 +734,9 @@ module.exports = {
         cwlID: 17,
         accountID: 18,
       },
+
+      //* superclasher
+
       {
         ID: 87,
         attacks: 7,
@@ -2062,7 +2065,7 @@ module.exports = {
       },
       {
         ID: 244,
-        attacks: 6,
+        attacks: 7,
         stars: 10,
         damage: 397,
         missed: true,
@@ -3338,6 +3341,26 @@ module.exports = {
         damage: 667,
         cwlID: 17,
         accountID: 79,
+      },
+
+      //* Rukkert
+
+      {
+        ID: 391,
+        attacks: 7,
+        stars: 18,
+        damage: 687,
+        bonus: true,
+        cwlID: 14,
+        accountID: 84,
+      },
+      {
+        ID: 392,
+        attacks: 7,
+        stars: 15,
+        damage: 607,
+        cwlID: 16,
+        accountID: 84,
       },
     ]);
   },

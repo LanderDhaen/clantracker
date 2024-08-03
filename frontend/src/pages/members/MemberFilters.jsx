@@ -5,7 +5,7 @@ import RoleFilterPopover from "./RoleFilterPopover";
 import ClanFilterPopover from "./ClanFilterPopover";
 import TownhallFilterPopover from "./TownhallFilterPopover";
 
-export default function Filters({
+export default function MemberFilters({
   columnFilters,
   setColumnFilters,
   clans,

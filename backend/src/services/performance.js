@@ -28,31 +28,30 @@ const getAllPerformances = async () => {
   const aggregatedData = performances.reduce((acc, performance) => {
     const { accountID, account, townhall, year, attacks, stars, damage } =
       performance;
-    const avgStars = stars / attacks;
-    const avgDamage = damage / attacks;
 
     if (!acc[accountID]) {
       acc[accountID] = {
         accountID,
         account,
         townhall,
-        totalAvgStars: 0,
-        totalAvgDamage: 0,
-        count: 0,
+        totalStars: 0,
+        totalDamage: 0,
+        totalAttacks: 0,
+        years: {},
       };
     }
 
-    if (!acc[accountID][year]) {
-      acc[accountID][year] = { totalAvgStars: 0, totalAvgDamage: 0, count: 0 };
+    if (!acc[accountID].years[year]) {
+      acc[accountID].years[year] = { stars: 0, damage: 0, attacks: 0 };
     }
 
-    acc[accountID][year].totalAvgStars += avgStars;
-    acc[accountID][year].totalAvgDamage += avgDamage;
-    acc[accountID][year].count += 1;
+    acc[accountID].years[year].stars += stars;
+    acc[accountID].years[year].damage += damage;
+    acc[accountID].years[year].attacks += attacks;
 
-    acc[accountID].totalAvgStars += avgStars;
-    acc[accountID].totalAvgDamage += avgDamage;
-    acc[accountID].count += 1;
+    acc[accountID].totalStars += stars;
+    acc[accountID].totalDamage += damage;
+    acc[accountID].totalAttacks += attacks;
 
     return acc;
   }, {});
@@ -62,17 +61,20 @@ const getAllPerformances = async () => {
       accountID,
       account,
       townhall,
-      totalAvgStars,
-      totalAvgDamage,
-      count,
-      ...years
+      totalStars,
+      totalDamage,
+      totalAttacks,
+      years,
     } = accountData;
 
     const yearPerformances = Object.entries(years).reduce(
       (acc, [year, data]) => {
         acc[year] = {
-          avgStars: parseFloat((data.totalAvgStars / data.count).toFixed(1)),
-          avgDamage: parseFloat((data.totalAvgDamage / data.count).toFixed(0)),
+          totalStars: data.stars,
+          avgStars: parseFloat((data.stars / data.attacks).toFixed(1)),
+          totalDamage: data.damage,
+          avgDamage: parseFloat((data.damage / data.attacks).toFixed(0)),
+          totalAttacks: data.attacks,
         };
         return acc;
       },
@@ -84,8 +86,11 @@ const getAllPerformances = async () => {
       account,
       townhall,
       alltime: {
-        avgStars: parseFloat((totalAvgStars / count).toFixed(1)),
-        avgDamage: parseFloat((totalAvgDamage / count).toFixed(0)),
+        totalStars: totalStars,
+        avgStars: parseFloat((totalStars / totalAttacks).toFixed(1)),
+        totalDamage: totalDamage,
+        avgDamage: parseFloat((totalDamage / totalAttacks).toFixed(0)),
+        totalAttacks: totalAttacks,
       },
       ...yearPerformances,
     };

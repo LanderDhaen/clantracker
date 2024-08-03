@@ -782,8 +782,16 @@ module.exports = {
         username: "Gurby Beast",
         role: ROLES.MEMBER,
         joined: "2020-06-15",
-        townhallID: 13,
+        townhallID: 14,
         clanID: 2,
+      },
+      {
+        ID: 84,
+        username: "Rukkert",
+        role: ROLES.MEMBER,
+        joined: "2022-05-25",
+        townhallID: 16,
+        clanID: 1,
       },
     ]);
   },
