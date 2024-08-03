@@ -1,6 +1,4 @@
 const { tables, getKnex } = require("../data/index");
-const account = require("../routes/account");
-const townhall = require("../routes/townhall");
 
 const getAllPerformances = async () => {
   const performances = await getKnex()(tables.performance)
@@ -27,77 +25,69 @@ const getAllPerformances = async () => {
       `${tables.townhall}.level as townhall`,
     ]);
 
-  performances.forEach((performance) => {
-    performance.avgStars = performance.stars / performance.attacks;
-    performance.avgDamage = performance.damage / performance.attacks;
-  });
-
   const aggregatedData = performances.reduce((acc, performance) => {
-    const { accountID, account, townhall, year, avgStars, avgDamage } =
+    const { accountID, account, townhall, year, attacks, stars, damage } =
       performance;
+    const avgStars = stars / attacks;
+    const avgDamage = damage / attacks;
 
     if (!acc[accountID]) {
       acc[accountID] = {
         accountID,
         account,
         townhall,
-        performances: {},
         totalAvgStars: 0,
         totalAvgDamage: 0,
         count: 0,
       };
     }
 
-    if (!acc[accountID].performances[year]) {
-      acc[accountID].performances[year] = {
-        year,
-        totalAvgStars: 0,
-        totalAvgDamage: 0,
-        count: 0,
-      };
+    if (!acc[accountID][year]) {
+      acc[accountID][year] = { totalAvgStars: 0, totalAvgDamage: 0, count: 0 };
     }
 
-    const yearPerformance = acc[accountID].performances[year];
-    yearPerformance.totalAvgStars += avgStars;
-    yearPerformance.totalAvgDamage += avgDamage;
-    yearPerformance.count += 1;
+    acc[accountID][year].totalAvgStars += avgStars;
+    acc[accountID][year].totalAvgDamage += avgDamage;
+    acc[accountID][year].count += 1;
 
-    const accountData = acc[accountID];
-    accountData.totalAvgStars += avgStars;
-    accountData.totalAvgDamage += avgDamage;
-    accountData.count += 1;
+    acc[accountID].totalAvgStars += avgStars;
+    acc[accountID].totalAvgDamage += avgDamage;
+    acc[accountID].count += 1;
 
     return acc;
   }, {});
 
   const results = Object.values(aggregatedData).map((accountData) => {
-    const totalAvgStars = parseFloat(
-      (accountData.totalAvgStars / accountData.count).toFixed(1)
-    );
+    const {
+      accountID,
+      account,
+      townhall,
+      totalAvgStars,
+      totalAvgDamage,
+      count,
+      ...years
+    } = accountData;
 
-    const totalAvgDamage = parseFloat(
-      (accountData.totalAvgDamage / accountData.count).toFixed(0)
-    );
-
-    const performances = Object.values(accountData.performances).map(
-      (performance) => ({
-        year: performance.year,
-        avgStars: parseFloat(
-          (performance.totalAvgStars / performance.count).toFixed(1)
-        ),
-        avgDamage: parseFloat(
-          (performance.totalAvgDamage / performance.count).toFixed(0)
-        ),
-      })
+    const yearPerformances = Object.entries(years).reduce(
+      (acc, [year, data]) => {
+        acc[year] = {
+          avgStars: parseFloat((data.totalAvgStars / data.count).toFixed(1)),
+          avgDamage: parseFloat((data.totalAvgDamage / data.count).toFixed(0)),
+        };
+        return acc;
+      },
+      {}
     );
 
     return {
-      accountID: accountData.accountID,
-      account: accountData.account,
-      townhall: accountData.townhall,
-      totalAvgStars,
-      totalAvgDamage,
-      performances,
+      accountID,
+      account,
+      townhall,
+      alltime: {
+        avgStars: parseFloat((totalAvgStars / count).toFixed(1)),
+        avgDamage: parseFloat((totalAvgDamage / count).toFixed(0)),
+      },
+      ...yearPerformances,
     };
   });
 
