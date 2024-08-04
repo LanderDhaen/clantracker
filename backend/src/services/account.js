@@ -24,7 +24,8 @@ const getAllAccounts = async () => {
       `${tables.clan}.ID as clanID`,
       `${tables.townhall}.level as townhall`,
       "main.username as main",
-    ]);
+    ])
+    .orderBy(`${tables.account}.username`);
 
   return accounts;
 };
@@ -82,7 +83,9 @@ const getAccountByID = async (id) => {
 
   return {
     ...account,
-    statistics: calculateStatistics(performances),
+    statistics: calculateStatistics(performances).sort(
+      (a, b) => b.year - a.year
+    ),
     performances: calculateAverages(performances),
   };
 };
