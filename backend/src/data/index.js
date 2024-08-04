@@ -100,6 +100,8 @@ const tables = Object.freeze({
   townhall: "townhall",
   clan: "clan",
   account: "account",
+  cwl: "clanwarleague",
+  performance: "performance",
 });
 
 module.exports = {

@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import { get } from "../../api";
 
-import { columns } from "./Columns";
+import { columns } from "./MemberColumns";
 import { MemberTable } from "./MemberTable";
 
 export default function MemberPage() {
