@@ -29,7 +29,7 @@ import {
 import { formatMonth } from "@/lib/formatMonth";
 
 export default function DamageChart({ performances, statistics }) {
-  const { damage, avgStars, avgDamage, year } = statistics;
+  const { damage, avgDamage, year, attacks } = statistics;
 
   const data = performances.map((performance) => ({
     date: formatMonth(performance.month),
@@ -90,11 +90,10 @@ export default function DamageChart({ performances, statistics }) {
       </CardContent>
       <CardFooter>
         <CardDescription>
-          You caused{" "}
+          In {year}, you caused{" "}
           <span className="font-medium text-foreground">{damage}</span> damage
-          for an average of{" "}
-          <span className="font-medium text-foreground">{avgDamage}%</span> per
-          attack!
+          in <span className="font-medium text-foreground">{attacks}</span>{" "}
+          attacks!
         </CardDescription>
       </CardFooter>
     </Card>

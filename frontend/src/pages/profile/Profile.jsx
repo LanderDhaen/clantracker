@@ -1,5 +1,5 @@
 import DamageChart from "./DamageChart";
-import PerformanceChart from "./PerformanceChart";
+import StarsChart from "./StarsChart";
 
 export default function Profile({ profile }) {
   const { statistics, performances } = profile;
@@ -15,10 +15,7 @@ export default function Profile({ profile }) {
 
         return (
           <>
-            <PerformanceChart
-              statistics={statistic}
-              performances={filteredData}
-            />
+            <StarsChart statistics={statistic} performances={filteredData} />
             <DamageChart statistics={statistic} performances={filteredData} />
           </>
         );

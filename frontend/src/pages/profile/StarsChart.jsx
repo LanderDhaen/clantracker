@@ -28,8 +28,8 @@ import {
 
 import { formatMonth } from "@/lib/formatMonth";
 
-export default function PerformanceChart({ performances, statistics }) {
-  const { attacks, stars, damage, avgStars, avgDamage, year } = statistics;
+export default function StarsChart({ performances, statistics }) {
+  const { attacks, stars, avgStars, year } = statistics;
 
   const data = performances.map((performance) => ({
     date: formatMonth(performance.month),
