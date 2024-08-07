@@ -11,6 +11,8 @@ import {
   CreditCard,
   Crown,
   TrendingUp,
+  MapPin,
+  Languages,
 } from "lucide-react";
 
 import {
@@ -24,6 +26,7 @@ import {
 
 import { formatRole } from "@/lib/formatRole";
 import { format } from "date-fns";
+import { colorLeague, formatLeague } from "@/lib/formatLeague";
 
 export default function Profile({ profile }) {
   const { statistics, performances } = profile;
@@ -37,6 +40,9 @@ export default function Profile({ profile }) {
     clan,
     clanlevel,
     clanID,
+    location,
+    language,
+    cwl,
     townhall,
     main,
   } = profile;
@@ -102,11 +108,30 @@ export default function Profile({ profile }) {
           <CardContent>
             <div className="flex items-center mb-4">
               <CreditCard className="mr-2" />
-              ID: {ID}
+              ID: {clanID}
             </div>
             <div className="flex items-center mb-4">
               <TrendingUp className="mr-2" />
-              Clan Level: {clanlevel}
+              Level: {clanlevel}
+            </div>
+            <div className="flex items-center mb-4">
+              <MapPin className="mr-2" />
+              Location: {location}
+            </div>
+            <div className="flex items-center mb-4">
+              <Languages className="mr-2" />
+              Language: {language}
+            </div>
+            <div className="flex items-center">
+              <Crown className="mr-2" />
+              Clan War League:{" "}
+              <span
+                className={`ml-2 px-2 py-1 rounded-full text-sm font-semibold ${colorLeague(
+                  cwl
+                )}`}
+              >
+                {formatLeague(cwl)}
+              </span>
             </div>
           </CardContent>
         </Card>

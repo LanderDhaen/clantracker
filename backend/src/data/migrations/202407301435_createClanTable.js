@@ -6,6 +6,9 @@ module.exports = {
       table.increments("ID");
       table.string("name").notNullable();
       table.integer("level").notNullable();
+      table.string("location").notNullable();
+      table.string("language").notNullable();
+      table.integer("cwl").notNullable();
     });
   },
   down: (knex) => {

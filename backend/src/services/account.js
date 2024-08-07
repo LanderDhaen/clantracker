@@ -54,6 +54,9 @@ const getAccountByID = async (id) => {
       `${tables.clan}.name as clan`,
       `${tables.clan}.level as clanlevel`,
       `${tables.clan}.ID as clanID`,
+      `${tables.clan}.location as location`,
+      `${tables.clan}.language as language`,
+      `${tables.clan}.cwl as cwl`,
       `${tables.townhall}.level as townhall`,
       "main.username as main",
     ])
