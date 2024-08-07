@@ -11,6 +11,7 @@ import Root from "./components/Root.jsx";
 
 import MemberPage from "./pages/members/MemberPage.jsx";
 import PerformancePage from "./pages/performance/PerformancePage.jsx";
+import ProfilePage from "./pages/profile/ProfilePage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
     element: <Root />,
     children: [
       { path: "/members", element: <MemberPage /> },
+      { path: "/members/:id", element: <ProfilePage /> },
       { path: "/performance", element: <PerformancePage /> },
     ],
   },
