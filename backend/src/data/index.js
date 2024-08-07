@@ -1,19 +1,13 @@
 const knex = require("knex");
 const { join } = require("node:path");
 const { getLogger } = require("../middleware/logging");
-
 const config = require("config");
 
 const NODE_ENV = config.get("env");
 const isDevelopment = NODE_ENV === "development";
 
 const DATABASE_CLIENT = config.get("database.client");
-const DATABASE_NAME = config.get("database.name");
-const DATABASE_HOST = config.get("database.host");
-const DATABASE_PORT = config.get("database.port");
-const DATABASE_USERNAME = config.get("database.username");
-const DATABASE_PASSWORD = config.get("database.password");
-const DATABASE_TIMEZONE = config.get("database.timezone");
+const DATABASE_FILE = config.get("database.connection.filename");
 
 let knexInstance;
 
@@ -24,14 +18,9 @@ async function initializeData() {
   const knexOptions = {
     client: DATABASE_CLIENT,
     connection: {
-      host: DATABASE_HOST,
-      port: DATABASE_PORT,
-      name: DATABASE_NAME,
-      user: DATABASE_USERNAME,
-      password: DATABASE_PASSWORD,
-      insecureAuth: isDevelopment,
-      timezone: "+00:00",
+      filename: DATABASE_FILE,
     },
+    useNullAsDefault: true,
     debug: isDevelopment,
     migrations: {
       tableName: "knex_meta",
@@ -46,11 +35,6 @@ async function initializeData() {
 
   try {
     await knexInstance.raw("SELECT 1+1 AS result");
-    await knexInstance.raw(`CREATE DATABASE IF NOT EXISTS ??`, DATABASE_NAME);
-    await knexInstance.destroy();
-
-    knexOptions.connection.database = DATABASE_NAME;
-    knexInstance = knex(knexOptions);
   } catch (error) {
     logger.error(error.message, { error });
     throw new Error("Could not initialize the data layer");
@@ -98,6 +82,10 @@ async function shutdownData() {
 
 const tables = Object.freeze({
   townhall: "townhall",
+  clan: "clan",
+  account: "account",
+  cwl: "clanwarleague",
+  performance: "performance",
 });
 
 module.exports = {
