@@ -17,6 +17,8 @@ import {
   TableRow,
 } from "@/components/ui/Table";
 
+import { useNavigate } from "react-router-dom";
+
 import MemberFilters from "./MemberFilters";
 
 export function MemberTable({ columns, data, clans, townhalls }) {
@@ -36,6 +38,12 @@ export function MemberTable({ columns, data, clans, townhalls }) {
       columnFilters,
     },
   });
+
+  const navigate = useNavigate();
+
+  const handleRowClick = (id) => {
+    navigate(`/members/${id}`);
+  };
 
   return (
     <>
@@ -72,6 +80,7 @@ export function MemberTable({ columns, data, clans, townhalls }) {
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
+                  onClick={() => handleRowClick(row.original.ID)}
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (

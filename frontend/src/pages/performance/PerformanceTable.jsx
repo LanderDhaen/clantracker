@@ -17,6 +17,8 @@ import {
   TableRow,
 } from "@/components/ui/Table";
 
+import { useNavigate } from "react-router-dom";
+
 import PerformanceFilters from "./PerformanceFilters";
 
 export function PerformanceTable({ columns, data, townhalls }) {
@@ -36,6 +38,12 @@ export function PerformanceTable({ columns, data, townhalls }) {
       columnFilters,
     },
   });
+
+  const navigate = useNavigate();
+
+  const handleRowClick = (id) => {
+    navigate(`/members/${id}`);
+  };
 
   return (
     <>
@@ -71,6 +79,7 @@ export function PerformanceTable({ columns, data, townhalls }) {
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
+                  onClick={() => handleRowClick(row.original.accountID)}
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
