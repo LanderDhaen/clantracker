@@ -26,7 +26,7 @@ export const leagueColors = {
   [leagues.CRYSTAL3]: "bg-purple-300 text-purple-800",
   [leagues.CRYSTAL2]: "bg-purple-300 text-purple-800",
   [leagues.CRYSTAL1]: "bg-purple-300 text-purple-800",
-  [leagues.MASTER3]: "bg-gray-100 text-gray-800",
+  [leagues.MASTER3]: "bg-gray-300 text-gray-800",
   [leagues.MASTER2]: "bg-gray-300 text-gray-600",
   [leagues.MASTER1]: "bg-gray-300 text-gray-600",
   [leagues.CHAMP3]: "bg-red-100 text-red-800",

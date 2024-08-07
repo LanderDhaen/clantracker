@@ -20,7 +20,7 @@ module.exports = {
         level: 10,
         location: "Netherlands",
         language: "Dutch",
-        cwl: LEAGUES.MASTER3,
+        cwl: LEAGUES.MASTER2,
       },
       {
         ID: 3,
