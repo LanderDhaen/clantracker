@@ -9,10 +9,7 @@ module.exports = {
     maxAge: 3 * 60 * 60,
   },
   database: {
-    client: "mysql2",
-    host: "localhost",
-    port: 3306,
-    timezone: "Europe/Brussels",
+    client: "sqlite3",
   },
   auth: {
     argon: {
