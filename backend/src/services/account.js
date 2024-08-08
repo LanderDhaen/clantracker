@@ -93,6 +93,14 @@ const getAccountByID = async (id) => {
   };
 };
 
+const createAccount = async (data) => {
+  const [id] = await getKnex()(tables.account).insert(data);
+
+  return id;
+};
+
+// Helper functions
+
 const calculateAverages = (performances) => {
   return performances.map((p) => {
     const avgStars = parseFloat((p.stars / p.attacks).toFixed(1));
@@ -137,4 +145,5 @@ const calculateStatistics = (performances) => {
 module.exports = {
   getAllAccounts,
   getAccountByID,
+  createAccount,
 };

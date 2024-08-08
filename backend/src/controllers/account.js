@@ -1,4 +1,8 @@
 const accountService = require("../services/account");
+const townhallController = require("../controllers/townhall");
+const clanController = require("../controllers/clan");
+
+const ServiceError = require("../middleware/serviceError");
 
 const getAllAccounts = async () => {
   return accountService.getAllAccounts();
@@ -8,7 +12,28 @@ const getAccountByID = async (id) => {
   return accountService.getAccountByID(id);
 };
 
+const createAccount = async (data) => {
+  const { townhallID, clanID } = data;
+
+  const townhall = await townhallController.getTownhallByID(townhallID);
+
+  if (!townhall) {
+    throw ServiceError.notFound(
+      `Townhall with ID ${townhallID} does not exist`
+    );
+  }
+
+  const clan = await clanController.getClanByID(clanID);
+
+  if (!clan) {
+    throw ServiceError.notFound(`Clan with ID ${clanID} does not exist`);
+  }
+
+  return accountService.createAccount(data);
+};
+
 module.exports = {
   getAllAccounts,
   getAccountByID,
+  createAccount,
 };
