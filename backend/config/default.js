@@ -9,7 +9,7 @@ module.exports = {
     maxAge: 3 * 60 * 60,
   },
   database: {
-    client: "sqlite3",
+    client: "pg",
   },
   auth: {
     argon: {

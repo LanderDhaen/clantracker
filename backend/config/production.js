@@ -1,11 +1,4 @@
 module.exports = {
-  database: {
-    client: "sqlite3",
-    connection: {
-      filename: "./../../prod.sqlite3",
-    },
-    useNullAsDefault: true,
-  },
   log: {
     level: "info",
     disabled: false,
