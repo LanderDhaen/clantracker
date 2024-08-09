@@ -30,6 +30,23 @@ const getAllAccounts = async () => {
   return accounts;
 };
 
+const getMainAccounts = async () => {
+  const accounts = await getKnex()(tables.account)
+    .join(
+      tables.townhall,
+      `${tables.account}.townhallID`,
+      `${tables.townhall}.ID`
+    )
+    .select([
+      `${tables.account}.ID`,
+      `${tables.account}.username as username`,
+      `${tables.townhall}.level as townhall`,
+    ])
+    .where(`${tables.account}.accountID`, null);
+
+  return accounts;
+};
+
 const getAccountByID = async (id) => {
   const account = await getKnex()(tables.account)
     .join(tables.clan, `${tables.account}.clanID`, `${tables.clan}.ID`)
@@ -144,6 +161,7 @@ const calculateStatistics = (performances) => {
 
 module.exports = {
   getAllAccounts,
+  getMainAccounts,
   getAccountByID,
   createAccount,
 };

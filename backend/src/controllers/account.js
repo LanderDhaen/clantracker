@@ -8,6 +8,10 @@ const getAllAccounts = async () => {
   return accountService.getAllAccounts();
 };
 
+const getMainAccounts = async () => {
+  return accountService.getMainAccounts();
+};
+
 const getAccountByID = async (id) => {
   return accountService.getAccountByID(id);
 };
@@ -34,6 +38,7 @@ const createAccount = async (data) => {
 
 module.exports = {
   getAllAccounts,
+  getMainAccounts,
   getAccountByID,
   createAccount,
 };

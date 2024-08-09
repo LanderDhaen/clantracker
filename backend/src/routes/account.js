@@ -10,6 +10,13 @@ const getAllAccounts = async (ctx) => {
 
 getAllAccounts.validationScheme = {};
 
+const getMainAccounts = async (ctx) => {
+  const data = await accountController.getMainAccounts();
+  ctx.body = data;
+};
+
+getMainAccounts.validationScheme = {};
+
 const getAccountByID = async (ctx) => {
   const data = await accountController.getAccountByID(ctx.params.id);
   ctx.body = data;
@@ -45,6 +52,11 @@ module.exports = (app) => {
   });
 
   router.get("/", validate(getAllAccounts.validationScheme), getAllAccounts);
+  router.get(
+    "/main-accounts",
+    validate(getMainAccounts.validationScheme),
+    getMainAccounts
+  );
   router.get("/:id", validate(getAccountByID.validationScheme), getAccountByID);
   router.post("/", validate(createAccount.validationScheme), createAccount);
 
