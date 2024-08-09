@@ -13,6 +13,7 @@ import MemberPage from "./pages/members/MemberPage.jsx";
 import PerformancePage from "./pages/performance/PerformancePage.jsx";
 import ProfilePage from "./pages/profile/ProfilePage.jsx";
 import Home from "./components/Home.jsx";
+import MemberFormPage from "./pages/memberform/MemberFormPage";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "/members", element: <MemberPage /> },
       { path: "/members/:id", element: <ProfilePage /> },
+      { path: "/members/add", element: <MemberFormPage /> },
       { path: "/performance", element: <PerformancePage /> },
     ],
   },
