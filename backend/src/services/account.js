@@ -42,7 +42,9 @@ const getMainAccounts = async () => {
       `${tables.account}.username as username`,
       `${tables.townhall}.level as townhall`,
     ])
-    .where(`${tables.account}.accountID`, null);
+    .where(`${tables.account}.accountID`, null)
+    .where(`${tables.account}.left`, null)
+    .orderBy(`${tables.account}.username`);
 
   return accounts;
 };
@@ -110,10 +112,26 @@ const getAccountByID = async (id) => {
   };
 };
 
-const createAccount = async (data) => {
-  const [id] = await getKnex()(tables.account).insert(data);
-
-  return id;
+const createAccount = async ({
+  username,
+  name,
+  role,
+  joined,
+  left,
+  accountID,
+  townhallID,
+  clanID,
+}) => {
+  await getKnex()(tables.account).insert({
+    username,
+    name,
+    role,
+    joined,
+    left,
+    accountID,
+    townhallID,
+    clanID,
+  });
 };
 
 // Helper functions

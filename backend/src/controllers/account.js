@@ -16,9 +16,16 @@ const getAccountByID = async (id) => {
   return accountService.getAccountByID(id);
 };
 
-const createAccount = async (data) => {
-  const { townhallID, clanID } = data;
-
+const createAccount = async ({
+  username,
+  name,
+  role,
+  joined,
+  left,
+  accountID,
+  townhallID,
+  clanID,
+}) => {
   const townhall = await townhallController.getTownhallByID(townhallID);
 
   if (!townhall) {
@@ -33,7 +40,16 @@ const createAccount = async (data) => {
     throw ServiceError.notFound(`Clan with ID ${clanID} does not exist`);
   }
 
-  return accountService.createAccount(data);
+  accountService.createAccount({
+    username,
+    name,
+    role,
+    joined,
+    left,
+    accountID,
+    townhallID,
+    clanID,
+  });
 };
 
 module.exports = {

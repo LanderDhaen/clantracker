@@ -29,8 +29,19 @@ getAccountByID.validationScheme = {
 };
 
 const createAccount = async (ctx) => {
-  const data = await accountController.createAccount(ctx.request.body);
-  ctx.body = data;
+  await accountController.createAccount({
+    ...ctx.request.body,
+    username: ctx.request.body.username,
+    name: ctx.request.body.name,
+    role: ctx.request.body.role,
+    joined: ctx.request.body.joined,
+    left: ctx.request.body.left,
+    accountID: ctx.request.body.accountID,
+    townhallID: ctx.request.body.townhallID,
+    clanID: ctx.request.body.clanID,
+  });
+
+  ctx.status = 201;
 };
 
 createAccount.validationScheme = {
