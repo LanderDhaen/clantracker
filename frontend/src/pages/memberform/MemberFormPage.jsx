@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import { get } from "../../api";
+import { useParams } from "react-router-dom";
 
 import {
   Card,
@@ -11,30 +12,59 @@ import {
 
 import MemberForm from "./MemberForm";
 
+import AsyncData from "@/components/AsyncData";
+
 export default function MemberFormPage() {
-  const { data: accounts } = useSWR(`/accounts/main-accounts`, get);
-  const { data: clans } = useSWR(`/clans`, get);
-  const { data: townhalls } = useSWR(`/townhalls`, get);
+  const { id } = useParams();
+
+  const {
+    data: accounts,
+    isLoading: accountsLoading,
+    error: accountsError,
+  } = useSWR(`/accounts/main-accounts`, get);
+  const {
+    data: clans,
+    isLoading: clansLoading,
+    error: clansError,
+  } = useSWR(`/clans`, get);
+  const {
+    data: townhalls,
+    isLoading: townhallsLoading,
+    error: townhallsError,
+  } = useSWR(`/townhalls`, get);
+  const {
+    data: member,
+    isLoading: memberLoading,
+    error: memberError,
+  } = useSWR(id ? `/accounts/${id}` : null, get);
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <Card className=" w-full max-w-3xl bg-white shadow-lg rounded-lg">
-        <CardHeader>
-          <CardTitle>Member Form</CardTitle>
-          <CardDescription>
-            Fill out the form to create a new clan member
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          {accounts && clans && townhalls && (
+      <AsyncData
+        loading={
+          accountsLoading || clansLoading || townhallsLoading || memberLoading
+        }
+        error={accountsError || clansError || townhallsError || memberError}
+      >
+        <Card className="w-full max-w-3xl bg-white shadow-lg rounded-lg">
+          <CardHeader>
+            <CardTitle>{id ? `Update Member` : "Create Member"}</CardTitle>
+            <CardDescription>
+              {id
+                ? "Update the details of this clan member"
+                : "Fill out the form to create a new clan member"}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
             <MemberForm
               accounts={accounts}
               clans={clans}
               townhalls={townhalls}
+              member={member}
             />
-          )}
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </AsyncData>
     </div>
   );
 }

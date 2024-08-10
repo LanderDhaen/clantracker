@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/Select";
 
-import { FileInput } from "lucide-react";
+import { FileInput, XCircleIcon } from "lucide-react";
 
 import {
   Form,
@@ -38,7 +38,7 @@ import {
 import { roles, formatRole } from "@/lib/formatRole";
 import { formatTownhall } from "@/lib/formatTownhall";
 
-import { post } from "../../api";
+import { post, put } from "../../api";
 import useSWRMutation from "swr/mutation";
 
 import { ToastContainer, toast } from "react-toastify";
@@ -46,39 +46,56 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { useNavigate } from "react-router-dom";
 
-export default function MemberForm({ accounts, clans, townhalls }) {
+export default function MemberForm({ accounts, clans, townhalls, member }) {
   const navigate = useNavigate();
 
   const { trigger: createMember } = useSWRMutation("/accounts", post, {
     onSuccess: () => {
       toast.success("Member created successfully.");
+      navigate("/members");
     },
     onError: () => {
       toast.error("An error occurred while creating the member.");
     },
   });
 
+  const { trigger: updateMember } = useSWRMutation(
+    `/accounts/${member?.ID}`,
+    put,
+    {
+      onSuccess: () => {
+        toast.success("Member updated successfully.");
+        navigate(`/members/${member?.ID}`);
+      },
+      onError: () => {
+        toast.error("An error occurred while updating the member.");
+      },
+    }
+  );
+
   const formSchema = z.object({
-    username: z.string().min(1),
+    username: z.string().min(1, { message: "Required" }),
     name: z.string().optional(),
     role: z.number(),
-    joined: z.date(),
-    left: z.date().optional(),
-    accountID: z.number().optional(),
+    joined: z.date({
+      message: "Required",
+    }),
+    left: z.date().optional().nullable(),
+    accountID: z.number().optional().nullable(),
     townhallID: z.number(),
     clanID: z.number(),
   });
 
   const memberForm = useForm({
     defaultValues: {
-      username: "",
-      name: "",
-      role: undefined,
-      joined: undefined,
-      left: undefined,
-      accountID: undefined,
-      townhallID: undefined,
-      clanID: undefined,
+      username: member?.username || "",
+      name: member?.name || "",
+      role: member?.role || undefined,
+      joined: member?.joined ? new Date(member.joined) : undefined,
+      left: member?.left ? new Date(member.left) : undefined,
+      accountID: member?.mainID || undefined,
+      townhallID: member?.townhall || undefined,
+      clanID: member?.clanID || undefined,
     },
     resolver: zodResolver(formSchema),
   });
@@ -89,8 +106,12 @@ export default function MemberForm({ accounts, clans, townhalls }) {
         ([_, value]) => value !== undefined && value !== ""
       )
     );
-    createMember(filteredData);
-    navigate("/members");
+
+    if (member) {
+      updateMember(filteredData);
+    } else {
+      createMember(filteredData);
+    }
   };
 
   return (
@@ -223,32 +244,45 @@ export default function MemberForm({ accounts, clans, townhalls }) {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Main Account</FormLabel>
-              <Select
-                onValueChange={(value) => field.onChange(parseInt(value))}
-                defaultValue={field.value ? field.value.toString() : ""}
-                value={field.value ? field.value.toString() : ""}
-              >
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select an account" />
-                  </SelectTrigger>
+              <div className="flex items-center space-x-2">
+                <FormControl className="flex-1">
+                  <Select
+                    onValueChange={(value) => field.onChange(parseInt(value))}
+                    value={field.value ? field.value.toString() : ""}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select an account" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {accounts.map((account) => (
+                        <SelectItem
+                          key={account.ID}
+                          value={account.ID.toString()}
+                        >
+                          <div className="flex items-center space-x-2">
+                            <span
+                              className={cn(
+                                "w-2 h-2 rounded-full mr-2",
+                                formatTownhall(account.townhall)
+                              )}
+                            ></span>
+                            TH {account.townhall} | {account.username}
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </FormControl>
-                <SelectContent>
-                  {accounts.map((account) => (
-                    <SelectItem key={account.ID} value={account.ID.toString()}>
-                      <div className="flex items-center space-x-2">
-                        <span
-                          className={cn(
-                            "w-2 h-2 rounded-full mr-2",
-                            formatTownhall(account.townhall)
-                          )}
-                        ></span>
-                        TH {account.townhall} | {account.username}
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                {field.value && (
+                  <Button
+                    variant="ghost"
+                    className="ml-2"
+                    onClick={() => field.onChange(null)}
+                  >
+                    <XCircleIcon className="h-5 w-5" />
+                  </Button>
+                )}
+              </div>
               <FormMessage />
             </FormItem>
           )}
@@ -259,37 +293,48 @@ export default function MemberForm({ accounts, clans, townhalls }) {
           render={({ field }) => (
             <FormItem className="flex flex-col pt-1">
               <FormLabel className="pb-1">Joined on</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      {field.value ? (
-                        format(field.value, "PPP")
-                      ) : (
-                        <span>Pick a date</span>
-                      )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
-                    disabled={(date) =>
-                      date > new Date() || date < new Date("2012-01-01")
-                    }
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
+              <div className="flex items-center">
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        {field.value ? (
+                          format(field.value, "PPP")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={field.value}
+                      onSelect={field.onChange}
+                      disabled={(date) =>
+                        date > new Date() || date < new Date("2012-01-01")
+                      }
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+                {field.value && (
+                  <Button
+                    variant="ghost"
+                    className="ml-2"
+                    onClick={() => field.onChange(null)}
+                  >
+                    <XCircleIcon className="h-5 w-5" />
+                  </Button>
+                )}
+              </div>
               <FormMessage />
             </FormItem>
           )}
@@ -298,51 +343,61 @@ export default function MemberForm({ accounts, clans, townhalls }) {
           control={memberForm.control}
           name="left"
           render={({ field }) => (
-            <FormItem className="flex flex-col py-1">
+            <FormItem className="flex flex-col pt-1">
               <FormLabel className="pb-1">Left on</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "pl-3 text-left font-normal",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      {field.value ? (
-                        format(field.value, "PPP")
-                      ) : (
-                        <span>Pick a date</span>
-                      )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
-                    disabled={(date) =>
-                      date > new Date() || date < new Date("2012-01-01")
-                    }
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
+              <div className="flex items-center">
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        {field.value ? (
+                          format(field.value, "PPP")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={field.value}
+                      onSelect={field.onChange}
+                      disabled={(date) =>
+                        date > new Date() || date < new Date("2012-01-01")
+                      }
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+                {field.value && (
+                  <Button
+                    variant="ghost"
+                    className="ml-2"
+                    onClick={() => field.onChange(null)}
+                  >
+                    <XCircleIcon className="h-5 w-5" />
+                  </Button>
+                )}
+              </div>
               <FormMessage />
             </FormItem>
           )}
         />
         <div className="flex justify-center ">
-          {" "}
           <Button
             type="submit"
             className="bg-blue-500 text-white py-2 px-6 rounded-full hover:bg-blue-700 transition-transform transform hover:scale-105"
           >
             <FileInput className="mr-2" />
-            Submit
+            {member ? "Update Member" : "Create Member"}
           </Button>
         </div>
       </form>
