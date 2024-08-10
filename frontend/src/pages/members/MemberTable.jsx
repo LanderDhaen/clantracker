@@ -17,7 +17,11 @@ import {
   TableRow,
 } from "@/components/ui/Table";
 
+import { Button } from "@/components/ui/Button";
+
 import { useNavigate } from "react-router-dom";
+
+import { UserPlus } from "lucide-react";
 
 import MemberFilters from "./MemberFilters";
 
@@ -47,13 +51,22 @@ export function MemberTable({ columns, data, clans, townhalls }) {
 
   return (
     <>
-      <div className="flex p-2 items-center">
+      <div className="flex p-2 justify-between bg-gray-100">
         <MemberFilters
           columnFilters={columnFilters}
           setColumnFilters={setColumnFilters}
           clans={clans}
           townhalls={townhalls}
         />
+        <div className="flex p-2 items-center">
+          <Button
+            className="flex items-center justify-center bg-blue-500 text-white py-2 px-6 rounded-full hover:bg-blue-700 transition-transform transform hover:scale-105"
+            onClick={() => navigate("/members/add")}
+          >
+            <UserPlus className="mr-2" />
+            Create member
+          </Button>
+        </div>
       </div>
       <div className="rounded-md border p-2">
         <Table>
