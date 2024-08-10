@@ -56,7 +56,17 @@ async function initializeData() {
 
   if (isDevelopment) {
     try {
+      // Seed the database
+
       await knexInstance.seed.run();
+
+      // Reset sequences
+
+      await resetSequence(knexInstance, "townhall");
+      await resetSequence(knexInstance, "clan");
+      await resetSequence(knexInstance, "account");
+      await resetSequence(knexInstance, "clanwarleague");
+      await resetSequence(knexInstance, "performance");
     } catch (error) {
       logger.error("Error while seeding database", {
         error,
@@ -87,6 +97,21 @@ async function shutdownData() {
   logger.info("Database connection closed");
 }
 
+const resetSequence = async (knex, table) => {
+  const maxResult = await knex.raw(
+    `SELECT MAX("ID") AS sequence_max FROM ${table}`
+  );
+  const max = maxResult.rows[0].sequence_max || 0;
+
+  console.log("Resetting sequence", table, max);
+
+  const sequenceResult = await knex.raw(
+    `SELECT pg_get_serial_sequence('${table}', 'ID') AS sequence_name`
+  );
+  const sequence = sequenceResult.rows[0].sequence_name;
+
+  await knex.raw(`SELECT setval('${sequence}', ${max})`);
+};
 const tables = Object.freeze({
   townhall: "townhall",
   clan: "clan",

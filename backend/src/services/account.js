@@ -30,6 +30,25 @@ const getAllAccounts = async () => {
   return accounts;
 };
 
+const getMainAccounts = async () => {
+  const accounts = await getKnex()(tables.account)
+    .join(
+      tables.townhall,
+      `${tables.account}.townhallID`,
+      `${tables.townhall}.ID`
+    )
+    .select([
+      `${tables.account}.ID`,
+      `${tables.account}.username as username`,
+      `${tables.townhall}.level as townhall`,
+    ])
+    .where(`${tables.account}.accountID`, null)
+    .where(`${tables.account}.left`, null)
+    .orderBy(`${tables.account}.username`);
+
+  return accounts;
+};
+
 const getAccountByID = async (id) => {
   const account = await getKnex()(tables.account)
     .join(tables.clan, `${tables.account}.clanID`, `${tables.clan}.ID`)
@@ -59,6 +78,7 @@ const getAccountByID = async (id) => {
       `${tables.clan}.cwl as cwl`,
       `${tables.townhall}.level as townhall`,
       "main.username as main",
+      "main.ID as mainID",
     ])
     .first();
 
@@ -93,10 +113,30 @@ const getAccountByID = async (id) => {
   };
 };
 
-const createAccount = async (data) => {
-  const [id] = await getKnex()(tables.account).insert(data);
+const createAccount = async ({
+  username,
+  name,
+  role,
+  joined,
+  left,
+  accountID,
+  townhallID,
+  clanID,
+}) => {
+  await getKnex()(tables.account).insert({
+    username,
+    name,
+    role,
+    joined,
+    left,
+    accountID,
+    townhallID,
+    clanID,
+  });
+};
 
-  return id;
+const updateAccount = async (id, account) => {
+  await getKnex()(tables.account).where("ID", id).update(account);
 };
 
 // Helper functions
@@ -144,6 +184,8 @@ const calculateStatistics = (performances) => {
 
 module.exports = {
   getAllAccounts,
+  getMainAccounts,
   getAccountByID,
   createAccount,
+  updateAccount,
 };

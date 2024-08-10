@@ -37,7 +37,10 @@ export default function DamageChart({ performances, statistics }) {
   }));
 
   return (
-    <Card className={`flex flex-col w-full h-full`} x-chunk="charts-01-chunk-0">
+    <Card
+      className={`flex flex-col w-full h-full shadow-lg rounded-3xl`}
+      x-chunk="charts-01-chunk-0"
+    >
       <CardHeader className="space-y-0 pb-2">
         <CardTitle className="text-4xl tabular-nums">
           {avgDamage}%{" "}

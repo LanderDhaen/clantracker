@@ -17,7 +17,13 @@ import {
   TableRow,
 } from "@/components/ui/Table";
 
+import { Button } from "@/components/ui/Button";
+
 import { useNavigate } from "react-router-dom";
+
+import { UserPlus } from "lucide-react";
+
+import { ToastContainer } from "react-toastify";
 
 import MemberFilters from "./MemberFilters";
 
@@ -46,14 +52,21 @@ export function MemberTable({ columns, data, clans, townhalls }) {
   };
 
   return (
-    <>
-      <div className="flex p-2 items-center">
+    <div className="mx-20 p-10 bg-white rounded-3xl shadow-lg">
+      <ToastContainer position="bottom-right" theme="colored" />
+      <div className="flex justify-between pb-2">
         <MemberFilters
           columnFilters={columnFilters}
           setColumnFilters={setColumnFilters}
           clans={clans}
           townhalls={townhalls}
         />
+        <div className="flex items-center">
+          <Button variant="outline" onClick={() => navigate("/members/add")}>
+            <UserPlus className="mr-2" />
+            Create member
+          </Button>
+        </div>
       </div>
       <div className="rounded-md border p-2">
         <Table>
@@ -106,6 +119,6 @@ export function MemberTable({ columns, data, clans, townhalls }) {
           </TableBody>
         </Table>
       </div>
-    </>
+    </div>
   );
 }

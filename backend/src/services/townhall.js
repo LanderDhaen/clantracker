@@ -1,10 +1,9 @@
 const { tables, getKnex } = require("../data/index");
 
 const getAllTownHalls = async () => {
-  const townhalls = await getKnex()(tables.townhall).select([
-    `${tables.townhall}.ID`,
-    `${tables.townhall}.level`,
-  ]);
+  const townhalls = await getKnex()(tables.townhall)
+    .select([`${tables.townhall}.ID`, `${tables.townhall}.level`])
+    .orderBy(`${tables.townhall}.level`, "desc");
 
   return townhalls;
 };

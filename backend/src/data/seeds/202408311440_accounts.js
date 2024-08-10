@@ -581,6 +581,7 @@ module.exports = {
         joined: "2023-01-15",
         townhallID: 12,
         clanID: 2,
+        accountID: 59,
       },
       {
         ID: 61,
@@ -590,6 +591,7 @@ module.exports = {
         joined: "2023-01-15",
         townhallID: 11,
         clanID: 2,
+        accountID: 59,
       },
       {
         ID: 62,
@@ -599,6 +601,7 @@ module.exports = {
         joined: "2023-01-15",
         townhallID: 9,
         clanID: 2,
+        accountID: 59,
       },
       {
         ID: 63,
@@ -608,6 +611,7 @@ module.exports = {
         joined: "2023-01-15",
         townhallID: 9,
         clanID: 2,
+        accountID: 59,
       },
       {
         ID: 64,
