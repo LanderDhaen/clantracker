@@ -52,8 +52,8 @@ export default function Profile({ profile }) {
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 w-full p-20">
-        <Card>
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 w-full p-20 bg-gray-100">
+        <Card className="shadow-lg rounded-lg">
           <CardHeader>
             <CardTitle>
               <div className="flex items-center">
@@ -95,7 +95,7 @@ export default function Profile({ profile }) {
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="shadow-lg rounded-lg">
           <CardHeader>
             <CardTitle>
               <div className="flex items-center">
