@@ -57,6 +57,27 @@ createAccount.validationScheme = {
   }),
 };
 
+const updateAccount = async (ctx) => {
+  await accountController.updateAccount(ctx.params.id, ctx.request.body);
+  ctx.status = 204;
+};
+
+updateAccount.validationScheme = {
+  params: Joi.object({
+    id: Joi.number().required(),
+  }),
+  body: Joi.object({
+    username: Joi.string().required(),
+    name: Joi.string().optional(),
+    role: Joi.number().required(),
+    joined: Joi.date().required(),
+    left: Joi.date().optional().allow(null),
+    accountID: Joi.number().optional().allow(null),
+    townhallID: Joi.number().required(),
+    clanID: Joi.number().required(),
+  }),
+};
+
 module.exports = (app) => {
   const router = new Router({
     prefix: "/accounts",
@@ -70,6 +91,7 @@ module.exports = (app) => {
   );
   router.get("/:id", validate(getAccountByID.validationScheme), getAccountByID);
   router.post("/", validate(createAccount.validationScheme), createAccount);
+  router.put("/:id", validate(updateAccount.validationScheme), updateAccount);
 
   app.use(router.routes()).use(router.allowedMethods());
 };

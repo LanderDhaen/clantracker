@@ -52,9 +52,30 @@ const createAccount = async ({
   });
 };
 
+const updateAccount = async (id, account) => {
+  const townhall = await townhallController.getTownhallByID(account.townhallID);
+
+  if (!townhall) {
+    throw ServiceError.notFound(
+      `Townhall with ID ${account.townhallID} does not exist`
+    );
+  }
+
+  const clan = await clanController.getClanByID(account.clanID);
+
+  if (!clan) {
+    throw ServiceError.notFound(
+      `Clan with ID ${account.clanID} does not exist`
+    );
+  }
+
+  accountService.updateAccount(id, account);
+};
+
 module.exports = {
   getAllAccounts,
   getMainAccounts,
   getAccountByID,
   createAccount,
+  updateAccount,
 };

@@ -78,6 +78,7 @@ const getAccountByID = async (id) => {
       `${tables.clan}.cwl as cwl`,
       `${tables.townhall}.level as townhall`,
       "main.username as main",
+      "main.ID as mainID",
     ])
     .first();
 
@@ -134,6 +135,10 @@ const createAccount = async ({
   });
 };
 
+const updateAccount = async (id, account) => {
+  await getKnex()(tables.account).where("ID", id).update(account);
+};
+
 // Helper functions
 
 const calculateAverages = (performances) => {
@@ -182,4 +187,5 @@ module.exports = {
   getMainAccounts,
   getAccountByID,
   createAccount,
+  updateAccount,
 };
