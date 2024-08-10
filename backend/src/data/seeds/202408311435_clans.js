@@ -12,7 +12,7 @@ module.exports = {
         level: 25,
         location: "Netherlands",
         language: "Dutch",
-        cwl: LEAGUES.CHAMP1,
+        cwl: LEAGUES.CHAMP2,
       },
       {
         ID: 2,

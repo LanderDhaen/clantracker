@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/Button"; // Import Button from shadcn ui
+import { Button } from "@/components/ui/Button";
 import { useNavigate } from "react-router-dom";
 import { Users, BarChart2 } from "lucide-react";
 

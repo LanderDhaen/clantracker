@@ -114,7 +114,7 @@ export default function Profile({ profile }) {
           <div className="flex items-center justify-between">
             <CardTitle>
               <div className="flex items-center">
-                <User className="mr-4" />
+                <Castle className="mr-4" />
                 {clan}
               </div>
             </CardTitle>
