@@ -46,7 +46,7 @@ export default function MemberFormPage() {
         }
         error={accountsError || clansError || townhallsError || memberError}
       >
-        <Card className="w-full max-w-3xl bg-white shadow-lg rounded-lg">
+        <Card className="w-full max-w-3xl bg-white shadow-lg rounded-3xl ">
           <CardHeader>
             <CardTitle>{id ? `Update Member` : "Create Member"}</CardTitle>
             <CardDescription>

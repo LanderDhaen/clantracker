@@ -38,7 +38,7 @@ export default function StarsChart({ performances, statistics }) {
 
   return (
     <Card
-      className="flex flex-col w-full h-full shadow-lg rounded-lg"
+      className="flex flex-col w-full h-full shadow-lg rounded-3xl"
       x-chunk="charts-01-chunk-0"
     >
       <CardHeader className="space-y-0 pb-2">
