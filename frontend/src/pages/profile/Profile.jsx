@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import DamageChart from "./DamageChart";
 import StarsChart from "./StarsChart";
 
@@ -28,7 +29,10 @@ import { formatRole } from "@/lib/formatRole";
 import { format } from "date-fns";
 import { colorLeague, formatLeague } from "@/lib/formatLeague";
 
+import { Button } from "@/components/ui/Button";
+
 export default function Profile({ profile }) {
+  const navigate = useNavigate();
   const { statistics, performances } = profile;
   const {
     ID,
@@ -50,17 +54,30 @@ export default function Profile({ profile }) {
   const filteredPerformances = (year) =>
     performances.filter((performance) => performance.year === parseInt(year));
 
+  const handleEditClick = () => {
+    navigate(`/members/${ID}/edit`);
+  };
+
   return (
     <>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 w-full p-20 bg-gray-100">
         <Card className="shadow-lg rounded-lg">
           <CardHeader>
-            <CardTitle>
-              <div className="flex items-center">
-                <User className="mr-4" />
-                {username}
-              </div>
-            </CardTitle>
+            <div className="flex items-center justify-between">
+              <CardTitle>
+                <div className="flex items-center">
+                  <User className="mr-4" />
+                  {username}
+                </div>
+              </CardTitle>
+              <Button
+                onClick={handleEditClick}
+                variant="outline"
+                className="ml-4"
+              >
+                Edit
+              </Button>
+            </div>
             <CardDescription>Account Information</CardDescription>
           </CardHeader>
           <CardContent>
@@ -97,12 +114,21 @@ export default function Profile({ profile }) {
         </Card>
         <Card className="shadow-lg rounded-lg">
           <CardHeader>
-            <CardTitle>
-              <div className="flex items-center">
-                <Castle className="mr-4" />
-                {clan}
-              </div>
-            </CardTitle>
+            <div className="flex items-center justify-between">
+              <CardTitle>
+                <div className="flex items-center">
+                  <User className="mr-4" />
+                  {clan}
+                </div>
+              </CardTitle>
+              <Button
+                onClick={handleEditClick}
+                variant="outline"
+                className="ml-4"
+              >
+                Edit
+              </Button>
+            </div>
             <CardDescription>Clan Information</CardDescription>
           </CardHeader>
           <CardContent>
