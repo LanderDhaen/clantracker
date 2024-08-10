@@ -39,7 +39,7 @@ export default function MemberFormPage() {
   } = useSWR(id ? `/accounts/${id}` : null, get);
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center">
       <AsyncData
         loading={
           accountsLoading || clansLoading || townhallsLoading || memberLoading

@@ -52,20 +52,17 @@ export function MemberTable({ columns, data, clans, townhalls }) {
   };
 
   return (
-    <>
+    <div className="mx-20 p-10 bg-white rounded-3xl shadow-lg">
       <ToastContainer position="bottom-right" theme="colored" />
-      <div className="flex p-2 justify-between bg-gray-100">
+      <div className="flex justify-between pb-2">
         <MemberFilters
           columnFilters={columnFilters}
           setColumnFilters={setColumnFilters}
           clans={clans}
           townhalls={townhalls}
         />
-        <div className="flex p-2 items-center">
-          <Button
-            className="flex items-center justify-center bg-blue-500 text-white py-2 px-6 rounded-full hover:bg-blue-700 transition-transform transform hover:scale-105"
-            onClick={() => navigate("/members/add")}
-          >
+        <div className="flex items-center">
+          <Button variant="outline" onClick={() => navigate("/members/add")}>
             <UserPlus className="mr-2" />
             Create member
           </Button>
@@ -122,6 +119,6 @@ export function MemberTable({ columns, data, clans, townhalls }) {
           </TableBody>
         </Table>
       </div>
-    </>
+    </div>
   );
 }

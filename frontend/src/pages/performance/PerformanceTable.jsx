@@ -46,8 +46,8 @@ export function PerformanceTable({ columns, data, townhalls }) {
   };
 
   return (
-    <>
-      <div className="flex p-2 items-center">
+    <div className="mx-20 mb-20 p-10 bg-white rounded-3xl shadow-lg">
+      <div className="flex pb-2 items-center">
         <PerformanceFilters
           columnFilters={columnFilters}
           setColumnFilters={setColumnFilters}
@@ -105,6 +105,6 @@ export function PerformanceTable({ columns, data, townhalls }) {
           </TableBody>
         </Table>
       </div>
-    </>
+    </div>
   );
 }

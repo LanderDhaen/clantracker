@@ -69,7 +69,7 @@ export default function MemberFilters({
   };
 
   return (
-    <div className="flex p-4 space-x-4">
+    <div className="flex space-x-4">
       <Input
         placeholder="Filter usernames..."
         value={username}
