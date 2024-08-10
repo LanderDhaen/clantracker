@@ -41,8 +41,22 @@ import { formatTownhall } from "@/lib/formatTownhall";
 import { post } from "../../api";
 import useSWRMutation from "swr/mutation";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import { useNavigate } from "react-router-dom";
+
 export default function MemberForm({ accounts, clans, townhalls }) {
-  const { trigger: createMember } = useSWRMutation("/accounts", post);
+  const navigate = useNavigate();
+
+  const { trigger: createMember } = useSWRMutation("/accounts", post, {
+    onSuccess: () => {
+      toast.success("Member created successfully.");
+    },
+    onError: () => {
+      toast.error("An error occurred while creating the member.");
+    },
+  });
 
   const formSchema = z.object({
     username: z.string().min(1),
@@ -75,12 +89,13 @@ export default function MemberForm({ accounts, clans, townhalls }) {
         ([_, value]) => value !== undefined && value !== ""
       )
     );
-    console.log(filteredData);
     createMember(filteredData);
+    navigate("/members");
   };
 
   return (
     <Form {...memberForm}>
+      <ToastContainer position="bottom-right" theme="colored" />
       <form onSubmit={memberForm.handleSubmit(onSubmit)} className="space-y-2">
         <FormField
           control={memberForm.control}

@@ -23,6 +23,8 @@ import { useNavigate } from "react-router-dom";
 
 import { UserPlus } from "lucide-react";
 
+import { ToastContainer } from "react-toastify";
+
 import MemberFilters from "./MemberFilters";
 
 export function MemberTable({ columns, data, clans, townhalls }) {
@@ -51,6 +53,7 @@ export function MemberTable({ columns, data, clans, townhalls }) {
 
   return (
     <>
+      <ToastContainer position="bottom-right" theme="colored" />
       <div className="flex p-2 justify-between bg-gray-100">
         <MemberFilters
           columnFilters={columnFilters}
