@@ -27,7 +27,7 @@ const createAccount = async ({
   townhallID,
   clanID,
 }) => {
-  const townhall = await townhallController.getTownhallByID(townhallID);
+  const townhall = await townhallController.checkTownhallExists(townhallID);
 
   if (!townhall) {
     throw ServiceError.notFound(
@@ -35,7 +35,7 @@ const createAccount = async ({
     );
   }
 
-  const clan = await clanController.getClanByID(clanID);
+  const clan = await clanController.checkClanExists(clanID);
 
   if (!clan) {
     throw ServiceError.notFound(`Clan with ID ${clanID} does not exist`);

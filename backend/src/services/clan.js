@@ -16,6 +16,15 @@ const getAllClans = async () => {
   return clans;
 };
 
+const checkClanExists = async (id) => {
+  const clan = await getKnex()(tables.clan)
+    .select([`${tables.clan}.ID`])
+    .where(`${tables.clan}.ID`, id)
+    .first();
+
+  return clan;
+};
+
 const getClanByID = async (id) => {
   const clan = await getKnex()(tables.clan)
     .select([
