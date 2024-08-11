@@ -4,6 +4,7 @@ import { roles, formatRole } from "@/lib/formatRole";
 import RoleFilterPopover from "./RoleFilterPopover";
 import ClanFilterPopover from "./ClanFilterPopover";
 import TownhallFilterPopover from "./TownhallFilterPopover";
+import NationalityFilterPopover from "./NationalityFilterPopover";
 
 export default function MemberFilters({
   columnFilters,
@@ -28,6 +29,8 @@ export default function MemberFilters({
     columnFilters.find((filter) => filter.id === "clanID")?.value || [];
   const filterTownhalls =
     columnFilters.find((filter) => filter.id === "townhall")?.value || [];
+  const filterNationalities =
+    columnFilters.find((filter) => filter.id === "nationality")?.value || [];
 
   const handleRoleChange = (role) => {
     setColumnFilters((prev) => {
@@ -68,6 +71,23 @@ export default function MemberFilters({
     });
   };
 
+  const handleNationalityChange = (nationality) => {
+    setColumnFilters((prev) => {
+      const currentNationalities =
+        prev.find((filter) => filter.id === "nationality")?.value || [];
+      const newNationalities = filterNationalities.includes(nationality)
+        ? currentNationalities.filter((n) => n !== nationality)
+        : [...currentNationalities, nationality];
+      return prev
+        .filter((f) => f.id !== "nationality")
+        .concat({ id: "nationality", value: newNationalities });
+    });
+  };
+
+  console.log("nationalities", filterNationalities);
+
+  const nationalities = ["Belgian", "Dutch"];
+
   return (
     <div className="flex space-x-4">
       <Input
@@ -81,6 +101,11 @@ export default function MemberFilters({
         value={name}
         onChange={(event) => onFilterChange("name", event.target.value)}
         className="max-w-sm"
+      />
+      <NationalityFilterPopover
+        nationalities={nationalities}
+        filterNationalities={filterNationalities}
+        handleNationalityChange={handleNationalityChange}
       />
       <RoleFilterPopover
         roles={roles}
