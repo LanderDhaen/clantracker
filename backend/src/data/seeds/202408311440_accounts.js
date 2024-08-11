@@ -350,7 +350,7 @@ module.exports = {
         nationality: "Dutch",
         accountID: 31,
         townhallID: 16,
-        clanID: 1,
+        clanID: 2,
       },
       {
         ID: 33,
@@ -735,7 +735,7 @@ module.exports = {
         nationality: "Dutch",
         accountID: 68,
         townhallID: 14,
-        clanID: 1,
+        clanID: 2,
       },
       {
         ID: 70,
@@ -813,9 +813,9 @@ module.exports = {
         name: "Frank",
         role: ROLES.ELDER,
         joined: "2020-12-29",
+        left: "2024-08-01",
         nationality: "Dutch",
         townhallID: 15,
-        clanID: 1,
       },
       {
         ID: 78,
@@ -852,7 +852,7 @@ module.exports = {
         joined: "2021-05-02",
         nationality: "Belgian",
         townhallID: 14,
-        clanID: 1,
+        clanID: 2,
       },
       {
         ID: 82,
