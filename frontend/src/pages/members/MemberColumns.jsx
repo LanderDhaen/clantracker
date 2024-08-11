@@ -37,6 +37,33 @@ export const columns = [
         </Button>
       );
     },
+    cell: ({ getValue }) => {
+      const value = getValue();
+      if (value === null || value === undefined) {
+        return "-";
+      }
+      return value;
+    },
+  },
+  {
+    accessorKey: "nationality",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Nationality
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    enableColumnFilters: true,
+    filterFn: (row, columnId, filterNationalities) => {
+      if (filterNationalities.length === 0) return true;
+      const nationality = row.getValue(columnId);
+      return filterNationalities.includes(nationality);
+    },
   },
   {
     accessorKey: "role",

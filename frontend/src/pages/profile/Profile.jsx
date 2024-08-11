@@ -41,6 +41,7 @@ export default function Profile({ profile }) {
     role,
     joined,
     left,
+    nationality,
     clan,
     clanlevel,
     clanID,
@@ -91,6 +92,10 @@ export default function Profile({ profile }) {
           <div className="flex items-center mb-4">
             <Calendar className="mr-2" />
             Joined: {format(new Date(joined), "dd-MM-yyyy")}
+          </div>
+          <div className="flex items-center mb-4">
+            <MapPin className="mr-2" />
+            Nationality: {nationality}
           </div>
           <div className="flex items-center mb-4">
             <Power className="mr-2" />

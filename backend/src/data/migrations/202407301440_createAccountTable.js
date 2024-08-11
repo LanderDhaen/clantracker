@@ -9,6 +9,7 @@ module.exports = {
       table.integer("role").notNullable();
       table.date("joined").notNullable();
       table.date("left");
+      table.string("nationality");
 
       // Foreign keys
 

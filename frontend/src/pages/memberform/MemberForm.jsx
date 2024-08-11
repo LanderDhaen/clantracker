@@ -77,6 +77,7 @@ export default function MemberForm({ accounts, clans, townhalls, member }) {
     username: z.string().min(1, { message: "Required" }),
     name: z.string().optional(),
     role: z.number(),
+    nationality: z.string(),
     joined: z.date({
       message: "Required",
     }),
@@ -91,6 +92,7 @@ export default function MemberForm({ accounts, clans, townhalls, member }) {
       username: member?.username || "",
       name: member?.name || "",
       role: member?.role || undefined,
+      nationality: member?.nationality || undefined,
       joined: member?.joined ? new Date(member.joined) : undefined,
       left: member?.left ? new Date(member.left) : undefined,
       accountID: member?.mainID || undefined,
@@ -113,6 +115,8 @@ export default function MemberForm({ accounts, clans, townhalls, member }) {
       createMember(filteredData);
     }
   };
+
+  const nationalities = ["Belgian", "Dutch"];
 
   return (
     <Form {...memberForm}>
@@ -140,6 +144,34 @@ export default function MemberForm({ accounts, clans, townhalls, member }) {
               <FormControl>
                 <Input {...field} />
               </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={memberForm.control}
+          name="nationality"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Nationality</FormLabel>
+              <Select
+                onValueChange={field.onChange}
+                defaultValue={field.value ? field.value.toString() : ""}
+                value={field.value ? field.value.toString() : ""}
+              >
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a nationality" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {nationalities.map((nationality) => (
+                    <SelectItem key={nationality} value={nationality}>
+                      {nationality}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}

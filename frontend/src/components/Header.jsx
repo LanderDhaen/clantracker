@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/Button";
 import { useNavigate } from "react-router-dom";
-import { Users, BarChart2 } from "lucide-react";
+import { Users, BarChart2, Castle } from "lucide-react";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -15,6 +15,10 @@ export default function Header() {
         <Button variant="link" onClick={() => navigate("/performance")}>
           <BarChart2 className="mr-2" />
           Performance
+        </Button>
+        <Button variant="link" onClick={() => navigate("/clans")}>
+          <Castle className="mr-2" />
+          Clans
         </Button>
       </div>
     </div>

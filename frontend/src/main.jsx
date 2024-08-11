@@ -14,6 +14,8 @@ import PerformancePage from "./pages/performance/PerformancePage.jsx";
 import ProfilePage from "./pages/profile/ProfilePage.jsx";
 import Home from "./components/Home.jsx";
 import MemberFormPage from "./pages/memberform/MemberFormPage";
+import ClanPage from "./pages/clans/ClanPage";
+import ClanProfilePage from "./pages/clanprofile/ClanProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +28,8 @@ const router = createBrowserRouter([
       { path: "/members/:id/edit", element: <MemberFormPage /> },
       { path: "/members/add", element: <MemberFormPage /> },
       { path: "/performance", element: <PerformancePage /> },
+      { path: "/clans", element: <ClanPage /> },
+      { path: "/clans/:id", element: <ClanProfilePage /> },
     ],
   },
 ]);

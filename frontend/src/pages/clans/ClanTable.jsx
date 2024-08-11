@@ -23,11 +23,9 @@ import { useNavigate } from "react-router-dom";
 
 import { ListPlus } from "lucide-react";
 
-import { ToastContainer } from "react-toastify";
+import ClanFilters from "./ClanFilters";
 
-import MemberFilters from "./MemberFilters";
-
-export function MemberTable({ columns, data, clans, townhalls }) {
+export function ClanTable({ columns, data }) {
   const [sorting, setSorting] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
 
@@ -48,23 +46,20 @@ export function MemberTable({ columns, data, clans, townhalls }) {
   const navigate = useNavigate();
 
   const handleRowClick = (id) => {
-    navigate(`/members/${id}`);
+    navigate(`/clans/${id}`);
   };
 
   return (
     <div className="mx-20 p-10 bg-white rounded-3xl shadow-lg">
-      <ToastContainer position="bottom-right" theme="colored" />
       <div className="flex justify-between pb-2">
-        <MemberFilters
+        <ClanFilters
           columnFilters={columnFilters}
           setColumnFilters={setColumnFilters}
-          clans={clans}
-          townhalls={townhalls}
         />
         <div className="flex items-center">
           <Button variant="outline" onClick={() => navigate("/members/add")}>
             <ListPlus className="mr-2" />
-            Create member
+            Create clan
           </Button>
         </div>
       </div>
