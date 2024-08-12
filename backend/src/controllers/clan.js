@@ -4,6 +4,10 @@ const getAllClans = async () => {
   return clanService.getAllClans();
 };
 
+const checkClanExists = async (id) => {
+  return clanService.checkClanExists(id);
+};
+
 const getClanByID = async (id) => {
   return clanService.getClanByID(id);
 };
@@ -11,4 +15,5 @@ const getClanByID = async (id) => {
 module.exports = {
   getAllClans,
   getClanByID,
+  checkClanExists,
 };
