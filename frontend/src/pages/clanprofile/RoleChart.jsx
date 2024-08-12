@@ -7,7 +7,7 @@ import {
   ChartLegend,
   ChartLegendContent,
 } from "@/components/ui/Chart";
-import { MapPin } from "lucide-react";
+import { Shield } from "lucide-react";
 
 import { formatRole } from "@/lib/formatRole";
 
@@ -38,7 +38,7 @@ export default function NationalityChart({ roles }) {
       <CardHeader>
         <CardTitle>
           <div className="flex items-center">
-            <MapPin className="mr-4" />
+            <Shield className="mr-4" />
             Roles
           </div>
         </CardTitle>

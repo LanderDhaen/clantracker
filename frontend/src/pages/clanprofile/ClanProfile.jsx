@@ -25,6 +25,7 @@ import { Button } from "@/components/ui/Button";
 import NationatityChart from "./NationalityChart";
 import TownhallChart from "./TownhallChart";
 import RoleChart from "./RoleChart";
+import CWLChart from "./CWLChart";
 
 export default function ClanProfile({ clan }) {
   const navigate = useNavigate();
@@ -35,11 +36,15 @@ export default function ClanProfile({ clan }) {
     location,
     language,
     cwl,
+    statistics,
     leagues,
     nationalities,
     townhalls,
     roles,
   } = clan;
+
+  const filteredLeagues = (year) =>
+    leagues.filter((league) => league.year === parseInt(year));
 
   const handleEditClick = () => {
     navigate(`/members/${ID}/edit`);
@@ -96,9 +101,15 @@ export default function ClanProfile({ clan }) {
           </div>
         </CardContent>
       </Card>
-      <NationatityChart nationalities={nationalities} />
       <TownhallChart townhalls={townhalls} />
+      <NationatityChart nationalities={nationalities} />
       <RoleChart roles={roles} />
+      {statistics.map((statistic) => (
+        <CWLChart
+          statistics={statistic}
+          leagues={filteredLeagues(statistic.year)}
+        />
+      ))}
     </div>
   );
 }
