@@ -9,6 +9,7 @@ module.exports = {
       table.string("location").notNullable();
       table.string("language").notNullable();
       table.integer("cwl").notNullable();
+      table.integer("longestWinStreak").notNullable();
     });
   },
   down: (knex) => {

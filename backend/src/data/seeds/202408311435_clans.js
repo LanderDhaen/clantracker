@@ -13,6 +13,7 @@ module.exports = {
         location: "Netherlands",
         language: "Dutch",
         cwl: LEAGUES.CHAMP2,
+        longestWinStreak: 17,
       },
       {
         ID: 2,
@@ -21,6 +22,7 @@ module.exports = {
         location: "Netherlands",
         language: "Dutch",
         cwl: LEAGUES.MASTER2,
+        longestWinStreak: 18,
       },
       {
         ID: 3,
@@ -29,6 +31,7 @@ module.exports = {
         language: "Dutch",
         location: "Netherlands",
         cwl: LEAGUES.CRYSTAL2,
+        longestWinStreak: 0,
       },
     ]);
   },

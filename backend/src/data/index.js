@@ -19,6 +19,39 @@ async function initializeData() {
   const logger = getLogger();
   logger.info("Initializing connection to the database");
 
+  logger.info("Checking if the PostgreSQL database exists");
+
+  const tempKnex = knex({
+    client: DATABASE_CLIENT,
+    connection: {
+      host: DATABASE_HOST,
+      port: DATABASE_PORT,
+      user: DATABASE_USERNAME,
+      password: DATABASE_PASSWORD,
+      database: "postgres",
+    },
+  });
+
+  try {
+    const databaseExists = await tempKnex.raw(
+      `SELECT 1 FROM pg_database WHERE datname = '${DATABASE_NAME}'`
+    );
+
+    if (databaseExists.rows.length === 0) {
+      logger.info("Database does not exist, creating it");
+      await tempKnex.raw(`CREATE DATABASE ${DATABASE_NAME}`);
+    } else {
+      logger.info("Database exists");
+    }
+  } catch (error) {
+    logger.error(error.message, { error });
+    throw new Error("Could not initialize the database");
+  } finally {
+    await tempKnex.destroy();
+  }
+
+  logger.info("Connecting to the database");
+
   const knexOptions = {
     client: DATABASE_CLIENT,
     connection: {

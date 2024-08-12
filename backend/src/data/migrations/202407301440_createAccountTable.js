@@ -15,7 +15,7 @@ module.exports = {
 
       table.integer("accountID").unsigned();
       table.integer("townhallID").unsigned().notNullable();
-      table.integer("clanID").unsigned().notNullable();
+      table.integer("clanID").unsigned();
 
       table
         .foreign("accountID", "fk_account_main")

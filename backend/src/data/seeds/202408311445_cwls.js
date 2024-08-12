@@ -32,7 +32,7 @@ module.exports = {
         year: 2023,
         league: LEAGUES.MASTER2,
         placement: 7,
-        placementType: PLACEMENTTYPES.DEGRADATION,
+        placementType: PLACEMENTTYPES.DEMOTION,
         clanID: 1,
       },
       {
@@ -104,7 +104,7 @@ module.exports = {
         year: 2024,
         league: LEAGUES.MASTER1,
         placement: 8,
-        placementType: PLACEMENTTYPES.DEGRADATION,
+        placementType: PLACEMENTTYPES.DEMOTION,
         clanID: 2,
       },
       {
@@ -140,7 +140,7 @@ module.exports = {
         year: 2024,
         league: LEAGUES.MASTER2,
         placement: 4,
-        placementType: PLACEMENTTYPES.DEGRADATION,
+        placementType: PLACEMENTTYPES.SAFE,
         clanID: 2,
       },
       {
