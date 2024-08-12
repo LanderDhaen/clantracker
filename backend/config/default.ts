@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   port: 9000,
   log: {
     level: "silly",

@@ -1,4 +1,4 @@
-const createServer = require("./createServer");
+import createServer from "./createServer";
 
 async function main() {
   try {

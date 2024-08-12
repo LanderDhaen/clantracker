@@ -1,16 +1,17 @@
-const config = require("config");
-const bodyParser = require("koa-bodyparser");
-const koaCors = require("@koa/cors");
-const emoji = require("node-emoji");
-const { getLogger } = require("./logging");
-const ServiceError = require("./serviceError");
+import config from "config";
+import bodyParser from "koa-bodyparser";
+import koaCors from "@koa/cors";
+import * as emoji from "node-emoji";
+import { getLogger } from "./logging";
+import ServiceError from "./serviceError";
+import Koa, { Context, Next } from "koa";
 
-const NODE_ENV = config.get("env");
-const CORS_ORIGINS = config.get("cors.origins");
-const CORS_MAX_AGE = config.get("cors.maxAge");
+const NODE_ENV: string = config.get("env");
+const CORS_ORIGINS: string[] = config.get("cors.origins");
+const CORS_MAX_AGE: number = config.get("cors.maxAge");
 
-module.exports = function InstallMiddlewares(app) {
-  app.use(async (ctx, next) => {
+export default function installMiddlewares(app: Koa) {
+  app.use(async (ctx: Context, next: Next) => {
     getLogger().info(`${emoji.get("fast_forward")} ${ctx.method} ${ctx.url}`);
 
     const getStatusEmoji = () => {
@@ -33,15 +34,14 @@ module.exports = function InstallMiddlewares(app) {
           error,
         }
       );
-
       throw error;
     }
   });
 
   app.use(
     koaCors({
-      origin: (ctx) => {
-        if (CORS_ORIGINS.indexOf(ctx.request.header.origin) !== -1) {
+      origin: (ctx: Context) => {
+        if (CORS_ORIGINS.indexOf(ctx.request.header.origin || "") !== -1) {
           return ctx.request.header.origin;
         }
         return CORS_ORIGINS[0];
@@ -54,12 +54,13 @@ module.exports = function InstallMiddlewares(app) {
 
   app.use(bodyParser());
 
-  app.use(async (ctx, next) => {
+  app.use(async (ctx: Context, next: Next) => {
     try {
       await next();
     } catch (error) {
-      getLogger().error("Error occured while handling a request", { error });
-      let statusCode = error.status || 500;
+      getLogger().error("Error occurred while handling a request", { error });
+
+      let statusCode: number = error.status || 500;
       let errorBody = {
         code: error.code || "INTERNAL_SERVER_ERROR",
         message: error.message,
@@ -70,17 +71,11 @@ module.exports = function InstallMiddlewares(app) {
       if (error instanceof ServiceError) {
         if (error.isNotFound) {
           statusCode = 404;
-        }
-
-        if (error.isValidationFailed) {
+        } else if (error.isValidationFailed) {
           statusCode = 400;
-        }
-
-        if (error.isUnauthorized) {
+        } else if (error.isUnauthorized) {
           statusCode = 401;
-        }
-
-        if (error.isForbidden) {
+        } else if (error.isForbidden) {
           statusCode = 403;
         }
       }
@@ -90,7 +85,7 @@ module.exports = function InstallMiddlewares(app) {
     }
   });
 
-  app.use(async (ctx, next) => {
+  app.use(async (ctx: Context, next: Next) => {
     await next();
 
     if (ctx.status === 404) {
@@ -101,4 +96,4 @@ module.exports = function InstallMiddlewares(app) {
       };
     }
   });
-};
+}

@@ -1,21 +1,21 @@
-const knex = require("knex");
-const { join } = require("node:path");
-const { getLogger } = require("../middleware/logging");
-const config = require("config");
+import knex, { Knex } from "knex";
+import { join } from "node:path";
+import { getLogger } from "../middleware/logging";
+import config from "config";
 
-const NODE_ENV = config.get("env");
+const NODE_ENV = config.get<string>("env");
 const isDevelopment = NODE_ENV === "development";
 
-const DATABASE_CLIENT = config.get("database.client");
-const DATABASE_HOST = config.get("database.host");
-const DATABASE_PORT = config.get("database.port");
-const DATABASE_NAME = config.get("database.name");
-const DATABASE_USERNAME = config.get("database.username");
-const DATABASE_PASSWORD = config.get("database.password");
+const DATABASE_CLIENT = config.get<string>("database.client");
+const DATABASE_HOST = config.get<string>("database.host");
+const DATABASE_PORT = config.get<number>("database.port");
+const DATABASE_NAME = config.get<string>("database.name");
+const DATABASE_USERNAME = config.get<string>("database.username");
+const DATABASE_PASSWORD = config.get<string>("database.password");
 
-let knexInstance;
+let knexInstance: Knex | null = null;
 
-async function initializeData() {
+export async function initializeData(): Promise<Knex> {
   const logger = getLogger();
   logger.info("Initializing connection to the database");
 
@@ -44,7 +44,7 @@ async function initializeData() {
       logger.info("Database exists");
     }
   } catch (error) {
-    logger.error(error.message, { error });
+    logger.error((error as Error).message, { error });
     throw new Error("Could not initialize the database");
   } finally {
     await tempKnex.destroy();
@@ -52,7 +52,7 @@ async function initializeData() {
 
   logger.info("Connecting to the database");
 
-  const knexOptions = {
+  const knexOptions: Knex.Config = {
     client: DATABASE_CLIENT,
     connection: {
       host: DATABASE_HOST,
@@ -76,24 +76,20 @@ async function initializeData() {
   try {
     await knexInstance.raw("SELECT 1+1 AS result");
   } catch (error) {
-    logger.error(error.message, { error });
+    logger.error((error as Error).message, { error });
     throw new Error("Could not initialize the data layer");
   }
 
   try {
     await knexInstance.migrate.latest();
   } catch (error) {
-    logger.error(error.message, { error });
+    logger.error((error as Error).message, { error });
     throw new Error("Migration failed, check the logs for more information");
   }
 
   if (isDevelopment) {
     try {
-      // Seed the database
-
       await knexInstance.seed.run();
-
-      // Reset sequences
 
       await resetSequence(knexInstance, "townhall");
       await resetSequence(knexInstance, "clan");
@@ -101,9 +97,7 @@ async function initializeData() {
       await resetSequence(knexInstance, "clanwarleague");
       await resetSequence(knexInstance, "performance");
     } catch (error) {
-      logger.error("Error while seeding database", {
-        error,
-      });
+      logger.error("Error while seeding database", { error });
     }
   }
 
@@ -112,50 +106,49 @@ async function initializeData() {
   return knexInstance;
 }
 
-function getKnex() {
-  if (!knexInstance)
+export function getKnex(): Knex {
+  if (!knexInstance) {
     throw new Error(
       "Please initialize the data layer before getting the Knex instance"
     );
+  }
   return knexInstance;
 }
 
-async function shutdownData() {
+export async function shutdownData(): Promise<void> {
   const logger = getLogger();
   logger.info("Shutting down database connection");
 
-  await knexInstance.destroy();
-  knexInstance = null;
+  if (knexInstance) {
+    await knexInstance.destroy();
+    knexInstance = null;
+  }
 
   logger.info("Database connection closed");
 }
 
-const resetSequence = async (knex, table) => {
+const resetSequence = async (knex: Knex, table: string): Promise<void> => {
   const maxResult = await knex.raw(
     `SELECT MAX("ID") AS sequence_max FROM ${table}`
   );
-  const max = maxResult.rows[0].sequence_max || 0;
+  const max = maxResult.rows[0]?.sequence_max || 0;
 
   console.log("Resetting sequence", table, max);
 
   const sequenceResult = await knex.raw(
     `SELECT pg_get_serial_sequence('${table}', 'ID') AS sequence_name`
   );
-  const sequence = sequenceResult.rows[0].sequence_name;
+  const sequence = sequenceResult.rows[0]?.sequence_name;
 
-  await knex.raw(`SELECT setval('${sequence}', ${max})`);
+  if (sequence) {
+    await knex.raw(`SELECT setval('${sequence}', ${max})`);
+  }
 };
-const tables = Object.freeze({
+
+export const tables = Object.freeze({
   townhall: "townhall",
   clan: "clan",
   account: "account",
   cwl: "clanwarleague",
   performance: "performance",
 });
-
-module.exports = {
-  tables,
-  getKnex,
-  initializeData,
-  shutdownData,
-};
