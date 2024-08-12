@@ -1,5 +1,5 @@
 const { tables, getKnex } = require("../data/index");
-const ROLES = require("../data/enums/roles");
+const PLACEMENTTYPES = require("../data/enums/placementTypes");
 
 const getAllClans = async () => {
   const clans = await getKnex()(tables.clan)
@@ -79,6 +79,7 @@ const getClanByID = async (id) => {
   );
   clan.townhalls = calculateDistribution(accounts, "townhall", totalAccounts);
   clan.roles = calculateDistribution(accounts, "role", totalAccounts);
+  clan.statistics = calculateLeagueStatistics(leagues);
   clan.leagues = leagues;
 
   return clan;
@@ -96,6 +97,35 @@ const calculateDistribution = (accounts, property, total) => {
     amount,
     percent: parseFloat(((amount / total) * 100).toFixed(0)),
   }));
+};
+
+const calculateLeagueStatistics = (leagues) => {
+  const aggregatedData = leagues.reduce((acc, league) => {
+    const { year, placementType } = league;
+
+    if (!acc[year]) {
+      acc[year] = {
+        [PLACEMENTTYPES.PROMOTION]: 0,
+        [PLACEMENTTYPES.SAFE]: 0,
+        [PLACEMENTTYPES.DEMOTION]: 0,
+      };
+    }
+
+    if (acc[year][placementType] !== undefined) {
+      acc[year][placementType]++;
+    }
+
+    return acc;
+  }, {});
+
+  return Object.entries(aggregatedData).map(([year, data]) => {
+    return {
+      year,
+      promotions: data[PLACEMENTTYPES.PROMOTION],
+      safe: data[PLACEMENTTYPES.SAFE],
+      demotions: data[PLACEMENTTYPES.DEMOTION],
+    };
+  });
 };
 
 module.exports = {
