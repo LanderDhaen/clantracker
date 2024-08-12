@@ -34,6 +34,7 @@ const getClanByID = async (id) => {
       `${tables.clan}.location`,
       `${tables.clan}.language`,
       `${tables.clan}.cwl`,
+      `${tables.clan}.longestWinStreak`,
     ])
     .where(`${tables.clan}.ID`, id)
     .first();
@@ -46,14 +47,9 @@ const getClanByID = async (id) => {
     )
     .select([
       `${tables.account}.ID`,
-      `${tables.account}.username as username`,
-      `${tables.account}.name as name`,
-      `${tables.account}.role as role`,
-      `${tables.account}.joined as joined`,
-      `${tables.account}.left as left`,
-      `${tables.account}.nationality as nationality`,
+      `${tables.account}.role`,
+      `${tables.account}.nationality`,
       `${tables.account}.accountID as main`,
-      `${tables.account}.clanID as clanID`,
       `${tables.townhall}.level as townhall`,
     ])
     .where(`${tables.account}.clanID`, id)
@@ -77,12 +73,27 @@ const getClanByID = async (id) => {
     "nationality",
     totalAccounts
   );
-  clan.townhalls = calculateDistribution(accounts, "townhall", totalAccounts);
-  clan.roles = calculateDistribution(accounts, "role", totalAccounts);
-  clan.statistics = calculateLeagueStatistics(leagues);
-  clan.leagues = leagues;
 
-  return clan;
+  return {
+    clan: {
+      ID: clan.ID,
+      name: clan.name,
+      level: clan.level,
+      location: clan.location,
+      language: clan.language,
+      cwl: clan.cwl,
+      longestWinStreak: clan.longestWinStreak,
+    },
+    townhalls: calculateDistribution(accounts, "townhall", totalAccounts),
+    roles: calculateDistribution(accounts, "role", totalAccounts),
+    nationalities: calculateDistribution(
+      accounts,
+      "nationality",
+      totalAccounts
+    ),
+    statistics: calculateLeagueStatistics(leagues),
+    leagues: leagues,
+  };
 };
 
 const calculateDistribution = (accounts, property, total) => {

@@ -15,7 +15,7 @@ export default function ClanProfilePage() {
   return (
     <>
       <AsyncData loading={isLoading} error={error}>
-        <ClanProfile clan={data} />
+        <ClanProfile data={data} />
       </AsyncData>
     </>
   );

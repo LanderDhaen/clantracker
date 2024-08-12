@@ -72,11 +72,12 @@ const getAccountByID = async (id) => {
       `${tables.account}.joined as joined`,
       `${tables.account}.left as left`,
       `${tables.account}.nationality as nationality`,
-      `${tables.clan}.name as clan`,
+      `${tables.clan}.name as clanName`,
       `${tables.clan}.level as clanlevel`,
       `${tables.clan}.ID as clanID`,
-      `${tables.clan}.location as location`,
-      `${tables.clan}.language as language`,
+      `${tables.clan}.location as clanLocation`,
+      `${tables.clan}.language as clanLanguage`,
+      `${tables.clan}.longestWinStreak`,
       `${tables.clan}.cwl as cwl`,
       `${tables.townhall}.level as townhall`,
       "main.username as main",
@@ -107,7 +108,22 @@ const getAccountByID = async (id) => {
     ]);
 
   return {
-    ...account,
+    ID: account.ID,
+    username: account.username,
+    name: account.name,
+    role: account.role,
+    joined: account.joined,
+    left: account.left,
+    nationality: account.nationality,
+    clan: {
+      ID: account.clanID,
+      name: account.clanName,
+      level: account.clanlevel,
+      location: account.clanLocation,
+      language: account.clanLanguage,
+      cwl: account.cwl,
+      longestWinStreak: account.longestWinStreak,
+    },
     statistics: calculateStatistics(performances).sort(
       (a, b) => b.year - a.year
     ),
