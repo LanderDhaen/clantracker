@@ -1,38 +1,28 @@
 import { Kysely } from "kysely";
 import { tables } from "..";
-import { Knex } from "knex";
 
-export const up = async (knex: Knex) => {
-  await knex.schema.createTable(tables.account, (table) => {
-    table.increments("ID");
-    table.string("username").notNullable();
-    table.string("name");
-    table.integer("role").notNullable();
-    table.date("joined").notNullable();
-    table.date("left");
-    table.string("nationality");
-
-    // Foreign keys
-
-    table.integer("accountID").unsigned();
-    table.integer("townhallID").unsigned().notNullable();
-    table.integer("clanID").unsigned();
-
-    table
-      .foreign("accountID", "fk_account_main")
-      .references(`${tables.account}.ID`)
-      .onDelete("CASCADE");
-    table
-      .foreign("townhallID", "fk_account_townhall")
-      .references(`${tables.townhall}.ID`)
-      .onDelete("CASCADE");
-    table
-      .foreign("clanID", "fk_account_clan")
-      .references(`${tables.clan}.ID`)
-      .onDelete("CASCADE");
-  });
+export const up = async (db: Kysely<any>) => {
+  await db.schema
+    .createTable(tables.account)
+    .addColumn("ID", "serial", (c) => c.primaryKey())
+    .addColumn("username", "text", (c) => c.notNull())
+    .addColumn("name", "text")
+    .addColumn("role", "integer", (c) => c.notNull())
+    .addColumn("joined", "date", (c) => c.notNull())
+    .addColumn("left", "date")
+    .addColumn("nationality", "text")
+    .addColumn("accountID", "integer", (c) =>
+      c.references(`${tables.account}.ID`).onDelete("cascade")
+    )
+    .addColumn("townhallID", "integer", (c) =>
+      c.references(`${tables.townhall}.ID`).onDelete("cascade").notNull()
+    )
+    .addColumn("clanID", "integer", (c) =>
+      c.references(`${tables.clan}.ID`).onDelete("cascade")
+    )
+    .execute();
 };
 
-export const down = async (knex: Knex) => {
-  await knex.schema.dropTableIfExists(tables.account);
+export const down = async (db: Kysely<any>) => {
+  await db.schema.dropTable(tables.account).execute();
 };

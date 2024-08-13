@@ -1,13 +1,12 @@
-import { Knex } from "knex";
-
 import { tables } from "..";
+import { Kysely, sql } from "kysely";
 
- export const seed = async (knex: Knex) => {
-    await knex(tables.performance).del();
+export const seed = async (db: Kysely<any>) => {
+  await db.deleteFrom(tables.performance).execute();
 
-    await knex(tables.performance).insert([
-      //* Lander
-
+  await db
+    .insertInto(tables.performance)
+    .values([
       {
         ID: 1,
         attacks: 7,
@@ -3361,5 +3360,10 @@ import { tables } from "..";
         cwlID: 16,
         accountID: 84,
       },
-    ]);
+    ])
+    .execute();
+
+  // Reset the sequence
+
+  sql`SELECT setval('${tables.performance}_id_seq', (SELECT MAX(ID) FROM ${tables.performance}))`;
 };

@@ -1,13 +1,14 @@
-import { Knex } from "knex";
+import { Kysely } from "kysely";
 import { tables } from "..";
 
-export const up = async (knex: Knex) => {
-  await knex.schema.createTable(tables.townhall, (table) => {
-    table.increments("ID");
-    table.integer("level").notNullable();
-  });
+export const up = async (db: Kysely<any>) => {
+  await db.schema
+    .createTable(tables.townhall)
+    .addColumn("id", "serial", (c) => c.primaryKey())
+    .addColumn("level", "integer", (c) => c.notNull())
+    .execute();
 };
 
-export const down = async (knex: Knex) => {
-  await knex.schema.dropTable(tables.townhall);
+export const down = async (db: Kysely<any>) => {
+  await db.schema.dropTable(tables.townhall).execute();
 };

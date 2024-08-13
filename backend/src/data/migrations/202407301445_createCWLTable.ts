@@ -1,26 +1,21 @@
-import { Knex } from "knex";
+import { Kysely } from "kysely";
 import { tables } from "..";
 
-export const up = async (knex: Knex) => {
-  await knex.schema.createTable(tables.cwl, (table) => {
-    table.increments("ID");
-    table.integer("month").notNullable();
-    table.integer("year").notNullable();
-    table.integer("league").notNullable();
-    table.integer("placement").notNullable();
-    table.integer("placementType").notNullable();
-
-    // Foreign keys
-
-    table.integer("clanID").unsigned().notNullable();
-
-    table
-      .foreign("clanID", "fk_cwl_clan")
-      .references(`${tables.clan}.ID`)
-      .onDelete("CASCADE");
-  });
+export const up = async (db: Kysely<any>) => {
+  await db.schema
+    .createTable(tables.cwl)
+    .addColumn("ID", "serial", (c) => c.primaryKey())
+    .addColumn("month", "integer", (c) => c.notNull())
+    .addColumn("year", "integer", (c) => c.notNull())
+    .addColumn("league", "integer", (c) => c.notNull())
+    .addColumn("placement", "integer", (c) => c.notNull())
+    .addColumn("placementType", "integer", (c) => c.notNull())
+    .addColumn("clanID", "integer", (c) =>
+      c.notNull().references(`${tables.clan}.ID`).onDelete("cascade")
+    )
+    .execute();
 };
 
-export const down = async (knex: Knex) => {
-  await knex.schema.dropTableIfExists(tables.cwl);
+export const down = async (db: Kysely<any>) => {
+  await db.schema.dropTable(tables.cwl).execute();
 };
