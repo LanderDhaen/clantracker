@@ -20,8 +20,6 @@ const JOI_OPTIONS: Joi.ValidationOptions = {
   presence: "required",
 };
 
-type ValidateMiddleware = (ctx: Context, next: Next) => Promise<void>;
-
 export const validate = (schema: ValidationSchema = {}): Middleware => {
   return async (ctx: Context, next: Next) => {
     const errors: Record<string, any> = {};
