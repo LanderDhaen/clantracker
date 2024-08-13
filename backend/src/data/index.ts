@@ -19,40 +19,7 @@ let knexInstance: Knex | null = null;
 
 export async function initializeData() {
   const logger = getLogger();
-  logger.info("Initializing connection to the database for migrations & seeds");
-
-  logger.info("Checking if the PostgreSQL database exists");
-
-  const tempKnex = knex({
-    client: DATABASE_CLIENT,
-    connection: {
-      host: DATABASE_HOST,
-      port: DATABASE_PORT,
-      user: DATABASE_USERNAME,
-      password: DATABASE_PASSWORD,
-      database: "postgres",
-    },
-  });
-
-  try {
-    const databaseExists = await tempKnex.raw(
-      `SELECT 1 FROM pg_database WHERE datname = '${DATABASE_NAME}'`
-    );
-
-    if (databaseExists.rows.length === 0) {
-      logger.info("Database does not exist, creating it");
-      await tempKnex.raw(`CREATE DATABASE ${DATABASE_NAME}`);
-    } else {
-      logger.info("Database exists");
-    }
-  } catch (error) {
-    logger.error((error as Error).message, { error });
-    throw new Error("Could not initialize the database");
-  } finally {
-    await tempKnex.destroy();
-  }
-
-  logger.info("Connecting to the database");
+  logger.info("Initializing connection to the database");
 
   const knexOptions: Knex.Config = {
     client: DATABASE_CLIENT,
@@ -82,28 +49,7 @@ export async function initializeData() {
     throw new Error("Could not initialize the data layer");
   }
 
-  try {
-    await knexInstance.migrate.latest();
-  } catch (error) {
-    logger.error((error as Error).message, { error });
-    throw new Error("Migration failed, check the logs for more information");
-  }
-
-  if (isDevelopment) {
-    try {
-      await knexInstance.seed.run();
-
-      await resetSequence(knexInstance, "townhall");
-      await resetSequence(knexInstance, "clan");
-      await resetSequence(knexInstance, "account");
-      await resetSequence(knexInstance, "clanwarleague");
-      await resetSequence(knexInstance, "performance");
-    } catch (error) {
-      logger.error("Error while seeding database", { error });
-    }
-  }
-
-  logger.info("Database connection successful");
+  logger.info("Database connection established");
 }
 
 export async function shutdownData(): Promise<void> {
@@ -127,25 +73,7 @@ export function getKnex(): Knex {
   return knexInstance;
 }
 
-const resetSequence = async (knex: Knex, table: string): Promise<void> => {
-  const maxResult = await knex.raw(
-    `SELECT MAX("ID") AS sequence_max FROM ${table}`
-  );
-  const max = maxResult.rows[0]?.sequence_max || 0;
-
-  console.log("Resetting sequence", table, max);
-
-  const sequenceResult = await knex.raw(
-    `SELECT pg_get_serial_sequence('${table}', 'ID') AS sequence_name`
-  );
-  const sequence = sequenceResult.rows[0]?.sequence_name;
-
-  if (sequence) {
-    await knex.raw(`SELECT setval('${sequence}', ${max})`);
-  }
-};
-
-const dialect = new PostgresDialect({
+export const dialect = new PostgresDialect({
   pool: new Pool({
     host: DATABASE_HOST,
     port: DATABASE_PORT,
