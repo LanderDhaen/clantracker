@@ -1,9 +1,8 @@
-const c = require("config");
-const { tables } = require("..");
-const account = require("../../routes/account");
+import { Knex } from "knex";
 
-module.exports = {
-  seed: async (knex) => {
+import { tables } from "..";
+
+ export const seed = async (knex: Knex) => {
     await knex(tables.performance).del();
 
     await knex(tables.performance).insert([
@@ -3363,5 +3362,4 @@ module.exports = {
         accountID: 84,
       },
     ]);
-  },
 };

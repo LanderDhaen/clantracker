@@ -2,6 +2,8 @@ import knex, { Knex } from "knex";
 import { join } from "node:path";
 import { getLogger } from "../middleware/logging";
 import config from "config";
+import { PostgresDialect, Kysely } from "kysely";
+import { Pool } from "pg";
 
 const NODE_ENV = config.get<string>("env");
 const isDevelopment = NODE_ENV === "development";
@@ -15,9 +17,9 @@ const DATABASE_PASSWORD = config.get<string>("database.password");
 
 let knexInstance: Knex | null = null;
 
-export async function initializeData(): Promise<Knex> {
+export async function initializeData() {
   const logger = getLogger();
-  logger.info("Initializing connection to the database");
+  logger.info("Initializing connection to the database for migrations & seeds");
 
   logger.info("Checking if the PostgreSQL database exists");
 
@@ -102,17 +104,6 @@ export async function initializeData(): Promise<Knex> {
   }
 
   logger.info("Database connection successful");
-
-  return knexInstance;
-}
-
-export function getKnex(): Knex {
-  if (!knexInstance) {
-    throw new Error(
-      "Please initialize the data layer before getting the Knex instance"
-    );
-  }
-  return knexInstance;
 }
 
 export async function shutdownData(): Promise<void> {
@@ -125,6 +116,15 @@ export async function shutdownData(): Promise<void> {
   }
 
   logger.info("Database connection closed");
+}
+
+export function getKnex(): Knex {
+  if (!knexInstance) {
+    throw new Error(
+      "Please initialize the data layer before getting the Knex instance"
+    );
+  }
+  return knexInstance;
 }
 
 const resetSequence = async (knex: Knex, table: string): Promise<void> => {
@@ -144,6 +144,20 @@ const resetSequence = async (knex: Knex, table: string): Promise<void> => {
     await knex.raw(`SELECT setval('${sequence}', ${max})`);
   }
 };
+
+const dialect = new PostgresDialect({
+  pool: new Pool({
+    host: DATABASE_HOST,
+    port: DATABASE_PORT,
+    user: DATABASE_USERNAME,
+    password: DATABASE_PASSWORD,
+    database: DATABASE_NAME,
+  }),
+});
+
+export const db = new Kysely({
+  dialect,
+});
 
 export const tables = Object.freeze({
   townhall: "townhall",
