@@ -9,7 +9,7 @@ const getAllTownHalls = async (ctx: Context) => {
   ctx.body = data;
 };
 
-getAllTownHalls.validationScheme = null;
+getAllTownHalls.validationScheme = {};
 
 export default (router: Router): void => {
   const townHallRouter = new Router({

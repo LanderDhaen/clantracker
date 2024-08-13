@@ -1,4 +1,3 @@
-const c = require("config");
 const townhallService = require("../services/townhall");
 
 const getAllTownHalls = async () => {

@@ -1,4 +1,4 @@
-const { tables, getKnex } = require("../data/index");
+const { getKnex, tables } = require("../data/index.ts");
 
 const getAllTownHalls = async () => {
   const townhalls = await getKnex()(tables.townhall)
