@@ -33,6 +33,7 @@
   "devDependencies": {
     "@types/config": "^3.3.4",
     "@types/koa": "^2.15.0",
+    "@types/koa__cors": "^5.0.0",
     "@types/koa__router": "^12.0.4",
     "@types/koa-bodyparser": "^4.3.12",
     "@types/node": "^22.2.0",
