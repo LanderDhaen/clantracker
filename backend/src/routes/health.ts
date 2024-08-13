@@ -8,14 +8,14 @@ const ping = async (ctx: Context) => {
   ctx.body = healthController.ping();
 };
 
-ping.validationScheme = null;
+ping.validationScheme = {};
 
 const getVersion = async (ctx: Context) => {
   ctx.status = 200;
   ctx.body = healthController.getVersion();
 };
 
-getVersion.validationScheme = null;
+getVersion.validationScheme = {};
 
 export default (router: Router): void => {
   const healthRouter = new Router({
