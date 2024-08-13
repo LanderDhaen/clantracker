@@ -32,6 +32,7 @@
   "devDependencies": {
     "@types/config": "^3.3.4",
     "@types/koa": "^2.15.0",
+    "@types/koa__router": "^12.0.4",
     "@types/koa-bodyparser": "^4.3.12",
     "@types/node": "^22.2.0",
     "env-cmd": "^10.1.0",
@@ -50,11 +51,11 @@
     "watch": [
       "config",
       "src",
-      "index.js"
+      "index.ts"
     ],
     "ext": "js,json",
     "legacyWatch": true,
-    "exec": "node --inspect=0.0.0.0:9001 --trace-warnings src/index.js"
+    "exec": "node --inspect=0.0.0.0:9001 --trace-warnings src/index.ts"
   },
   "engines": {
     "npm": ">=9.8.0",

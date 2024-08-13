@@ -3,7 +3,7 @@ import Joi, {
   ValidationErrorItem,
   ValidationResult,
 } from "joi";
-import { Context, Next } from "koa";
+import { Context, Middleware, Next } from "koa";
 
 interface ValidationSchema {
   params?: Joi.ObjectSchema;
@@ -22,7 +22,7 @@ const JOI_OPTIONS: Joi.ValidationOptions = {
 
 type ValidateMiddleware = (ctx: Context, next: Next) => Promise<void>;
 
-export const validate = (schema: ValidationSchema = {}): ValidateMiddleware => {
+export const validate = (schema: ValidationSchema = {}): Middleware => {
   return async (ctx: Context, next: Next) => {
     const errors: Record<string, any> = {};
 
