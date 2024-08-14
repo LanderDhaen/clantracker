@@ -1,5 +1,5 @@
 import Router from "@koa/router";
-import healthController from "../controllers/health";
+import * as healthController from "../controllers/health";
 import { validate } from "../middleware/validation";
 import { Context } from "koa";
 
