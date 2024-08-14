@@ -9,7 +9,7 @@ const getAllPerformances = async (ctx: Context) => {
   ctx.body = data;
 };
 
-getAllPerformances.validationScheme = null;
+getAllPerformances.validationScheme = {};
 
 export default (router: Router): void => {
   const performanceRouter = new Router({
