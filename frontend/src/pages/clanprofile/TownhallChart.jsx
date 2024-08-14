@@ -30,15 +30,14 @@ const COLORS = {
 
 export default function TownhallChart({ townhalls }) {
   const chartData = townhalls.map((townhall) => ({
-    value: townhall.value,
+    value: townhall.value.toString(),
     amount: townhall.amount,
-    percent: townhall.percent,
     fill: COLORS[townhall.value],
   }));
 
   const chartConfig = townhalls.reduce((config, townhall) => {
     config[townhall.value] = {
-      label: `TH${townhall.value}`,
+      label: "TH" + townhall.value,
     };
     return config;
   }, {});

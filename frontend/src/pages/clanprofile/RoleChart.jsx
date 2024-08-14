@@ -20,7 +20,7 @@ const COLORS = {
 
 export default function NationalityChart({ roles }) {
   const chartData = roles.map((role) => ({
-    value: role.value,
+    value: role.value.toString(),
     amount: role.amount,
     percent: role.percent,
     fill: COLORS[role.value],

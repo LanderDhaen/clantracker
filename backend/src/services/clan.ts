@@ -87,7 +87,7 @@ export const getClanByID = async (id: number) => {
       "clan.language",
       "clan.cwl",
       "clan.longestWinStreak",
-      sql<{ level: string; amount: number }>`
+      sql<{ value: number; amount: number }>`
       COALESCE(
         (
           SELECT json_agg(
@@ -101,7 +101,7 @@ export const getClanByID = async (id: number) => {
         '[]'
       )
     `.as("townhalls"),
-      sql<{ nationality: string; amount: number }>`
+      sql<{ value: string; amount: number }>`
       COALESCE(
         (
           SELECT json_agg(
@@ -115,7 +115,7 @@ export const getClanByID = async (id: number) => {
         '[]'
       )
     `.as("nationalities"),
-      sql<{ role: string; amount: number }>`
+      sql<{ value: number; amount: number }>`
       COALESCE(
         (
           SELECT json_agg(
