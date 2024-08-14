@@ -1,6 +1,5 @@
-import Joi from "joi";
 import Router from "@koa/router";
-import performanceController from "../controllers/performance";
+import * as performanceController from "../controllers/performance";
 import { validate } from "../middleware/validation";
 import { Context } from "koa";
 
