@@ -79,7 +79,7 @@ export function PerformanceTable({ columns, data, townhalls }) {
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  onClick={() => handleRowClick(row.original.accountID)}
+                  onClick={() => handleRowClick(row.original.ID)}
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (

@@ -1,22 +1,23 @@
 import Joi from "joi";
 import Router from "@koa/router";
 import { Context } from "koa";
-import accountController from "../controllers/account";
+import * as accountController from "../controllers/account";
 import { validate } from "../middleware/validation";
+import { InsertableAccount, UpdateableAccount } from "../types/account";
 
 const getAllAccounts = async (ctx: Context) => {
   const data = await accountController.getAllAccounts();
   ctx.body = data;
 };
 
-getAllAccounts.validationScheme = null;
+getAllAccounts.validationScheme = {};
 
 const getMainAccounts = async (ctx: Context) => {
   const data = await accountController.getMainAccounts();
   ctx.body = data;
 };
 
-getMainAccounts.validationScheme = null;
+getMainAccounts.validationScheme = {};
 
 const getAccountByID = async (ctx: Context) => {
   const id = Number(ctx.params.id);
@@ -31,17 +32,7 @@ getAccountByID.validationScheme = {
 };
 
 const createAccount = async (ctx: Context) => {
-  const body = ctx.request.body as {
-    username: string;
-    name?: string;
-    role: number;
-    nationality: string;
-    joined: Date;
-    left?: Date;
-    accountID?: number;
-    townhallID: number;
-    clanID: number;
-  };
+  const body = ctx.request.body as InsertableAccount;
   await accountController.createAccount(body);
   ctx.status = 201;
 };
@@ -62,17 +53,7 @@ createAccount.validationScheme = {
 
 const updateAccount = async (ctx: Context) => {
   const id = Number(ctx.params.id);
-  const body = ctx.request.body as {
-    username: string;
-    name?: string;
-    role: number;
-    nationality: string;
-    joined: Date;
-    left?: Date;
-    accountID?: number;
-    townhallID: number;
-    clanID: number;
-  };
+  const body = ctx.request.body as UpdateableAccount;
   await accountController.updateAccount(id, body);
   ctx.status = 204;
 };

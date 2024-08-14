@@ -29,7 +29,7 @@ import {
 import { formatMonth } from "@/lib/formatMonth";
 
 export default function StarsChart({ performances, statistics }) {
-  const { attacks, stars, avgStars, year } = statistics;
+  const { year, avgStars, totalStars, totalAttacks } = statistics;
 
   const data = performances.map((performance) => ({
     date: formatMonth(performance.month),
@@ -93,8 +93,9 @@ export default function StarsChart({ performances, statistics }) {
       <CardFooter>
         <CardDescription>
           In {year}, you have attacked{" "}
-          <span className="font-medium text-foreground">{attacks}</span> times
-          gaining <span className="font-medium text-foreground">{stars}</span>{" "}
+          <span className="font-medium text-foreground">{totalAttacks}</span>{" "}
+          times gaining{" "}
+          <span className="font-medium text-foreground">{totalStars}</span>{" "}
           stars!
         </CardDescription>
       </CardFooter>

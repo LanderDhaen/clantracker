@@ -34,18 +34,8 @@ import ClanCard from "@/components/clan/ClanCard";
 export default function Profile({ profile }) {
   const navigate = useNavigate();
   const { statistics, performances } = profile;
-  const {
-    ID,
-    username,
-    name,
-    role,
-    joined,
-    left,
-    nationality,
-    clan,
-    townhall,
-    main,
-  } = profile;
+  const { account, clan } = profile;
+  const { ID, username, role, joined, left, nationality, townhall } = account;
 
   const filteredPerformances = (year) =>
     performances.filter((performance) => performance.year === parseInt(year));
@@ -53,6 +43,8 @@ export default function Profile({ profile }) {
   const handleEditClick = () => {
     navigate(`/members/${ID}/edit`);
   };
+
+  console.log(profile);
 
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 w-full px-20 pb-10">
@@ -86,7 +78,7 @@ export default function Profile({ profile }) {
           </div>
           <div className="flex items-center mb-4">
             <Calendar className="mr-2" />
-            Joined: {format(new Date(joined), "dd-MM-yyyy")}
+            Joined: joined{" "}
           </div>
           <div className="flex items-center mb-4">
             <MapPin className="mr-2" />
