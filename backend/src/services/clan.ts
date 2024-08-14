@@ -1,4 +1,4 @@
-import { tables, db } from "../data/index";
+import { db } from "../data/index";
 import { sql } from "kysely";
 import { PLACEMENTTYPES } from "../data/enums/placementTypes";
 
@@ -22,7 +22,7 @@ export const getAllClans = async () => {
 
 export const checkClanExists = async (id: number) => {
   const clan = await db
-    .selectFrom(tables.clan)
+    .selectFrom("clan")
     .selectAll()
     .where("ID", "=", id)
     .executeTakeFirst();

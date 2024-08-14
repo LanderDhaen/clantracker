@@ -1,4 +1,4 @@
-import { db, tables } from "../data/index";
+import { db } from "../data/index";
 import { InsertableTownhall, UpdateableTownhall } from "../types/townhall";
 
 export const getAllTownHalls = async () => {
@@ -9,7 +9,7 @@ export const getAllTownHalls = async () => {
 
 export const checkTownhallExists = async (id: number) => {
   const townhall = await db
-    .selectFrom(tables.townhall)
+    .selectFrom("townhall")
     .selectAll()
     .where("ID", "=", id)
     .executeTakeFirst();
@@ -19,7 +19,7 @@ export const checkTownhallExists = async (id: number) => {
 
 export const getTownhallByID = async (id: number) => {
   const townhall = await db
-    .selectFrom(tables.townhall)
+    .selectFrom("townhall")
     .selectAll()
     .where("ID", "=", id)
     .executeTakeFirst();
@@ -29,7 +29,7 @@ export const getTownhallByID = async (id: number) => {
 
 export const createTownhall = async (townhall: InsertableTownhall) => {
   const newTownhall = await db
-    .insertInto(tables.townhall)
+    .insertInto("townhall")
     .values(townhall)
     .execute();
 
@@ -41,7 +41,7 @@ export const updateTownhall = async (
   townhall: UpdateableTownhall
 ) => {
   const updatedTownhall = await db
-    .updateTable(tables.townhall)
+    .updateTable("townhall")
     .set(townhall)
     .where("ID", "=", id)
     .execute();
