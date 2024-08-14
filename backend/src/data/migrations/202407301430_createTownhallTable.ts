@@ -4,7 +4,7 @@ import { tables } from "..";
 export const up = async (db: Kysely<any>) => {
   await db.schema
     .createTable(tables.townhall)
-    .addColumn("id", "serial", (c) => c.primaryKey())
+    .addColumn("ID", "serial", (c) => c.primaryKey())
     .addColumn("level", "integer", (c) => c.notNull())
     .execute();
 };

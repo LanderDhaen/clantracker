@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "env-cmd nodemon",
-    "start:dev": "env-cmd nodemon --exec ts-node src/index.ts",
+    "start:dev": "env-cmd nodemon --exec ts-node src/index",
     "test": "env-cmd -f .env.test jest --runInBand",
     "test:coverage": "env-cmd -f .env.test jest --runInBand --coverage",
     "build": "tsc"
@@ -33,9 +33,9 @@
   "devDependencies": {
     "@types/config": "^3.3.4",
     "@types/koa": "^2.15.0",
+    "@types/koa-bodyparser": "^4.3.12",
     "@types/koa__cors": "^5.0.0",
     "@types/koa__router": "^12.0.4",
-    "@types/koa-bodyparser": "^4.3.12",
     "@types/node": "^22.2.0",
     "@types/pg": "^8.11.6",
     "env-cmd": "^10.1.0",
@@ -43,6 +43,7 @@
     "kysely-ctl": "^0.9.0",
     "nodemon": "^3.1.4",
     "supertest": "^7.0.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
   },
   "nodemonConfig": {
@@ -57,7 +58,7 @@
       "src",
       "index.ts"
     ],
-    "ext": "js,json",
+    "ext": "ts,json",
     "legacyWatch": true,
     "exec": "node --inspect=0.0.0.0:9001 --trace-warnings src/index.ts"
   },

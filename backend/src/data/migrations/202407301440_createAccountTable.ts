@@ -11,14 +11,14 @@ export const up = async (db: Kysely<any>) => {
     .addColumn("joined", "date", (c) => c.notNull())
     .addColumn("left", "date")
     .addColumn("nationality", "text")
-    .addColumn("accountID", "integer", (c) =>
-      c.references(`${tables.account}.ID`).onDelete("cascade")
+    .addColumn("clanID", "integer", (c) =>
+      c.references(`${tables.clan}.ID`).onDelete("cascade")
     )
     .addColumn("townhallID", "integer", (c) =>
       c.references(`${tables.townhall}.ID`).onDelete("cascade").notNull()
     )
-    .addColumn("clanID", "integer", (c) =>
-      c.references(`${tables.clan}.ID`).onDelete("cascade")
+    .addColumn("accountID", "integer", (c) =>
+      c.references(`${tables.account}.ID`).onDelete("cascade")
     )
     .execute();
 };
