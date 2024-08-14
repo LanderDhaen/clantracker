@@ -1,7 +1,7 @@
 import { tables } from "..";
-import PLACEMENTTYPES from "../enums/placementTypes";
-import LEAGUES from "../enums/leagues";
-import MONTHS from "../enums/months";
+import { PLACEMENTTYPES } from "../enums/placementTypes";
+import { LEAGUES } from "../enums/leagues";
+import { MONTHS } from "../enums/months";
 import { Kysely, sql } from "kysely";
 
 export const seed = async (db: Kysely<any>) => {

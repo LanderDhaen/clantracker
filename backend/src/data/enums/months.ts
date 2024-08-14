@@ -1,4 +1,4 @@
-module.exports = {
+export const MONTHS = {
   JANUARY: 1,
   FEBRUARY: 2,
   MARCH: 3,
@@ -11,4 +11,6 @@ module.exports = {
   OCTOBER: 10,
   NOVEMBER: 11,
   DECEMBER: 12,
-};
+} as const;
+
+export type Month = keyof typeof MONTHS;

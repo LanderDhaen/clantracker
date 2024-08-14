@@ -1,6 +1,6 @@
 import { tables, db } from "../data/index";
 import { sql } from "kysely";
-import PLACEMENTTYPES from "../data/enums/placementTypes";
+import { PLACEMENTTYPES } from "../data/enums/placementTypes";
 
 export const getAllClans = async () => {
   const clans = await db

@@ -1,5 +1,5 @@
 import { tables } from "..";
-import ROLES from "../enums/roles";
+import { ROLES } from "../enums/roles";
 import { Kysely, sql } from "kysely";
 
 export const seed = async (db: Kysely<any>) => {

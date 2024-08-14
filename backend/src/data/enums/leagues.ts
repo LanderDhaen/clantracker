@@ -1,4 +1,4 @@
-module.exports = {
+export const LEAGUES = {
   CRYSTAL3: 10,
   CRYSTAL2: 20,
   CRYSTAL1: 30,
@@ -8,4 +8,6 @@ module.exports = {
   CHAMP3: 70,
   CHAMP2: 80,
   CHAMP1: 90,
-};
+} as const;
+
+export type League = keyof typeof LEAGUES;
