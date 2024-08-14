@@ -1,6 +1,6 @@
 import Joi from "joi";
 import Router from "@koa/router";
-import townHallController from "../controllers/townhall";
+import * as townHallController from "../controllers/townhall";
 import { validate } from "../middleware/validation";
 import { Context } from "koa";
 

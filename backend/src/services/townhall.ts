@@ -1,9 +1,5 @@
 import { db, tables } from "../data/index";
-import {
-  InsertableTownhall,
-  Townhall,
-  UpdateableTownhall,
-} from "../types/townhall";
+import { InsertableTownhall, UpdateableTownhall } from "../types/townhall";
 
 export const getAllTownHalls = async () => {
   const townhalls = await db.selectFrom("townhall").selectAll().execute();
@@ -11,7 +7,7 @@ export const getAllTownHalls = async () => {
   return townhalls;
 };
 
-const checkTownhallExists = async (id: number) => {
+export const checkTownhallExists = async (id: number) => {
   const townhall = await db
     .selectFrom(tables.townhall)
     .selectAll()
@@ -21,7 +17,7 @@ const checkTownhallExists = async (id: number) => {
   return townhall;
 };
 
-const getTownhallByID = async (id: number) => {
+export const getTownhallByID = async (id: number) => {
   const townhall = await db
     .selectFrom(tables.townhall)
     .selectAll()
@@ -31,7 +27,7 @@ const getTownhallByID = async (id: number) => {
   return townhall;
 };
 
-const createTownhall = async (townhall: InsertableTownhall) => {
+export const createTownhall = async (townhall: InsertableTownhall) => {
   const newTownhall = await db
     .insertInto(tables.townhall)
     .values(townhall)
@@ -40,7 +36,10 @@ const createTownhall = async (townhall: InsertableTownhall) => {
   return newTownhall;
 };
 
-const updateTownhall = async (id: number, townhall: UpdateableTownhall) => {
+export const updateTownhall = async (
+  id: number,
+  townhall: UpdateableTownhall
+) => {
   const updatedTownhall = await db
     .updateTable(tables.townhall)
     .set(townhall)
@@ -48,12 +47,4 @@ const updateTownhall = async (id: number, townhall: UpdateableTownhall) => {
     .execute();
 
   return updatedTownhall;
-};
-
-export default {
-  getAllTownHalls,
-  checkTownhallExists,
-  getTownhallByID,
-  createTownhall,
-  updateTownhall,
 };

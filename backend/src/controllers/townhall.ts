@@ -1,8 +1,8 @@
 import ServiceError from "../middleware/serviceError";
-import townhallService from "../services/townhall";
+import * as townhallService from "../services/townhall";
 import { InsertableTownhall, UpdateableTownhall } from "../types/townhall";
 
-const getAllTownHalls = async () => {
+export const getAllTownHalls = async () => {
   return townhallService.getAllTownHalls();
 };
 
@@ -13,23 +13,18 @@ const checkTownhallExists = async (id: number) => {
   }
 };
 
-const getTownhallByID = async (id: number) => {
+export const getTownhallByID = async (id: number) => {
   return townhallService.getTownhallByID(id);
 };
 
-const createTownhall = async (townhall: InsertableTownhall) => {
+export const createTownhall = async (townhall: InsertableTownhall) => {
   return townhallService.createTownhall(townhall);
 };
 
-const updateTownhall = async (id: number, townhall: UpdateableTownhall) => {
+export const updateTownhall = async (
+  id: number,
+  townhall: UpdateableTownhall
+) => {
   await checkTownhallExists(id);
   return townhallService.updateTownhall(id, townhall);
-};
-
-export default {
-  getAllTownHalls,
-  checkTownhallExists,
-  getTownhallByID,
-  createTownhall,
-  updateTownhall,
 };
