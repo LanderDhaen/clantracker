@@ -4,6 +4,7 @@ import { getLogger } from "../middleware/logging";
 import config from "config";
 import { PostgresDialect, Kysely } from "kysely";
 import { Pool } from "pg";
+import { Database } from "../types/database";
 
 const NODE_ENV = config.get<string>("env");
 const isDevelopment = NODE_ENV === "development";
@@ -83,7 +84,7 @@ export const dialect = new PostgresDialect({
   }),
 });
 
-export const db = new Kysely({
+export const db = new Kysely<Database>({
   dialect,
 });
 
@@ -91,6 +92,6 @@ export const tables = Object.freeze({
   townhall: "townhall",
   clan: "clan",
   account: "account",
-  cwl: "clanwarleague",
+  cwl: "cwl",
   performance: "performance",
 });
