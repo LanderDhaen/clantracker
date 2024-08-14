@@ -1,7 +1,7 @@
 import Joi from "joi";
 import Router from "@koa/router";
 import { Context } from "koa";
-import clanController from "../controllers/clan";
+import * as clanController from "../controllers/clan";
 import { validate } from "../middleware/validation";
 
 const getAllClans = async (ctx: Context): Promise<void> => {
@@ -9,7 +9,7 @@ const getAllClans = async (ctx: Context): Promise<void> => {
   ctx.body = data;
 };
 
-getAllClans.validationScheme = null;
+getAllClans.validationScheme = {};
 
 const getClanByID = async (ctx: Context): Promise<void> => {
   const id = Number(ctx.params.id);
