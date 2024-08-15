@@ -31,7 +31,7 @@ export const checkClanExists = async (id: number) => {
 };
 
 export const getClanByID = async (id: number) => {
-  const result = await db
+  const clan = await db
     .with("townhallDistribution", (qb) =>
       qb
         .selectFrom("account")
@@ -171,18 +171,18 @@ export const getClanByID = async (id: number) => {
 
   return {
     clan: {
-      ID: result.ID,
-      name: result.name,
-      level: result.level,
-      location: result.location,
-      language: result.language,
-      cwl: result.cwl,
-      longestWinStreak: result.longestWinStreak,
+      ID: clan.ID,
+      name: clan.name,
+      level: clan.level,
+      location: clan.location,
+      language: clan.language,
+      cwl: clan.cwl,
+      longestWinStreak: clan.longestWinStreak,
     },
-    townhalls: result.townhalls,
-    nationalities: result.nationalities,
-    roles: result.roles,
-    statistics: result.statistics,
-    leagues: result.leagues,
+    townhalls: clan.townhalls,
+    nationalities: clan.nationalities,
+    roles: clan.roles,
+    statistics: clan.statistics,
+    leagues: clan.leagues,
   };
 };

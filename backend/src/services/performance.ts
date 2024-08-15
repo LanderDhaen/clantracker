@@ -2,7 +2,7 @@ import { db } from "../data/index";
 import { sql } from "kysely";
 
 export const getAllPerformances = async () => {
-  const result = await db
+  const performances = await db
     .with("alltime", (qb) =>
       qb
         .selectFrom("performance")
@@ -41,30 +41,33 @@ export const getAllPerformances = async () => {
         .groupBy(["performance.accountID", "cwl.year"])
     )
     .selectFrom("account")
-    .innerJoin("alltime", "account.ID", "alltime.accountID")
-    .innerJoin("yearly", "account.ID", "yearly.accountID")
-    .innerJoin("townhall", "account.townhallID", "townhall.ID")
+    .leftJoin("townhall", "account.townhallID", "townhall.ID")
     .select([
       "account.ID",
       "account.username as account",
       "townhall.level as townhall",
-
-      // All-time statistics as JSONB with alias 'alltime'
       sql<{
         totalStars: number;
         avgStars: number;
         totalDamage: number;
         avgDamage: number;
         totalAttacks: number;
-      }>`jsonb_build_object(
-          'totalStars', alltime.total_stars,
-          'avgStars', alltime.avg_stars,
-          'totalDamage', alltime.total_damage,
-          'avgDamage', alltime.avg_damage,
-          'totalAttacks', alltime.total_attacks
-        )`.as("alltime"),
-
-      // Yearly statistics as a JSON array
+      }>`
+      COALESCE(
+        (
+          SELECT jsonb_build_object(
+            'totalStars', alltime.total_stars,
+            'avgStars', alltime.avg_stars,
+            'totalDamage', alltime.total_damage,
+            'avgDamage', alltime.avg_damage,
+            'totalAttacks', alltime.total_attacks
+          )
+          FROM "alltime"
+          WHERE alltime."accountID" = account."ID"
+        ),
+        '{}'::jsonb
+      )
+    `.as("alltime"),
       sql<{
         year: number;
         totalStars: number;
@@ -72,29 +75,29 @@ export const getAllPerformances = async () => {
         totalDamage: number;
         avgDamage: number;
         totalAttacks: number;
-      }>`jsonb_agg(
-          jsonb_build_object(
-            'year', yearly.year,
-            'totalStars', yearly.total_stars,
-            'avgStars', yearly.avg_stars,
-            'totalDamage', yearly.total_damage,
-            'avgDamage', yearly.avg_damage,
-            'totalAttacks', yearly.total_attacks
+      }>`
+      COALESCE(
+        (
+          SELECT jsonb_agg(
+            jsonb_build_object(
+              'year', yearly.year,
+              'totalStars', yearly.total_stars,
+              'avgStars', yearly.avg_stars,
+              'totalDamage', yearly.total_damage,
+              'avgDamage', yearly.avg_damage,
+              'totalAttacks', yearly.total_attacks
+            )
           )
-        )`.as("yearly"),
+          FROM "yearly"
+          WHERE yearly."accountID" = account."ID"
+        ),
+        '[]'::jsonb
+      )
+    `.as("yearly"),
     ])
-    .groupBy([
-      "account.ID",
-      "account.username",
-      "townhall.level",
-      "alltime.total_stars",
-      "alltime.total_damage",
-      "alltime.total_attacks",
-      "alltime.avg_stars",
-      "alltime.avg_damage",
-    ])
-    .orderBy(sql`alltime.avg_stars`, "desc")
+    .where("account.ID", "is not", null)
+    .orderBy("account.username")
     .execute();
 
-  return result;
+  return performances;
 };

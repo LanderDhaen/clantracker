@@ -42,8 +42,8 @@ export const getMainAccounts = async () => {
 };
 
 export const getAccountByID = async (id: number) => {
-  const results = await db
-    .with("performance_data", (qb) =>
+  const account = await db
+    .with("performances", (qb) =>
       qb
         .selectFrom("performance")
         .innerJoin("cwl", "performance.cwlID", "cwl.ID")
@@ -63,7 +63,7 @@ export const getAccountByID = async (id: number) => {
         ])
         .where("performance.accountID", "=", id)
     )
-    .with("alltime_summary", (qb) =>
+    .with("alltime", (qb) =>
       qb
         .selectFrom("performance")
         .innerJoin("cwl", "performance.cwlID", "cwl.ID")
@@ -80,13 +80,12 @@ export const getAccountByID = async (id: number) => {
             "avg_damage"
           ),
         ])
+        .where("performance.accountID", "=", id)
         .groupBy(["performance.accountID", "cwl.year"])
     )
     .selectFrom("account")
-    .innerJoin("performance_data", "account.ID", "performance_data.accountID")
-    .innerJoin("alltime_summary", "account.ID", "alltime_summary.accountID")
-    .innerJoin("townhall", "account.townhallID", "townhall.ID")
-    .innerJoin("clan", "account.clanID", "clan.ID")
+    .leftJoin("townhall", "account.townhallID", "townhall.ID")
+    .leftJoin("clan", "account.clanID", "clan.ID")
     .select([
       "account.ID",
       "account.username",
@@ -110,16 +109,24 @@ export const getAccountByID = async (id: number) => {
         totalDamage: number;
         avgDamage: number;
         totalAttacks: number;
-      }>`jsonb_agg(
-          DISTINCT jsonb_build_object(
-            'year', alltime_summary.year,
-            'totalStars', alltime_summary.total_stars,
-            'avgStars', alltime_summary.avg_stars,
-            'totalDamage', alltime_summary.total_damage,
-            'avgDamage', alltime_summary.avg_damage,
-            'totalAttacks', alltime_summary.total_attacks
+      }>`
+      COALESCE(
+        (
+          SELECT jsonb_agg(
+            DISTINCT jsonb_build_object(
+              'year', alltime.year,
+              'totalStars', alltime.total_stars,
+              'avgStars', alltime.avg_stars,
+              'totalDamage', alltime.total_damage,
+              'avgDamage', alltime.avg_damage,
+              'totalAttacks', alltime.total_attacks
+            )
           )
-        )`.as("statistics"),
+          FROM "alltime"
+        ),
+        '[]'
+      )
+      `.as("statistics"),
       sql<{
         month: number;
         year: number;
@@ -128,54 +135,50 @@ export const getAccountByID = async (id: number) => {
         attacks: number;
         avgStars: number;
         avgDamage: number;
-      }>`jsonb_agg(
-        jsonb_build_object(
-          'month', performance_data.month,
-          'year', performance_data.year,
-          'stars', performance_data.stars,
-          'damage', performance_data.damage,
-          'attacks', performance_data.attacks,
-          'avgStars', performance_data.avgstars,
-          'avgDamage', performance_data.avgdamage
-        )
-      )`.as("performances"),
+      }>`
+      COALESCE(
+        (
+          SELECT jsonb_agg(
+            jsonb_build_object(
+              'month', performances.month,
+              'year', performances.year,
+              'stars', performances.stars,
+              'damage', performances.damage,
+              'attacks', performances.attacks,
+              'avgStars', performances.avgstars,
+              'avgDamage', performances.avgdamage
+            )
+          )
+          FROM "performances"
+        ),
+        '[]'
+      )
+      `.as("performances"),
     ])
     .where("account.ID", "=", id)
-    .groupBy([
-      "account.ID",
-      "account.username",
-      "account.name",
-      "account.role",
-      "account.joined",
-      "account.left",
-      "account.nationality",
-      "clan.ID",
-      "clan.name",
-      "townhall.level",
-    ])
     .executeTakeFirst();
 
   return {
     clan: {
-      ID: results.clanID,
-      name: results.clanName,
-      level: results.clanLevel,
-      location: results.clanLocation,
-      language: results.clanLanguage,
-      cwl: results.cwl,
-      longestWinStreak: results.longestWinStreak,
+      ID: account.clanID,
+      name: account.clanName,
+      level: account.clanLevel,
+      location: account.clanLocation,
+      language: account.clanLanguage,
+      cwl: account.cwl,
+      longestWinStreak: account.longestWinStreak,
     },
-    statistics: results.statistics,
-    performances: results.performances,
+    statistics: account.statistics,
+    performances: account.performances,
     account: {
-      ID: results.ID,
-      username: results.username,
-      name: results.name,
-      role: results.role,
-      joined: results.joined,
-      left: results.left,
-      nationality: results.nationality,
-      townhall: results.townhall,
+      ID: account.ID,
+      username: account.username,
+      name: account.name,
+      role: account.role,
+      joined: account.joined,
+      left: account.left,
+      nationality: account.nationality,
+      townhall: account.townhall,
     },
   };
 };
