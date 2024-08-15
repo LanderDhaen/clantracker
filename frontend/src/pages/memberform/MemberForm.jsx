@@ -97,7 +97,7 @@ export default function MemberForm({ accounts, clans, townhalls, member }) {
       left: member?.left ? new Date(member.left) : undefined,
       accountID: member?.mainID || undefined,
       townhallID: member?.townhall || undefined,
-      clanID: member?.clanID || undefined,
+      clanID: member?.clan.ID || undefined,
     },
     resolver: zodResolver(formSchema),
   });

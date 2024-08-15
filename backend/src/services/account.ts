@@ -93,6 +93,7 @@ export const getAccountByID = async (id: number) => {
       "account.joined",
       "account.left",
       "account.nationality",
+      "account.accountID",
       "clan.ID as clanID",
       "clan.name as clanName",
       "clan.level as clanLevel",
@@ -158,6 +159,15 @@ export const getAccountByID = async (id: number) => {
     .executeTakeFirst();
 
   return {
+    ID: account.ID,
+    username: account.username,
+    name: account.name,
+    role: account.role,
+    joined: account.joined,
+    left: account.left,
+    nationality: account.nationality,
+    townhall: account.townhall,
+    mainID: account.accountID,
     clan: {
       ID: account.clanID,
       name: account.clanName,
@@ -169,16 +179,6 @@ export const getAccountByID = async (id: number) => {
     },
     statistics: account.statistics,
     performances: account.performances,
-    account: {
-      ID: account.ID,
-      username: account.username,
-      name: account.name,
-      role: account.role,
-      joined: account.joined,
-      left: account.left,
-      nationality: account.nationality,
-      townhall: account.townhall,
-    },
   };
 };
 
