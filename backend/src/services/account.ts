@@ -7,7 +7,7 @@ export const getAllAccounts = async () => {
     .selectFrom("account")
     .innerJoin("clan", "account.clanID", "clan.ID")
     .innerJoin("townhall", "account.townhallID", "townhall.ID")
-    .leftJoin("account as main", "account.ID", "main.ID")
+    .leftJoin("account as main", "account.accountID", "main.ID")
     .select([
       "account.ID",
       "account.username",
@@ -21,7 +21,6 @@ export const getAllAccounts = async () => {
       "townhall.level as townhall",
       "main.username as main",
     ])
-    .orderBy("account.username")
     .execute();
 
   return accounts;
