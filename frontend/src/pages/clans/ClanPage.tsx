@@ -8,10 +8,8 @@ export default function MemberFormPage() {
   const { data, isLoading: clansLoading, error: clansError } = getClans();
 
   return (
-    <>
-      <AsyncData loading={clansLoading} error={clansError}>
-        <ClanTable columns={columns} data={data ?? []} />
-      </AsyncData>
-    </>
+    <AsyncData loading={clansLoading} error={clansError}>
+      <ClanTable columns={columns} data={data ?? []} />
+    </AsyncData>
   );
 }

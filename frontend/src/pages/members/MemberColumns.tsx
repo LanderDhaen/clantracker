@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { formatRole } from "@/lib/formatRole";
+import { formatRole, RoleValue } from "@/lib/formatRole";
 
 import { Button } from "@/components/ui/Button";
 import { ArrowUpDown } from "lucide-react";
@@ -8,7 +8,10 @@ import { formatTownhall } from "@/lib/formatTownhall";
 
 import { cn } from "@/lib/utils";
 
-export const columns = [
+import { ColumnDef } from "@tanstack/react-table";
+import { MemberListEntry } from "@/api/account";
+
+export const columns: ColumnDef<MemberListEntry>[] = [
   {
     accessorKey: "username",
     header: ({ column }) => {
@@ -57,7 +60,6 @@ export const columns = [
         </Button>
       );
     },
-    enableColumnFilters: true,
     filterFn: (row, columnId, filterNationalities) => {
       if (filterNationalities.length === 0) return true;
       const nationality = row.getValue(columnId);
@@ -79,9 +81,9 @@ export const columns = [
     },
 
     cell: ({ getValue }) => {
-      return formatRole(getValue());
+      const role = getValue() as RoleValue;
+      return formatRole(role);
     },
-    enableColumnFilters: true,
     filterFn: (row, columnId, filterRoles) => {
       if (filterRoles.length === 0) return true;
       const role = row.getValue(columnId);
@@ -102,7 +104,9 @@ export const columns = [
       );
     },
     cell: ({ row, getValue }) => {
-      const formattedDate = format(new Date(getValue()), "dd-MM-yyyy");
+      const date = new Date(getValue() as string);
+
+      const formattedDate = format(date, "dd-MM-yyyy");
       const left = row.original.left;
 
       return (
@@ -134,7 +138,6 @@ export const columns = [
     cell: ({ row }) => {
       return row.original.clan;
     },
-    enableColumnFilters: true,
     filterFn: (row, columnId, filterClans) => {
       if (filterClans.length === 0) return true;
       const clan = row.getValue(columnId);
@@ -155,7 +158,7 @@ export const columns = [
       );
     },
     cell: ({ getValue }) => {
-      const townhall = getValue();
+      const townhall = getValue() as number;
       const color = formatTownhall(townhall);
 
       return (
@@ -167,7 +170,6 @@ export const columns = [
         </div>
       );
     },
-    enableColumnFilters: true,
     filterFn: (row, columnId, filterTownhalls) => {
       if (filterTownhalls.length === 0) return true;
       const townhall = row.getValue(columnId);

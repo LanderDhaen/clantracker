@@ -6,12 +6,19 @@ import {
 
 import { Button } from "@/components/ui/Button";
 import { Filter } from "lucide-react";
+import { TownhallListEntry } from "@/api/townhall";
 
-export default function TownhallFilterPopover({
+interface TownhallFilterProps {
+  townhalls: TownhallListEntry[];
+  filterTownhalls: number[];
+  onSelectChange: (key: string, value: number) => void;
+}
+
+export default function TownhallFilterr({
   townhalls,
   filterTownhalls,
-  handleTownhallChange,
-}) {
+  onSelectChange,
+}: TownhallFilterProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -35,7 +42,7 @@ export default function TownhallFilterPopover({
                   className={`flex items-center gap-4 p-2 rounded cursor-pointer ${
                     isItemSelected ? "bg-gray-200" : ""
                   }`}
-                  onClick={() => handleTownhallChange(townhall.ID)}
+                  onClick={() => onSelectChange("townhall", townhall.ID)}
                 >
                   Townhall {townhall.level}
                 </div>

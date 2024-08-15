@@ -6,39 +6,45 @@ import {
 
 import { Button } from "@/components/ui/Button";
 import { Filter } from "lucide-react";
+import { ClanListEntry } from "@/api/clan";
 
-export default function RoleFilterPopover({
-  roles,
-  filterRoles,
-  handleRoleChange,
-  formatRole,
-}) {
+interface ClanFilterProps {
+  clans: ClanListEntry[];
+  filterClans: number[];
+  onSelectChange: (key: string, value: number) => void;
+}
+
+export default function ClanFilter({
+  clans,
+  filterClans,
+  onSelectChange,
+}: ClanFilterProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="outline">
           <Filter className="h-5 w-5 mr-2" aria-hidden="true" />
-          Filter roles
+          Filter clans
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80">
         <div className="grid gap-4">
           <div className="space-y-2">
             <h4 className="font-medium leading-none">Filter by:</h4>
-            <p className="text-sm text-muted-foreground">Role</p>
+            <p className="text-sm text-muted-foreground">Clan</p>
           </div>
           <div className="grid gap-2">
-            {Object.entries(roles).map(([key, value]) => {
-              const isItemSelected = filterRoles.includes(value);
+            {clans.map((clan) => {
+              const isItemSelected = filterClans.includes(clan.ID);
               return (
                 <div
-                  key={key}
+                  key={clan.ID}
                   className={` items-center gap-4 p-2 rounded cursor-pointer ${
                     isItemSelected ? "bg-gray-200" : ""
                   }`}
-                  onClick={() => handleRoleChange(value)}
+                  onClick={() => onSelectChange("clanID", clan.ID)}
                 >
-                  {formatRole(value)}
+                  {clan.name}
                 </div>
               );
             })}

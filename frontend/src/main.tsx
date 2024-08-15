@@ -7,9 +7,9 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
-import Root from "./components/Root.jsx";
+import Root from "./components/Root";
 
-import MemberPage from "./pages/members/MemberPage.jsx";
+import MemberPage from "./pages/members/MemberPage";
 import PerformancePage from "./pages/performance/PerformancePage.jsx";
 import ProfilePage from "./pages/profile/ProfilePage.jsx";
 import Home from "./components/Home.jsx";
