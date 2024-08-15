@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/Button";
 import { ArrowUpDown } from "lucide-react";
 
-import { formatLeague } from "@/lib/formatLeague";
+import { formatLeague, LeagueValue } from "@/lib/formatLeague";
+import { ClanListEntry } from "@/api/clan";
+import { ColumnDef } from "@tanstack/react-table";
 
-export const columns = [
+export const columns: ColumnDef<ClanListEntry>[] = [
   {
-    accessorKey: "ID",
+    accessorKey: "name",
     header: ({ column }) => {
       return (
         <Button
@@ -77,9 +79,9 @@ export const columns = [
       );
     },
     cell: ({ getValue }) => {
-      return formatLeague(getValue());
+      const value = getValue() as LeagueValue;
+      return formatLeague(value);
     },
-    enableColumnFilters: true,
     filterFn: (row, columnId, filterClans) => {
       if (filterClans.length === 0) return true;
       const clan = row.getValue(columnId);

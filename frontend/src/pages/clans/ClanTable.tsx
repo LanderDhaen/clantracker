@@ -1,11 +1,14 @@
 import { useState } from "react";
 
 import {
+  ColumnDef,
   flexRender,
   getCoreRowModel,
   useReactTable,
   getSortedRowModel,
   getFilteredRowModel,
+  ColumnFiltersState,
+  SortingState,
 } from "@tanstack/react-table";
 
 import {
@@ -23,11 +26,17 @@ import { useNavigate } from "react-router-dom";
 
 import { ListPlus } from "lucide-react";
 
-import ClanFilters from "./ClanFilters";
+import { ClanListEntry } from "@/api/clan";
+import { Input } from "@/components/ui/Input";
 
-export function ClanTable({ columns, data }) {
-  const [sorting, setSorting] = useState([]);
-  const [columnFilters, setColumnFilters] = useState([]);
+interface ClanTableProps<TData> {
+  columns: ColumnDef<TData>[];
+  data: TData[];
+}
+
+export function ClanTable({ columns, data }: ClanTableProps<ClanListEntry>) {
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const table = useReactTable({
     data,
@@ -45,17 +54,23 @@ export function ClanTable({ columns, data }) {
 
   const navigate = useNavigate();
 
-  const handleRowClick = (id) => {
+  const handleRowClick = (id: number) => {
     navigate(`/clans/${id}`);
   };
 
   return (
     <div className="mx-20 p-10 bg-white rounded-3xl shadow-lg">
       <div className="flex justify-between pb-2">
-        <ClanFilters
-          columnFilters={columnFilters}
-          setColumnFilters={setColumnFilters}
-        />
+        <div className="flex space-x-4">
+          <Input
+            placeholder="Filter clan names..."
+            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("name")?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
+        </div>
         <div className="flex items-center">
           <Button variant="outline" onClick={() => navigate("/members/add")}>
             <ListPlus className="mr-2" />
@@ -70,7 +85,7 @@ export function ClanTable({ columns, data }) {
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} className="text-center">
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -92,7 +107,7 @@ export function ClanTable({ columns, data }) {
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className="text-center">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
