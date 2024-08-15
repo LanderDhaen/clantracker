@@ -5,7 +5,7 @@ import { formatLeague } from "@/lib/formatLeague";
 
 export const columns = [
   {
-    accessorKey: "name",
+    accessorKey: "ID",
     header: ({ column }) => {
       return (
         <Button
@@ -16,6 +16,9 @@ export const columns = [
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
+    },
+    cell: ({ row }) => {
+      return row.original.name;
     },
   },
   {

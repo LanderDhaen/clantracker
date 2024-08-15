@@ -4,7 +4,6 @@ import { formatRole } from "@/lib/formatRole";
 import { Button } from "@/components/ui/Button";
 import { ArrowUpDown } from "lucide-react";
 
-import { formatClan } from "@/lib/formatClan";
 import { formatTownhall } from "@/lib/formatTownhall";
 
 import { cn } from "@/lib/utils";
@@ -132,8 +131,8 @@ export const columns = [
         </Button>
       );
     },
-    cell: ({ getValue }) => {
-      return formatClan(getValue());
+    cell: ({ row }) => {
+      return row.original.clan;
     },
     enableColumnFilters: true,
     filterFn: (row, columnId, filterClans) => {
