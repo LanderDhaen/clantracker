@@ -1,6 +1,10 @@
 import { isAxiosError } from "axios";
 
-export default function Error({ error }) {
+interface ErrorProps {
+  error: Error;
+}
+
+export default function Error({ error }: ErrorProps) {
   if (isAxiosError(error)) {
     return (
       <div
@@ -10,8 +14,8 @@ export default function Error({ error }) {
       >
         <strong className="font-bold">Oops, something went wrong:</strong>
         <span className="block sm:inline">
-          {error.response.data?.message || error.message}
-          {error.response.data?.details && (
+          {error.response?.data.message || error.message}
+          {error.response?.data.details && (
             <>
               :
               <br />

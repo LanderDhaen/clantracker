@@ -1,10 +1,5 @@
 import {
-  User,
-  Calendar,
-  Home,
-  Shield,
   Castle,
-  Power,
   CreditCard,
   Crown,
   TrendingUp,
@@ -17,7 +12,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/Card";
@@ -28,7 +22,19 @@ import { colorLeague, formatLeague } from "@/lib/formatLeague";
 
 import { useNavigate } from "react-router-dom";
 
-export default function ClanCard({ clan }) {
+interface ClanCardProps {
+  clan: {
+    ID: number;
+    name: string;
+    level: number;
+    location: string;
+    language: string;
+    cwl: number;
+    longestWinStreak: number;
+  };
+}
+
+export default function ClanCard({ clan }: ClanCardProps) {
   const { ID, name, level, location, language, cwl, longestWinStreak } = clan;
 
   const navigate = useNavigate();

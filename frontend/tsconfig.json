@@ -20,15 +20,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": [
-    "src",
-    "src/components/AsyncData.jsx",
-    "src/components/clan",
-    "src/components/Error.jsx",
-    "src/components/Loader.jsx",
-    "src/components/Home.jsx",
-    "src/components/Header.jsx",
-    "src/components/Root.jsx"
-  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

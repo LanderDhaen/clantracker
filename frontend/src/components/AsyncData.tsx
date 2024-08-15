@@ -1,7 +1,17 @@
 import Loader from "./Loader";
 import Error from "./Error";
 
-export default function AsyncData({ loading, error, children }) {
+interface AsyncDataProps {
+  loading: boolean;
+  error: Error;
+  children: React.ReactNode;
+}
+
+export default function AsyncData({
+  loading,
+  error,
+  children,
+}: AsyncDataProps) {
   if (loading) {
     return <Loader />;
   }
