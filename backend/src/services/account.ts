@@ -1,7 +1,6 @@
 import { sql } from "kysely";
 import { db } from "../data/index";
 import { InsertableAccount, UpdateableAccount } from "../types/account";
-import { level } from "winston";
 
 export const getAllAccounts = async () => {
   const accounts = await db
@@ -33,8 +32,8 @@ export const getMainAccounts = async () => {
     .selectFrom("account")
     .innerJoin("townhall", "account.townhallID", "townhall.ID")
     .select(["account.ID", "account.username", "townhall.level as townhall"])
-    .where("account.accountID", "=", null)
-    .where("account.left", "=", null)
+    .where("account.accountID", "is", null)
+    .where("account.left", "is", null)
     .orderBy("account.username")
     .execute();
 
