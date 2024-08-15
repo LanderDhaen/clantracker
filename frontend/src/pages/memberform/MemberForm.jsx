@@ -35,7 +35,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/Popover";
 
-import { roles, formatRole } from "@/lib/formatRole";
+import { ROLES, formatRole } from "@/lib/formatRole";
 import { formatTownhall } from "@/lib/formatTownhall";
 
 import { post, put } from "../../api";
@@ -259,7 +259,7 @@ export default function MemberForm({ accounts, clans, townhalls, member }) {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {Object.values(roles).map((role) => (
+                  {Object.values(ROLES).map((role) => (
                     <SelectItem key={role} value={role.toString()}>
                       {formatRole(role)}
                     </SelectItem>

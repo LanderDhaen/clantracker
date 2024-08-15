@@ -1,10 +1,11 @@
-import * as React from "react";
 import { Input } from "@/components/ui/Input";
-import { roles, formatRole } from "@/lib/formatRole";
+import { ROLES, formatRole } from "@/lib/formatRole";
 import RoleFilterPopover from "./RoleFilterPopover";
 import ClanFilterPopover from "./ClanFilterPopover";
 import TownhallFilterPopover from "./TownhallFilterPopover";
 import NationalityFilterPopover from "./NationalityFilterPopover";
+
+const nationalities = ["Belgian", "Dutch"];
 
 export default function MemberFilters({
   columnFilters,
@@ -84,10 +85,6 @@ export default function MemberFilters({
     });
   };
 
-  console.log("nationalities", filterNationalities);
-
-  const nationalities = ["Belgian", "Dutch"];
-
   return (
     <div className="flex space-x-4">
       <Input
@@ -108,7 +105,7 @@ export default function MemberFilters({
         handleNationalityChange={handleNationalityChange}
       />
       <RoleFilterPopover
-        roles={roles}
+        roles={ROLES}
         filterRoles={filterRoles}
         handleRoleChange={handleRoleChange}
         formatRole={formatRole}
