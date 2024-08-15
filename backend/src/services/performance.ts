@@ -41,6 +41,7 @@ export const getAllPerformances = async () => {
         .groupBy(["performance.accountID", "cwl.year"])
     )
     .selectFrom("account")
+    .innerJoin("alltime", "alltime.accountID", "account.ID")
     .leftJoin("townhall", "account.townhallID", "townhall.ID")
     .select([
       "account.ID",
