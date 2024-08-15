@@ -31,8 +31,8 @@ import { TownhallListEntry } from "@/api/townhall";
 import { MemberListEntry } from "@/api/account";
 import { Input } from "@/components/ui/Input";
 import NationalityFilterPopover from "./NationalityFilter";
-import ClanFilterPopover from "./ClanFilter";
-import TownhallFilterPopover from "./TownhallFilter";
+import ClanFilterPopover from "../../components/clan/ClanFilter";
+import TownhallFilterPopover from "../../components/townhall/TownhallFilter";
 
 interface MemberTableProps<TData> {
   columns: ColumnDef<TData>[];

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Input } from "@/components/ui/Input";
 
-import TownhallFilterPopover from "../members/TownhallFilter";
+import TownhallFilterPopover from "../../components/townhall/TownhallFilter";
 
 export default function PerformanceFilters({
   columnFilters,
