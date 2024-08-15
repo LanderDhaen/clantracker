@@ -4,5 +4,3 @@ export const ROLES = {
   ELDER: 30,
   MEMBER: 40,
 } as const;
-
-export type Role = keyof typeof ROLES;
