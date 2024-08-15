@@ -6,6 +6,9 @@ import {
   useReactTable,
   getSortedRowModel,
   getFilteredRowModel,
+  ColumnDef,
+  ColumnFiltersState,
+  SortingState,
 } from "@tanstack/react-table";
 
 import {
@@ -19,11 +22,25 @@ import {
 
 import { useNavigate } from "react-router-dom";
 
-import PerformanceFilters from "./PerformanceFilters";
+import { TownhallListEntry } from "@/api/townhall";
+import { PerformanceListEntry } from "@/api/performance";
+import { Input } from "@/components/ui/Input";
 
-export function PerformanceTable({ columns, data, townhalls }) {
-  const [sorting, setSorting] = useState([]);
-  const [columnFilters, setColumnFilters] = useState([]);
+import TownhallFilterPopover from "@/components/townhall/TownhallFilter";
+
+interface PerformanceTableProps<TData> {
+  columns: ColumnDef<TData>[];
+  data: TData[];
+  townhalls: TownhallListEntry[];
+}
+
+export function PerformanceTable({
+  columns,
+  data,
+  townhalls,
+}: PerformanceTableProps<PerformanceListEntry>) {
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const table = useReactTable({
     data,
@@ -41,18 +58,40 @@ export function PerformanceTable({ columns, data, townhalls }) {
 
   const navigate = useNavigate();
 
-  const handleRowClick = (id) => {
+  const handleRowClick = (id: number) => {
     navigate(`/members/${id}`);
+  };
+
+  const handleNumberChange = (key: string, value: number) => {
+    table
+      .getColumn(key)
+      ?.setFilterValue((prevValue: number[] = []) =>
+        prevValue.includes(value)
+          ? prevValue.filter((v) => v !== value)
+          : [...prevValue, value]
+      );
   };
 
   return (
     <div className="mx-20 mb-20 p-10 bg-white rounded-3xl shadow-lg">
       <div className="flex pb-2 items-center">
-        <PerformanceFilters
-          columnFilters={columnFilters}
-          setColumnFilters={setColumnFilters}
-          townhalls={townhalls}
-        />
+        <div className="flex space-x-4">
+          <Input
+            placeholder="Filter usernames..."
+            value={table.getColumn("account")?.getFilterValue() as string | ""}
+            onChange={(event) =>
+              table.getColumn("account")?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
+          <TownhallFilterPopover
+            townhalls={townhalls}
+            filterTownhalls={
+              (table.getColumn("townhall")?.getFilterValue() as number[]) || []
+            }
+            onSelectChange={handleNumberChange}
+          />
+        </div>
       </div>
       <div className="rounded-md border p-2">
         <Table>
@@ -61,7 +100,7 @@ export function PerformanceTable({ columns, data, townhalls }) {
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} className="text-center">
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -83,7 +122,7 @@ export function PerformanceTable({ columns, data, townhalls }) {
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className="text-center">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()

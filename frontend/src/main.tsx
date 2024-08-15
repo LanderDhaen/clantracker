@@ -10,7 +10,7 @@ import {
 import Root from "./components/Root";
 
 import MemberPage from "./pages/members/MemberPage";
-import PerformancePage from "./pages/performance/PerformancePage.jsx";
+import PerformancePage from "./pages/performance/PerformancePage";
 import ProfilePage from "./pages/profile/ProfilePage.jsx";
 import Home from "./components/Home.jsx";
 import MemberFormPage from "./pages/memberform/MemberFormPage";
