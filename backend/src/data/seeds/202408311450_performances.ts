@@ -3363,7 +3363,9 @@ export const seed = async (db: Kysely<any>) => {
     ])
     .execute();
 
-  // Reset the sequence
+  // Setting the sequence to the correct value
 
-  sql`SELECT setval('${tables.performance}_id_seq', (SELECT MAX(ID) FROM ${tables.performance}))`;
+  await sql`SELECT setval((SELECT pg_get_serial_sequence('performance', 'ID')), (SELECT MAX("ID") FROM performance));`.execute(
+    db
+  );
 };
