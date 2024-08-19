@@ -28,13 +28,13 @@ import { ListPlus } from "lucide-react";
 
 import { ClanListEntry } from "@/api/clan";
 import { TownhallListEntry } from "@/api/townhall";
-import { MemberListEntry } from "@/api/account";
+import { AccountListEntry } from "@/api/account";
 import { Input } from "@/components/ui/Input";
 import NationalityFilterPopover from "./NationalityFilter";
 import ClanFilterPopover from "../../components/clan/ClanFilter";
 import TownhallFilterPopover from "../../components/townhall/TownhallFilter";
 
-interface MemberTableProps<TData> {
+interface AccountTableProps<TData> {
   columns: ColumnDef<TData>[];
   data: TData[];
   clans: ClanListEntry[];
@@ -46,7 +46,7 @@ export function MemberTable({
   data,
   clans,
   townhalls,
-}: MemberTableProps<MemberListEntry>) {
+}: AccountTableProps<AccountListEntry>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
@@ -67,7 +67,7 @@ export function MemberTable({
   const navigate = useNavigate();
 
   const handleRowClick = (id: number) => {
-    navigate(`/members/${id}`);
+    navigate(`/accounts/${id}`);
   };
 
   const handleStringChange = (key: string, value: string) => {
@@ -134,7 +134,7 @@ export function MemberTable({
           />
         </div>
         <div className="flex items-center">
-          <Button variant="outline" onClick={() => navigate("/members/add")}>
+          <Button variant="outline" onClick={() => navigate("/accounts/add")}>
             <ListPlus className="mr-2" />
             Create member
           </Button>

@@ -46,7 +46,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { useNavigate } from "react-router-dom";
 
-export default function MemberForm({ accounts, clans, townhalls, member }) {
+export default function AccountForm({ accounts, clans, townhalls, member }) {
   const navigate = useNavigate();
 
   const { trigger: createMember } = useSWRMutation("/accounts", post, {

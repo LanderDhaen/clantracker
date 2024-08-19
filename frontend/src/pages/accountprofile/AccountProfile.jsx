@@ -32,7 +32,7 @@ import { Button } from "@/components/ui/Button";
 import ClanCard from "@/components/clan/ClanCard";
 import { ToastContainer } from "react-toastify";
 
-export default function Profile({ profile }) {
+export default function AccountProfile({ profile }) {
   const navigate = useNavigate();
 
   const {
@@ -52,7 +52,7 @@ export default function Profile({ profile }) {
     performances.filter((performance) => performance.year === parseInt(year));
 
   const handleEditClick = () => {
-    navigate(`/members/${ID}/edit`);
+    navigate(`/accounts/${ID}/edit`);
   };
 
   console.log(profile);

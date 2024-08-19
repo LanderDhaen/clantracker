@@ -8,13 +8,13 @@ export default function Header() {
   return (
     <div className="flex justify-center items-center p-4 bg-gray-100">
       <div className="flex space-x-4">
-        <Button variant="link" onClick={() => navigate("/members")}>
+        <Button variant="link" onClick={() => navigate("/accounts")}>
           <Users className="mr-2" />
-          Members
+          Accounts
         </Button>
-        <Button variant="link" onClick={() => navigate("/performance")}>
+        <Button variant="link" onClick={() => navigate("/performances")}>
           <BarChart2 className="mr-2" />
-          Performance
+          Performances
         </Button>
         <Button variant="link" onClick={() => navigate("/clans")}>
           <Castle className="mr-2" />

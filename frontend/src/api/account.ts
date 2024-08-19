@@ -1,7 +1,7 @@
 import useSWR, { SWRResponse } from "swr";
 import { get } from "./index.js";
 
-export type MemberListEntry = {
+export type AccountListEntry = {
   ID: number;
   username: string;
   name: string | null;
@@ -16,5 +16,5 @@ export type MemberListEntry = {
 };
 
 export function getMembers() {
-  return useSWR("/accounts", get) as SWRResponse<MemberListEntry[]>;
+  return useSWR("/accounts", get) as SWRResponse<AccountListEntry[]>;
 }

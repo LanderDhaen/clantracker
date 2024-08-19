@@ -1,11 +1,11 @@
 import { getMembers } from "@/api/account";
-import { columns } from "./MemberColumns";
-import { MemberTable } from "./MemberTable";
+import { columns } from "./AccountColumns";
+import { MemberTable } from "./AccountTable";
 import { getClans } from "@/api/clan";
 import { getTownhalls } from "@/api/townhall";
 import AsyncData from "@/components/AsyncData";
 
-export default function MemberPage() {
+export default function AccountPage() {
   const { data, isLoading: membersLoading, error: membersError } = getMembers();
   const {
     data: clans,

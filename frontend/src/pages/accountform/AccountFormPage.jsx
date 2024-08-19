@@ -10,11 +10,11 @@ import {
   CardTitle,
 } from "@/components/ui/Card";
 
-import MemberForm from "./MemberForm";
+import AccountForm from "./AccountForm";
 
 import AsyncData from "@/components/AsyncData";
 
-export default function MemberFormPage() {
+export default function AccountFormPage() {
   const { id } = useParams();
 
   const {
@@ -56,7 +56,7 @@ export default function MemberFormPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <MemberForm
+            <AccountForm
               accounts={accounts}
               clans={clans}
               townhalls={townhalls}

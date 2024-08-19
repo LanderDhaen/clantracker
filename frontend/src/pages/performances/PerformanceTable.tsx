@@ -59,7 +59,7 @@ export function PerformanceTable({
   const navigate = useNavigate();
 
   const handleRowClick = (id: number) => {
-    navigate(`/members/${id}`);
+    navigate(`/accounts/${id}`);
   };
 
   const handleNumberChange = (key: string, value: number) => {
