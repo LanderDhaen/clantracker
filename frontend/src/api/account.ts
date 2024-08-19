@@ -43,7 +43,10 @@ export function getAccounts() {
 }
 
 export function getAccountByID(id: string | undefined) {
-  return useSWR(`/accounts/${id}`, get) as SWRResponse<AccountDetail>;
+  return useSWR(
+    id ? `/accounts/${id}` : null,
+    get
+  ) as SWRResponse<AccountDetail>;
 }
 
 export function getMainAccounts() {
