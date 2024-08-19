@@ -4,7 +4,6 @@ import { MemberTable } from "./AccountTable";
 import { getClans } from "@/api/clan";
 import { getTownhalls } from "@/api/townhall";
 import AsyncData from "@/components/AsyncData";
-import { ToastContainer } from "react-toastify";
 
 export default function AccountPage() {
   const {
@@ -28,7 +27,6 @@ export default function AccountPage() {
       loading={membersLoading || clansLoading || townhallsLoading}
       error={membersError || clansError || townhallsError}
     >
-      <ToastContainer />
       <MemberTable
         columns={columns}
         data={data!}
