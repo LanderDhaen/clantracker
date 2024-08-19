@@ -30,7 +30,6 @@ import { format } from "date-fns";
 
 import { Button } from "@/components/ui/Button";
 import ClanCard from "@/components/clan/ClanCard";
-import { ToastContainer } from "react-toastify";
 
 export default function AccountProfile({ profile }) {
   const navigate = useNavigate();
@@ -55,11 +54,8 @@ export default function AccountProfile({ profile }) {
     navigate(`/accounts/${ID}/edit`);
   };
 
-  console.log(profile);
-
   return (
     <>
-      <ToastContainer />
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 w-full px-20 pb-10">
         <Card className="shadow-lg rounded-3xl">
           <CardHeader>

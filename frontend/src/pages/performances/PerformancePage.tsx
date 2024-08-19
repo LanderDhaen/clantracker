@@ -22,11 +22,7 @@ export default function MemberPage() {
       loading={performancesLoading || townhallsLoading}
       error={performancesError || townhallsError}
     >
-      <PerformanceTable
-        columns={columns}
-        data={data ?? []}
-        townhalls={townhalls ?? []}
-      />
+      <PerformanceTable columns={columns} data={data!} townhalls={townhalls!} />
     </AsyncData>
   );
 }

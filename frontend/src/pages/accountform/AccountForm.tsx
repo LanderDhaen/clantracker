@@ -45,30 +45,47 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { useNavigate } from "react-router-dom";
+import { AccountDetail, MainAccountListEntry } from "@/api/account";
+import { ClanListEntry } from "@/api/clan";
+import { TownhallListEntry } from "@/api/townhall";
 
-export default function AccountForm({ accounts, clans, townhalls, member }) {
+interface AccountFormProps {
+  mainAccounts: MainAccountListEntry[];
+  clans: ClanListEntry[];
+  townhalls: TownhallListEntry[];
+  account: AccountDetail;
+}
+
+const nationalities = ["Belgian", "Dutch"];
+
+export default function AccountForm({
+  mainAccounts,
+  clans,
+  townhalls,
+  account,
+}: AccountFormProps) {
   const navigate = useNavigate();
 
-  const { trigger: createMember } = useSWRMutation("/accounts", post, {
+  const { trigger: createAccount } = useSWRMutation("/accounts", post, {
     onSuccess: () => {
-      toast.success("Member created successfully.");
-      navigate("/members");
+      toast.success("Account created successfully.");
+      navigate("/accounts");
     },
     onError: () => {
-      toast.error("An error occurred while creating the member.");
+      toast.error("An error occurred while creating the account.");
     },
   });
 
-  const { trigger: updateMember } = useSWRMutation(
-    `/accounts/${member?.ID}`,
+  const { trigger: updateAccount } = useSWRMutation(
+    `/accounts/${account?.ID}`,
     put,
     {
       onSuccess: () => {
-        toast.success("Member updated successfully.");
-        navigate(`/members/${member?.ID}`);
+        toast.success("Account updated successfully.");
+        navigate(`/accounts/${account?.ID}`);
       },
       onError: () => {
-        toast.error("An error occurred while updating the member.");
+        toast.error("An error occurred while updating the account.");
       },
     }
   );
@@ -87,43 +104,40 @@ export default function AccountForm({ accounts, clans, townhalls, member }) {
     clanID: z.number(),
   });
 
-  const memberForm = useForm({
+  const accountForm = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
-      username: member?.username || "",
-      name: member?.name || "",
-      role: member?.role || undefined,
-      nationality: member?.nationality || undefined,
-      joined: member?.joined ? new Date(member.joined) : undefined,
-      left: member?.left ? new Date(member.left) : undefined,
-      accountID: member?.mainID || undefined,
-      townhallID: member?.townhall || undefined,
-      clanID: member?.clan.ID || undefined,
+      username: account?.username || "",
+      name: account?.name || "",
+      role: account?.role || undefined,
+      nationality: account?.nationality || undefined,
+      joined: account?.joined ? new Date(account.joined) : undefined,
+      left: account?.left ? new Date(account.left) : undefined,
+      accountID: account?.mainID || undefined,
+      townhallID: account?.townhall || undefined,
+      clanID: account?.clan.ID || undefined,
     },
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: z.infer<typeof formSchema>) => {
     const filteredData = Object.fromEntries(
       Object.entries(data).filter(
         ([_, value]) => value !== undefined && value !== ""
       )
     );
 
-    if (member) {
-      updateMember(filteredData);
+    if (account) {
+      updateAccount(filteredData);
     } else {
-      createMember(filteredData);
+      createAccount(filteredData);
     }
   };
 
-  const nationalities = ["Belgian", "Dutch"];
-
   return (
-    <Form {...memberForm}>
-      <ToastContainer position="bottom-right" theme="colored" />
-      <form onSubmit={memberForm.handleSubmit(onSubmit)} className="space-y-2">
+    <Form {...accountForm}>
+      <form onSubmit={accountForm.handleSubmit(onSubmit)} className="space-y-2">
         <FormField
-          control={memberForm.control}
+          control={accountForm.control}
           name="username"
           render={({ field }) => (
             <FormItem>
@@ -136,7 +150,7 @@ export default function AccountForm({ accounts, clans, townhalls, member }) {
           )}
         />
         <FormField
-          control={memberForm.control}
+          control={accountForm.control}
           name="name"
           render={({ field }) => (
             <FormItem>
@@ -149,7 +163,7 @@ export default function AccountForm({ accounts, clans, townhalls, member }) {
           )}
         />
         <FormField
-          control={memberForm.control}
+          control={accountForm.control}
           name="nationality"
           render={({ field }) => (
             <FormItem>
@@ -177,7 +191,7 @@ export default function AccountForm({ accounts, clans, townhalls, member }) {
           )}
         />
         <FormField
-          control={memberForm.control}
+          control={accountForm.control}
           name="townhallID"
           render={({ field }) => (
             <FormItem>
@@ -216,7 +230,7 @@ export default function AccountForm({ accounts, clans, townhalls, member }) {
           )}
         />
         <FormField
-          control={memberForm.control}
+          control={accountForm.control}
           name="clanID"
           render={({ field }) => (
             <FormItem>
@@ -244,7 +258,7 @@ export default function AccountForm({ accounts, clans, townhalls, member }) {
           )}
         />
         <FormField
-          control={memberForm.control}
+          control={accountForm.control}
           name="role"
           render={({ field }) => (
             <FormItem>
@@ -271,7 +285,7 @@ export default function AccountForm({ accounts, clans, townhalls, member }) {
           )}
         />
         <FormField
-          control={memberForm.control}
+          control={accountForm.control}
           name="accountID"
           render={({ field }) => (
             <FormItem>
@@ -286,7 +300,7 @@ export default function AccountForm({ accounts, clans, townhalls, member }) {
                       <SelectValue placeholder="Select an account" />
                     </SelectTrigger>
                     <SelectContent>
-                      {accounts.map((account) => (
+                      {mainAccounts.map((account) => (
                         <SelectItem
                           key={account.ID}
                           value={account.ID.toString()}
@@ -320,7 +334,7 @@ export default function AccountForm({ accounts, clans, townhalls, member }) {
           )}
         />
         <FormField
-          control={memberForm.control}
+          control={accountForm.control}
           name="joined"
           render={({ field }) => (
             <FormItem className="flex flex-col pt-1">
@@ -372,7 +386,7 @@ export default function AccountForm({ accounts, clans, townhalls, member }) {
           )}
         />
         <FormField
-          control={memberForm.control}
+          control={accountForm.control}
           name="left"
           render={({ field }) => (
             <FormItem className="flex flex-col pt-1">
@@ -400,7 +414,7 @@ export default function AccountForm({ accounts, clans, townhalls, member }) {
                   <PopoverContent className="w-auto p-0" align="start">
                     <Calendar
                       mode="single"
-                      selected={field.value}
+                      selected={field.value || undefined}
                       onSelect={field.onChange}
                       disabled={(date) =>
                         date > new Date() || date < new Date("2012-01-01")
@@ -429,7 +443,7 @@ export default function AccountForm({ accounts, clans, townhalls, member }) {
             className="bg-blue-500 text-white py-2 px-6 rounded-full hover:bg-blue-700 transition-transform transform hover:scale-105"
           >
             <FileInput className="mr-2" />
-            {member ? "Update Member" : "Create Member"}
+            {account ? "Update Account" : "Create Account"}
           </Button>
         </div>
       </form>

@@ -9,7 +9,7 @@ export default function MemberFormPage() {
 
   return (
     <AsyncData loading={clansLoading} error={clansError}>
-      <ClanTable columns={columns} data={data ?? []} />
+      <ClanTable columns={columns} data={data!} />
     </AsyncData>
   );
 }

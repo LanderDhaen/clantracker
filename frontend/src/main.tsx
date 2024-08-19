@@ -11,7 +11,7 @@ import AccountFormPage from "./pages/accountform/AccountFormPage";
 import ClanPage from "./pages/clans/ClanPage";
 import ClanProfilePage from "./pages/clanprofile/ClanProfilePage";
 import AccountPage from "./pages/accounts/AccountPage";
-import AccountProfilePage from "./pages/accountprofile/AccountProfilePage.jsx";
+import AccountProfilePage from "./pages/accountprofile/AccountProfilePage";
 
 const router = createBrowserRouter([
   {

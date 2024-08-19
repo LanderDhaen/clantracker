@@ -13,38 +13,41 @@ import {
 import AccountForm from "./AccountForm";
 
 import AsyncData from "@/components/AsyncData";
+import { getTownhalls } from "@/api/townhall";
+import { getClans } from "@/api/clan";
+import { getMainAccounts, getAccountByID } from "@/api/account";
 
 export default function AccountFormPage() {
   const { id } = useParams();
 
   const {
-    data: accounts,
+    data: mainAccounts,
     isLoading: accountsLoading,
     error: accountsError,
-  } = useSWR(`/accounts/main-accounts`, get);
+  } = getMainAccounts();
   const {
     data: clans,
     isLoading: clansLoading,
     error: clansError,
-  } = useSWR(`/clans`, get);
+  } = getClans();
   const {
     data: townhalls,
     isLoading: townhallsLoading,
     error: townhallsError,
-  } = useSWR(`/townhalls`, get);
+  } = getTownhalls();
   const {
-    data: member,
-    isLoading: memberLoading,
-    error: memberError,
-  } = useSWR(id ? `/accounts/${id}` : null, get);
+    data: account,
+    isLoading: accountLoading,
+    error: accountError,
+  } = getAccountByID(id);
 
   return (
     <div className="flex justify-center items-center">
       <AsyncData
         loading={
-          accountsLoading || clansLoading || townhallsLoading || memberLoading
+          accountsLoading || clansLoading || townhallsLoading || accountLoading
         }
-        error={accountsError || clansError || townhallsError || memberError}
+        error={accountsError || clansError || townhallsError || accountError}
       >
         <Card className="w-full max-w-3xl bg-white shadow-lg rounded-3xl ">
           <CardHeader>
@@ -57,10 +60,10 @@ export default function AccountFormPage() {
           </CardHeader>
           <CardContent>
             <AccountForm
-              accounts={accounts}
-              clans={clans}
-              townhalls={townhalls}
-              member={member}
+              mainAccounts={mainAccounts!}
+              clans={clans!}
+              townhalls={townhalls!}
+              account={account!}
             />
           </CardContent>
         </Card>
