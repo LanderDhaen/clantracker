@@ -1,5 +1,3 @@
-import useSWR from "swr";
-import { get } from "../../api";
 import { useParams } from "react-router-dom";
 
 import {

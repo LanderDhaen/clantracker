@@ -9,9 +9,9 @@ import { formatTownhall } from "@/lib/formatTownhall";
 import { cn } from "@/lib/utils";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { AccountListEntry } from "@/api/account";
+import { GetAllAccountsResponse } from "@backend-types/account";
 
-export const columns: ColumnDef<AccountListEntry>[] = [
+export const columns: ColumnDef<GetAllAccountsResponse[number]>[] = [
   {
     accessorKey: "username",
     header: ({ column }) => {

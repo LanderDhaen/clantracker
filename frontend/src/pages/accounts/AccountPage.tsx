@@ -1,9 +1,10 @@
 import { getAccounts } from "@/api/account";
 import { columns } from "./AccountColumns";
-import { MemberTable } from "./AccountTable";
+import { AccountTable } from "./AccountTable";
 import { getClans } from "@/api/clan";
 import { getTownhalls } from "@/api/townhall";
 import AsyncData from "@/components/AsyncData";
+import { GetAllAccountsResponse } from "@backend-types/account";
 
 export default function AccountPage() {
   const {
@@ -27,7 +28,7 @@ export default function AccountPage() {
       loading={membersLoading || clansLoading || townhallsLoading}
       error={membersError || clansError || townhallsError}
     >
-      <MemberTable
+      <AccountTable
         columns={columns}
         data={data!}
         clans={clans!}

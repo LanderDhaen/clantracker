@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import {
   flexRender,
   getCoreRowModel,
@@ -10,7 +9,6 @@ import {
   ColumnFiltersState,
   SortingState,
 } from "@tanstack/react-table";
-
 import {
   Table,
   TableBody,
@@ -19,34 +17,30 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/Table";
-
 import { Button } from "@/components/ui/Button";
-
 import { useNavigate } from "react-router-dom";
-
 import { ListPlus } from "lucide-react";
-
 import { ClanListEntry } from "@/api/clan";
 import { TownhallListEntry } from "@/api/townhall";
-import { AccountListEntry } from "@/api/account";
 import { Input } from "@/components/ui/Input";
 import NationalityFilterPopover from "./NationalityFilter";
 import ClanFilterPopover from "../../components/clan/ClanFilter";
 import TownhallFilterPopover from "../../components/townhall/TownhallFilter";
+import { GetAllAccountsResponse } from "@backend-types/account";
 
-interface AccountTableProps<TData> {
-  columns: ColumnDef<TData>[];
-  data: TData[];
+interface AccountTableProps {
+  columns: ColumnDef<GetAllAccountsResponse[number]>[];
+  data: GetAllAccountsResponse;
   clans: ClanListEntry[];
   townhalls: TownhallListEntry[];
 }
 
-export function MemberTable({
+export function AccountTable({
   columns,
   data,
   clans,
   townhalls,
-}: AccountTableProps<AccountListEntry>) {
+}: AccountTableProps) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
@@ -145,18 +139,16 @@ export function MemberTable({
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id} className="text-center">
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  );
-                })}
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id} className="text-center">
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableHead>
+                ))}
               </TableRow>
             ))}
           </TableHeader>

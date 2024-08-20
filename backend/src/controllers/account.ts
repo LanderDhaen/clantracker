@@ -12,7 +12,7 @@ export const getMainAccounts = async () => {
   return accountService.getMainAccounts();
 };
 
-export const getAccountByID = async (id) => {
+export const getAccountByID = async (id: number) => {
   return accountService.getAccountByID(id);
 };
 

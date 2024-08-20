@@ -1,56 +1,19 @@
 import useSWR, { SWRResponse } from "swr";
 import { get } from "./index.js";
-import { ClanListEntry } from "./clan.js";
-import { PerformanceDetail, PerformanceYearly } from "./performance.js";
-
-export type AccountListEntry = {
-  ID: number;
-  username: string;
-  name: string | null;
-  role: number;
-  joined: Date | string;
-  left: Date | string | null;
-  nationality: string;
-  clan: string;
-  clanID: number;
-  townhall: number;
-  main: string | null;
-};
-
-export type AccountDetail = {
-  ID: number;
-  username: string;
-  name: string | null;
-  role: number;
-  joined: Date | string;
-  left: Date | string | null;
-  nationality: string;
-  townhall: number;
-  mainID: number | null;
-  clan: ClanListEntry;
-  statistics: PerformanceYearly[];
-  performances: PerformanceDetail[];
-};
-
-export type MainAccountListEntry = {
-  ID: number;
-  username: string;
-  townhall: number;
-};
+import {
+  GetAllAccountsResponse,
+  GetAccountByIDResponse,
+  GetMainAccountsResponse,
+} from "@backend-types/account";
 
 export function getAccounts() {
-  return useSWR("/accounts", get) as SWRResponse<AccountListEntry[]>;
+  return useSWR("/accounts", get) as SWRResponse<GetAllAccountsResponse>;
 }
 
 export function getAccountByID(id: string | undefined) {
-  return useSWR(
-    id ? `/accounts/${id}` : null,
-    get
-  ) as SWRResponse<AccountDetail>;
+  return useSWR<GetAccountByIDResponse>(id ? `/accounts/${id}` : null, get);
 }
 
 export function getMainAccounts() {
-  return useSWR("/accounts/main-accounts", get) as SWRResponse<
-    MainAccountListEntry[]
-  >;
+  return useSWR<GetMainAccountsResponse>("/accounts/main-accounts", get);
 }

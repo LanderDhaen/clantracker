@@ -1,4 +1,3 @@
-import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -41,19 +40,22 @@ import { formatTownhall } from "@/lib/formatTownhall";
 import { post, put } from "../../api";
 import useSWRMutation from "swr/mutation";
 
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { useNavigate } from "react-router-dom";
-import { AccountDetail, MainAccountListEntry } from "@/api/account";
+import {
+  GetMainAccountsResponse,
+  GetAccountByIDResponse,
+} from "@backend-types/account";
 import { ClanListEntry } from "@/api/clan";
 import { TownhallListEntry } from "@/api/townhall";
 
 interface AccountFormProps {
-  mainAccounts: MainAccountListEntry[];
+  mainAccounts: GetMainAccountsResponse;
   clans: ClanListEntry[];
   townhalls: TownhallListEntry[];
-  account: AccountDetail;
+  account: GetAccountByIDResponse;
 }
 
 const nationalities = ["Belgian", "Dutch"];

@@ -6,6 +6,8 @@ import {
   Updateable,
 } from "kysely";
 
+import * as accountController from "../controllers/account";
+
 export interface AccountTable {
   ID: Generated<number>;
   username: ColumnType<string>;
@@ -22,3 +24,15 @@ export interface AccountTable {
 export type Account = Selectable<AccountTable>;
 export type InsertableAccount = Insertable<AccountTable>;
 export type UpdateableAccount = Updateable<AccountTable>;
+
+export type GetAllAccountsResponse = Awaited<
+  ReturnType<typeof accountController.getAllAccounts>
+>;
+
+export type GetMainAccountsResponse = Awaited<
+  ReturnType<typeof accountController.getMainAccounts>
+>;
+
+export type GetAccountByIDResponse = Awaited<
+  ReturnType<typeof accountController.getAccountByID>
+>;
