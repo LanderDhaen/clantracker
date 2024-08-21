@@ -12,3 +12,6 @@ export const MONTHS = {
   NOVEMBER: 11,
   DECEMBER: 12,
 } as const;
+
+export type MonthKey = keyof typeof MONTHS;
+export type MonthValue = (typeof MONTHS)[MonthKey];

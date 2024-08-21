@@ -1,4 +1,4 @@
-export const formatTownhall = (townhall) => {
+export const formatTownhall = (townhall: number) => {
   if (townhall <= 8) return "bg-orange-200 ";
   if (townhall === 9) return "bg-gray-400";
   if (townhall === 10) return "bg-red-400";

@@ -7,12 +7,13 @@ import {
 } from "kysely";
 
 import * as accountController from "../controllers/account";
+import { RoleValue } from "../data/enums/roles";
 
 export interface AccountTable {
   ID: Generated<number>;
   username: ColumnType<string>;
   name: ColumnType<string> | null;
-  role: ColumnType<number>;
+  role: ColumnType<RoleValue>;
   joined: ColumnType<Date, string>;
   left: ColumnType<Date, string> | null;
   nationality: ColumnType<string>;

@@ -1,6 +1,7 @@
 import { sql } from "kysely";
 import { db } from "../data/index";
 import { InsertableAccount, UpdateableAccount } from "../types/account";
+import { MonthValue } from "../data/enums/months";
 
 export const getAllAccounts = async () => {
   const accounts = await db
@@ -154,7 +155,7 @@ export const getAccountDetailsByID = async (id: number) => {
       `.as("statistics"),
       sql<
         {
-          month: number;
+          month: MonthValue;
           year: number;
           stars: number;
           damage: number;

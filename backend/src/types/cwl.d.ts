@@ -5,14 +5,16 @@ import {
   Selectable,
   Updateable,
 } from "kysely";
+import { MonthValue } from "../data/enums/months";
+import { PlacementTypeValue } from "../data/enums/placementTypes";
 
 export interface CWLTable {
   ID: Generated<number>;
-  month: ColumnType<number>;
+  month: ColumnType<MonthValue>;
   year: ColumnType<number>;
   league: ColumnType<number>;
   placement: ColumnType<number>;
-  placementType: ColumnType<number>;
+  placementType: ColumnType<PlacementTypeValue>;
   clanID: ColumnType<number>;
 }
 

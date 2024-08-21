@@ -9,3 +9,6 @@ export const LEAGUES = {
   CHAMP2: 80,
   CHAMP1: 90,
 } as const;
+
+export type LeagueKey = keyof typeof LEAGUES;
+export type LeagueValue = (typeof LEAGUES)[LeagueKey];

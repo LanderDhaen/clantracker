@@ -7,22 +7,22 @@ export const axios = axiosBuilder.create({
   withCredentials: true,
 });
 
-export const post = async (url, { arg }) => {
+export const post = async (url: string, { arg }: { arg: any }) => {
   const { data } = await axios.post(url, arg);
   return data;
 };
 
-export const put = async (url, { arg }) => {
+export const put = async (url: string, { arg }: { arg: any }) => {
   const { data } = await axios.put(url, arg);
   return data;
 };
 
-export const get = async (url) => {
+export const get = async (url: string) => {
   const { data } = await axios.get(url);
   return data;
 };
 
-export const patch = async (url, { arg }) => {
+export const patch = async (url: string, { arg }: { arg: any }) => {
   const { data } = await axios.patch(url, arg);
   return data;
 };
