@@ -36,3 +36,7 @@ export type GetMainAccountsResponse = Awaited<
 export type GetAccountByIDResponse = Awaited<
   ReturnType<typeof accountController.getAccountByID>
 >;
+
+export type GetAccountDetailsByIDResponse = Awaited<
+  ReturnType<typeof accountController.getAccountDetailsByID>
+>;

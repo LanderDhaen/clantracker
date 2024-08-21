@@ -48,13 +48,13 @@ import {
   GetMainAccountsResponse,
   GetAccountByIDResponse,
 } from "@backend-types/account";
-import { ClanListEntry } from "@/api/clan";
-import { TownhallListEntry } from "@/api/townhall";
+import { getAllClansResponse } from "@backend-types/clan";
+import { getAllTownhallsResponse } from "@backend-types/townhall";
 
 interface AccountFormProps {
   mainAccounts: GetMainAccountsResponse;
-  clans: ClanListEntry[];
-  townhalls: TownhallListEntry[];
+  clans: getAllClansResponse;
+  townhalls: getAllTownhallsResponse;
   account: GetAccountByIDResponse;
 }
 
@@ -115,8 +115,8 @@ export default function AccountForm({
       joined: account?.joined ? new Date(account.joined) : undefined,
       left: account?.left ? new Date(account.left) : undefined,
       accountID: account?.mainID || undefined,
-      townhallID: account?.townhall || undefined,
-      clanID: account?.clan.ID || undefined,
+      townhallID: account?.townhallID || undefined,
+      clanID: account?.ID || undefined,
     },
     resolver: zodResolver(formSchema),
   });

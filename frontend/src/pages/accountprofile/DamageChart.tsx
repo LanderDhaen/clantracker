@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Card,
   CardHeader,
@@ -8,29 +7,23 @@ import {
   CardFooter,
 } from "@/components/ui/Card";
 
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/Chart";
+import { ChartContainer } from "@/components/ui/Chart";
 
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ReferenceLine,
-  Label,
-  LabelList,
-} from "recharts";
+import { LineChart, Line, XAxis, CartesianGrid, LabelList } from "recharts";
 
 import { formatMonth } from "@/lib/formatMonth";
+import { GetAccountDetailsByIDResponse } from "@backend-types/account";
 
-export default function DamageChart({ performances, statistics }) {
-  const { year, avgStars, avgDamage, totalStars, totalDamage, totalAttacks } =
-    statistics;
+interface DamageChartProps {
+  statistics: GetAccountDetailsByIDResponse["statistics"][number];
+  performances: GetAccountDetailsByIDResponse["performances"];
+}
+
+export default function DamageChart({
+  performances,
+  statistics,
+}: DamageChartProps) {
+  const { year, avgDamage, totalDamage, totalAttacks } = statistics;
 
   const data = performances.map((performance) => ({
     date: formatMonth(performance.month),
@@ -60,7 +53,6 @@ export default function DamageChart({ performances, statistics }) {
           }}
         >
           <LineChart
-            width="100%"
             data={data}
             margin={{
               left: 30,
@@ -86,7 +78,7 @@ export default function DamageChart({ performances, statistics }) {
                 offset={10}
                 fill="black"
                 fontSize={12}
-                formatter={(value) => `${value}%`}
+                formatter={(value: number) => `${value}%`}
               />
             </Line>
           </LineChart>

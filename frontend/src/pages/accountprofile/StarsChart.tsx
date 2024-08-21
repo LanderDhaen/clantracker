@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Card,
   CardHeader,
@@ -8,27 +7,22 @@ import {
   CardFooter,
 } from "@/components/ui/Card";
 
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/Chart";
+import { ChartContainer } from "@/components/ui/Chart";
 
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ReferenceLine,
-  Label,
-  LabelList,
-} from "recharts";
+import { LineChart, Line, XAxis, CartesianGrid, LabelList } from "recharts";
 
 import { formatMonth } from "@/lib/formatMonth";
+import { GetAccountDetailsByIDResponse } from "@backend-types/account";
 
-export default function StarsChart({ performances, statistics }) {
+interface StarsChartProps {
+  statistics: GetAccountDetailsByIDResponse["statistics"][number];
+  performances: GetAccountDetailsByIDResponse["performances"];
+}
+
+export default function StarsChart({
+  performances,
+  statistics,
+}: StarsChartProps) {
   const { year, avgStars, totalStars, totalAttacks } = statistics;
 
   const data = performances.map((performance) => ({
@@ -59,7 +53,6 @@ export default function StarsChart({ performances, statistics }) {
           }}
         >
           <LineChart
-            width="100%"
             data={data}
             margin={{
               left: 30,

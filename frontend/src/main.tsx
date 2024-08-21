@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./components/Root";
 
 import PerformancePage from "./pages/performances/PerformancePage";
-import Home from "./components/Home.jsx";
+import Home from "./components/Home";
 import AccountFormPage from "./pages/accountform/AccountFormPage";
 import ClanPage from "./pages/clans/ClanPage";
 import ClanProfilePage from "./pages/clanprofile/ClanProfilePage";

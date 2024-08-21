@@ -7,31 +7,31 @@ import {
   Calendar,
   Home,
   Shield,
-  Castle,
   Power,
   CreditCard,
-  Crown,
-  TrendingUp,
   MapPin,
-  Languages,
 } from "lucide-react";
 
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/Card";
 
-import { formatRole } from "@/lib/formatRole";
+import { formatRole, RoleValue } from "@/lib/formatRole";
 import { format } from "date-fns";
 
 import { Button } from "@/components/ui/Button";
 import ClanCard from "@/components/clan/ClanCard";
+import { GetAccountDetailsByIDResponse } from "@backend-types/account";
 
-export default function AccountProfile({ profile }) {
+interface AccountProfileProps {
+  account: GetAccountDetailsByIDResponse;
+}
+
+export default function AccountProfile({ account }: AccountProfileProps) {
   const navigate = useNavigate();
 
   const {
@@ -45,10 +45,10 @@ export default function AccountProfile({ profile }) {
     clan,
     statistics,
     performances,
-  } = profile;
+  } = account;
 
-  const filteredPerformances = (year) =>
-    performances.filter((performance) => performance.year === parseInt(year));
+  const filteredPerformances = (year: number) =>
+    performances.filter((performance) => performance.year === year);
 
   const handleEditClick = () => {
     navigate(`/accounts/${ID}/edit`);
@@ -83,7 +83,7 @@ export default function AccountProfile({ profile }) {
             </div>
             <div className="flex items-center mb-4">
               <Shield className="mr-2" />
-              Role: {formatRole(role)}
+              Role: {formatRole(role as RoleValue)}
             </div>
             <div className="flex items-center mb-4">
               <Calendar className="mr-2" />
