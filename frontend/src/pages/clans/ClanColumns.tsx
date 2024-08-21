@@ -2,10 +2,10 @@ import { Button } from "@/components/ui/Button";
 import { ArrowUpDown } from "lucide-react";
 
 import { formatLeague, LeagueValue } from "@/lib/formatLeague";
-import { ClanListEntry } from "@/api/clan";
 import { ColumnDef } from "@tanstack/react-table";
+import { getAllClansResponse } from "@backend-types/clan";
 
-export const columns: ColumnDef<ClanListEntry>[] = [
+export const columns: ColumnDef<getAllClansResponse[number]>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => {

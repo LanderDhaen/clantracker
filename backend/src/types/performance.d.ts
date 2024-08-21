@@ -6,6 +6,8 @@ import {
   Updateable,
 } from "kysely";
 
+import * as performanceController from "../controllers/performance";
+
 export interface PerformanceTable {
   ID: Generated<number>;
   attacks: ColumnType<number>;
@@ -20,3 +22,7 @@ export interface PerformanceTable {
 export type Performance = Selectable<PerformanceTable>;
 export type InsertablePerformance = Insertable<PerformanceTable>;
 export type UpdateablePerformance = Updateable<PerformanceTable>;
+
+export type GetAllPerformancesResponse = Awaited<
+  ReturnType<typeof performanceController.getAllPerformances>
+>;

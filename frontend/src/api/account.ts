@@ -7,7 +7,7 @@ import {
 } from "@backend-types/account";
 
 export function getAccounts() {
-  return useSWR("/accounts", get) as SWRResponse<GetAllAccountsResponse>;
+  return useSWR<GetAllAccountsResponse>("/accounts", get);
 }
 
 export function getAccountByID(id: string | undefined) {

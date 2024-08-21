@@ -4,7 +4,6 @@ import { AccountTable } from "./AccountTable";
 import { getClans } from "@/api/clan";
 import { getTownhalls } from "@/api/townhall";
 import AsyncData from "@/components/AsyncData";
-import { GetAllAccountsResponse } from "@backend-types/account";
 
 export default function AccountPage() {
   const {

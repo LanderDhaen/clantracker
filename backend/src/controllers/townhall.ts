@@ -2,11 +2,11 @@ import ServiceError from "../middleware/serviceError";
 import * as townhallService from "../services/townhall";
 import { InsertableTownhall, UpdateableTownhall } from "../types/townhall";
 
-export const getAllTownHalls = async () => {
-  return townhallService.getAllTownHalls();
+export const getAllTownhalls = async () => {
+  return townhallService.getAllTownhalls();
 };
 
-const checkTownhallExists = async (id: number) => {
+export const checkTownhallExists = async (id: number) => {
   const townhall = await townhallService.checkTownhallExists(id);
   if (!townhall) {
     throw ServiceError.notFound(`Townhall with ID ${id} does not exist`);

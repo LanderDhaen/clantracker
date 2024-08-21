@@ -20,19 +20,19 @@ import {
 import { Button } from "@/components/ui/Button";
 import { useNavigate } from "react-router-dom";
 import { ListPlus } from "lucide-react";
-import { ClanListEntry } from "@/api/clan";
-import { TownhallListEntry } from "@/api/townhall";
 import { Input } from "@/components/ui/Input";
 import NationalityFilterPopover from "./NationalityFilter";
 import ClanFilterPopover from "../../components/clan/ClanFilter";
 import TownhallFilterPopover from "../../components/townhall/TownhallFilter";
 import { GetAllAccountsResponse } from "@backend-types/account";
+import { getAllClansResponse } from "@backend-types/clan";
+import { getAllTownhallsResponse } from "@backend-types/townhall";
 
 interface AccountTableProps {
   columns: ColumnDef<GetAllAccountsResponse[number]>[];
   data: GetAllAccountsResponse;
-  clans: ClanListEntry[];
-  townhalls: TownhallListEntry[];
+  clans: getAllClansResponse;
+  townhalls: getAllTownhallsResponse;
 }
 
 export function AccountTable({

@@ -4,12 +4,12 @@ import * as townHallController from "../controllers/townhall";
 import { validate } from "../middleware/validation";
 import { Context } from "koa";
 
-const getAllTownHalls = async (ctx: Context) => {
-  const data = await townHallController.getAllTownHalls();
+const getAllTownhalls = async (ctx: Context) => {
+  const data = await townHallController.getAllTownhalls();
   ctx.body = data;
 };
 
-getAllTownHalls.validationScheme = {};
+getAllTownhalls.validationScheme = {};
 
 const getTownhallByID = async (ctx: Context) => {
   const id = Number(ctx.params.id);
@@ -59,8 +59,8 @@ export default (router: Router): void => {
 
   townHallRouter.get(
     "/",
-    validate(getAllTownHalls.validationScheme),
-    getAllTownHalls
+    validate(getAllTownhalls.validationScheme),
+    getAllTownhalls
   );
 
   townHallRouter.get(

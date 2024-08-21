@@ -22,23 +22,23 @@ import {
 
 import { useNavigate } from "react-router-dom";
 
-import { TownhallListEntry } from "@/api/townhall";
-import { PerformanceListEntry } from "@/api/performance";
 import { Input } from "@/components/ui/Input";
 
 import TownhallFilterPopover from "@/components/townhall/TownhallFilter";
+import { getAllTownhallsResponse } from "@backend-types/townhall";
+import { GetAllPerformancesResponse } from "@backend-types/performance";
 
-interface PerformanceTableProps<TData> {
-  columns: ColumnDef<TData>[];
-  data: TData[];
-  townhalls: TownhallListEntry[];
+interface PerformanceTableProps {
+  columns: ColumnDef<GetAllPerformancesResponse[number]>[];
+  data: GetAllPerformancesResponse;
+  townhalls: getAllTownhallsResponse;
 }
 
 export function PerformanceTable({
   columns,
   data,
   townhalls,
-}: PerformanceTableProps<PerformanceListEntry>) {
+}: PerformanceTableProps) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 

@@ -1,16 +1,8 @@
-import useSWR, { SWRResponse } from "swr";
+import useSWR from "swr";
 import { get } from "./index.js";
 
-export type ClanListEntry = {
-  ID: number;
-  name: string;
-  level: number;
-  location: string;
-  language: string;
-  cwl: number;
-  longestWinStreak: number;
-};
+import { getAllClansResponse } from "@backend-types/clan.js";
 
 export function getClans() {
-  return useSWR("/clans", get) as SWRResponse<ClanListEntry[]>;
+  return useSWR<getAllClansResponse>("/clans", get);
 }

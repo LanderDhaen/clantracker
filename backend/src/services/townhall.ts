@@ -1,7 +1,7 @@
 import { db } from "../data/index";
 import { InsertableTownhall, UpdateableTownhall } from "../types/townhall";
 
-export const getAllTownHalls = async () => {
+export const getAllTownhalls = async () => {
   const townhalls = await db.selectFrom("townhall").selectAll().execute();
 
   return townhalls;

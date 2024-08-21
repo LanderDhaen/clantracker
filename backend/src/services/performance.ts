@@ -69,14 +69,16 @@ export const getAllPerformances = async () => {
         '{}'::jsonb
       )
     `.as("alltime"),
-      sql<{
-        year: number;
-        totalStars: number;
-        avgStars: number;
-        totalDamage: number;
-        avgDamage: number;
-        totalAttacks: number;
-      }>`
+      sql<
+        {
+          year: number;
+          totalStars: number;
+          avgStars: number;
+          totalDamage: number;
+          avgDamage: number;
+          totalAttacks: number;
+        }[]
+      >`
       COALESCE(
         (
           SELECT jsonb_agg(

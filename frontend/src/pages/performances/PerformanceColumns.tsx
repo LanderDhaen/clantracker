@@ -2,11 +2,10 @@ import { Button } from "@/components/ui/Button";
 import { ArrowUpDown } from "lucide-react";
 import { formatTownhall } from "@/lib/formatTownhall";
 import { cn } from "@/lib/utils";
-import PerformanceToolTip from "./PerformanceToolTip";
-import { PerformanceAllTime, PerformanceListEntry } from "@/api/performance";
 import { ColumnDef } from "@tanstack/react-table";
+import { GetAllPerformancesResponse } from "@backend-types/performance";
 
-export const columns: ColumnDef<PerformanceListEntry>[] = [
+export const columns: ColumnDef<GetAllPerformancesResponse[number]>[] = [
   {
     accessorKey: "account",
     header: ({ column }) => {
@@ -66,10 +65,8 @@ export const columns: ColumnDef<PerformanceListEntry>[] = [
         </Button>
       );
     },
-    cell: ({ getValue, row }) => {
+    cell: ({ getValue }) => {
       const avgStars = getValue() as number;
-
-      const data = row.original.alltime as PerformanceAllTime;
 
       return (
         <div className={"flex items-center justify-center"}>
@@ -80,7 +77,7 @@ export const columns: ColumnDef<PerformanceListEntry>[] = [
             )}
           ></span>
 
-          <PerformanceToolTip data={data} />
+          {avgStars}
         </div>
       );
     },
@@ -100,11 +97,8 @@ export const columns: ColumnDef<PerformanceListEntry>[] = [
         </Button>
       );
     },
-    cell: ({ getValue, row }) => {
+    cell: ({ getValue }) => {
       const avgStars = getValue() as number;
-      const data = row.original.yearly.find(
-        (yearly) => yearly.year === 2024
-      ) as PerformanceAllTime;
 
       if (avgStars === undefined) {
         return "-";
@@ -118,8 +112,7 @@ export const columns: ColumnDef<PerformanceListEntry>[] = [
               avgStars >= 2 ? "bg-green-500" : "bg-red-500"
             )}
           ></span>
-
-          <PerformanceToolTip data={data} />
+          {avgStars}
         </div>
       );
     },
@@ -147,11 +140,8 @@ export const columns: ColumnDef<PerformanceListEntry>[] = [
         </Button>
       );
     },
-    cell: ({ getValue, row }) => {
+    cell: ({ getValue }) => {
       const avgStars = getValue() as number;
-      const data = row.original.yearly.find(
-        (yearly) => yearly.year === 2023
-      ) as PerformanceAllTime;
 
       if (avgStars === undefined) {
         return "-";
@@ -165,7 +155,7 @@ export const columns: ColumnDef<PerformanceListEntry>[] = [
               avgStars >= 2 ? "bg-green-500" : "bg-red-500"
             )}
           ></span>
-          <PerformanceToolTip data={data} />
+          {avgStars}
         </div>
       );
     },

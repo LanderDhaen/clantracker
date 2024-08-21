@@ -26,15 +26,15 @@ import { useNavigate } from "react-router-dom";
 
 import { ListPlus } from "lucide-react";
 
-import { ClanListEntry } from "@/api/clan";
 import { Input } from "@/components/ui/Input";
+import { getAllClansResponse } from "@backend-types/clan";
 
-interface ClanTableProps<TData> {
-  columns: ColumnDef<TData>[];
-  data: TData[];
+interface ClanTableProps {
+  columns: ColumnDef<getAllClansResponse[number]>[];
+  data: getAllClansResponse;
 }
 
-export function ClanTable({ columns, data }: ClanTableProps<ClanListEntry>) {
+export function ClanTable({ columns, data }: ClanTableProps) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 

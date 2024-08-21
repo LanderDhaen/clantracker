@@ -1,11 +1,7 @@
-import useSWR, { SWRResponse } from "swr";
+import useSWR from "swr";
 import { get } from "./index.js";
-
-export type TownhallListEntry = {
-  ID: number;
-  level: number;
-};
+import { getAllTownhallsResponse } from "@backend-types/townhall.js";
 
 export function getTownhalls() {
-  return useSWR("/townhalls", get) as SWRResponse<TownhallListEntry[]>;
+  return useSWR<getAllTownhallsResponse>("/townhalls", get);
 }
