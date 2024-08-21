@@ -2,7 +2,11 @@ import { db } from "../data/index";
 import { InsertableTownhall, UpdateableTownhall } from "../types/townhall";
 
 export const getAllTownhalls = async () => {
-  const townhalls = await db.selectFrom("townhall").selectAll().execute();
+  const townhalls = await db
+    .selectFrom("townhall")
+    .selectAll()
+    .orderBy("townhall.level desc")
+    .execute();
 
   return townhalls;
 };

@@ -11,7 +11,7 @@ export const colorTownhall = (townhall: number) => {
     case 13:
       return "bg-blue-500";
     case 14:
-      return "bg-green-500";
+      return "bg-green-600";
     case 15:
       return "bg-purple-500";
     case 16:

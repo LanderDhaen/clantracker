@@ -7,6 +7,7 @@ import {
 import { Button } from "@/components/ui/Button";
 import { Filter } from "lucide-react";
 import { TownhallListEntry } from "@/api/townhall";
+import TownhallLabel from "./TownhallLabel";
 
 interface TownhallFilterProps {
   townhalls: TownhallListEntry[];
@@ -44,7 +45,7 @@ export default function TownhallFilterr({
                   }`}
                   onClick={() => onSelectChange("townhall", townhall.ID)}
                 >
-                  Townhall {townhall.level}
+                  <TownhallLabel townhall={townhall.level} />
                 </div>
               );
             })}
