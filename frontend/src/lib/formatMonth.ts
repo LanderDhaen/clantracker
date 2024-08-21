@@ -11,9 +11,12 @@ export const months = {
   OCTOBER: 10,
   NOVEMBER: 11,
   DECEMBER: 12,
-};
+} as const;
 
-export const monthLabel = {
+export type MonthKey = keyof typeof months;
+export type MonthValue = (typeof months)[MonthKey];
+
+export const monthLabel: Record<MonthValue, string> = {
   [months.JANUARY]: "Jan",
   [months.FEBRUARY]: "Feb",
   [months.MARCH]: "Mar",
@@ -28,4 +31,4 @@ export const monthLabel = {
   [months.DECEMBER]: "Dec",
 };
 
-export const formatMonth = (month) => monthLabel[month];
+export const formatMonth = (month: MonthValue) => monthLabel[month];
