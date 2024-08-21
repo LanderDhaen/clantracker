@@ -18,7 +18,7 @@ import {
 
 import { Button } from "@/components/ui/Button";
 
-import { colorLeague, formatLeague } from "@/lib/formatLeague";
+import { colorLeague, formatLeague, LeagueValue } from "@/lib/formatLeague";
 
 import { useNavigate } from "react-router-dom";
 
@@ -29,7 +29,7 @@ interface ClanCardProps {
     level: number;
     location: string;
     language: string;
-    cwl: number;
+    cwl: LeagueValue;
     longestWinStreak: number;
   };
 }
