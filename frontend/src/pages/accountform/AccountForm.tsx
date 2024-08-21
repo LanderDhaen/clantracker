@@ -116,7 +116,7 @@ export default function AccountForm({
       left: account?.left ? new Date(account.left) : undefined,
       accountID: account?.mainID || undefined,
       townhallID: account?.townhallID || undefined,
-      clanID: account?.ID || undefined,
+      clanID: account?.clanID || undefined,
     },
     resolver: zodResolver(formSchema),
   });
@@ -172,8 +172,7 @@ export default function AccountForm({
               <FormLabel>Nationality</FormLabel>
               <Select
                 onValueChange={field.onChange}
-                defaultValue={field.value ? field.value.toString() : ""}
-                value={field.value ? field.value.toString() : ""}
+                value={field.value ? field.value : ""}
               >
                 <FormControl>
                   <SelectTrigger>
@@ -200,7 +199,6 @@ export default function AccountForm({
               <FormLabel>Townhall</FormLabel>
               <Select
                 onValueChange={(value) => field.onChange(parseInt(value))}
-                defaultValue={field.value ? field.value.toString() : ""}
                 value={field.value ? field.value.toString() : ""}
               >
                 <FormControl>
@@ -231,7 +229,6 @@ export default function AccountForm({
               <FormLabel>Clan</FormLabel>
               <Select
                 onValueChange={(value) => field.onChange(parseInt(value))}
-                defaultValue={field.value ? field.value.toString() : ""}
                 value={field.value ? field.value.toString() : ""}
               >
                 <FormControl>
