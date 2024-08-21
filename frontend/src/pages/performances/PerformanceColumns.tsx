@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/Button";
 import { ArrowUpDown } from "lucide-react";
-import { formatTownhall } from "@/lib/formatTownhall";
 import { cn } from "@/lib/utils";
 import { ColumnDef } from "@tanstack/react-table";
 import { GetAllPerformancesResponse } from "@backend-types/performance";
+import TownhallLabel from "@/components/townhall/TownhallLabel";
 
 export const columns: ColumnDef<GetAllPerformancesResponse[number]>[] = [
   {
@@ -35,16 +35,8 @@ export const columns: ColumnDef<GetAllPerformancesResponse[number]>[] = [
     },
     cell: ({ getValue }) => {
       const townhall = getValue() as number;
-      const color = formatTownhall(townhall);
 
-      return (
-        <div className={"flex items-center justify-center"}>
-          <span
-            className={cn("w-2 h-2 bg-current rounded-full mr-2", color)}
-          ></span>
-          TH {townhall}
-        </div>
-      );
+      return <TownhallLabel townhall={townhall} />;
     },
     filterFn: (row, columnId, filterTownhalls) => {
       if (filterTownhalls.length === 0) return true;

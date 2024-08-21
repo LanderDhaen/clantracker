@@ -35,7 +35,6 @@ import {
 } from "@/components/ui/Popover";
 
 import { ROLES, formatRole } from "@/lib/formatRole";
-import { formatTownhall } from "@/lib/formatTownhall";
 
 import { post, put } from "../../api";
 import useSWRMutation from "swr/mutation";
@@ -50,6 +49,7 @@ import {
 } from "@backend-types/account";
 import { getAllClansResponse } from "@backend-types/clan";
 import { getAllTownhallsResponse } from "@backend-types/townhall";
+import TownhallLabel from "@/components/townhall/TownhallLabel";
 
 interface AccountFormProps {
   mainAccounts: GetMainAccountsResponse;
@@ -214,15 +214,7 @@ export default function AccountForm({
                       key={townhall.ID}
                       value={townhall.ID.toString()}
                     >
-                      <div className="flex items-center space-x-2">
-                        <span
-                          className={cn(
-                            "w-2 h-2 rounded-full mr-2",
-                            formatTownhall(townhall.level)
-                          )}
-                        ></span>
-                        TH {townhall.level}
-                      </div>
+                      <TownhallLabel townhall={townhall.ID} />
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -307,14 +299,9 @@ export default function AccountForm({
                           key={account.ID}
                           value={account.ID.toString()}
                         >
-                          <div className="flex items-center space-x-2">
-                            <span
-                              className={cn(
-                                "w-2 h-2 rounded-full mr-2",
-                                formatTownhall(account.townhall)
-                              )}
-                            ></span>
-                            TH {account.townhall} | {account.username}
+                          <div className="flex items-center space-x-1">
+                            <TownhallLabel townhall={account.townhall} />
+                            <span>| {account.username}</span>
                           </div>
                         </SelectItem>
                       ))}
