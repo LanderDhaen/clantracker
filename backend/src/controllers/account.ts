@@ -16,6 +16,10 @@ export const getAccountByID = async (id: number) => {
   return accountService.getAccountByID(id);
 };
 
+export const getAccountDetailsByID = async (id: number) => {
+  return accountService.getAccountDetailsByID(id);
+};
+
 export const createAccount = async (account: InsertableAccount) => {
   await townhallController.getTownhallByID(account.townhallID);
   await clanController.checkClanExists(account.clanID);

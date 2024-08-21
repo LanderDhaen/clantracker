@@ -31,6 +31,18 @@ getAccountByID.validationScheme = {
   }),
 };
 
+const getAccountDetailsByID = async (ctx: Context) => {
+  const id = Number(ctx.params.id);
+  const data = await accountController.getAccountDetailsByID(id);
+  ctx.body = data;
+};
+
+getAccountDetailsByID.validationScheme = {
+  params: Joi.object({
+    id: Joi.number().required(),
+  }),
+};
+
 const createAccount = async (ctx: Context) => {
   const body = ctx.request.body as InsertableAccount;
   await accountController.createAccount(body);
@@ -94,6 +106,11 @@ export default (router: Router) => {
     "/:id",
     validate(getAccountByID.validationScheme),
     getAccountByID
+  );
+  accountRouter.get(
+    "/:id/details",
+    validate(getAccountDetailsByID.validationScheme),
+    getAccountDetailsByID
   );
   accountRouter.post(
     "/",

@@ -41,6 +41,30 @@ export const getMainAccounts = async () => {
 
 export const getAccountByID = async (id: number) => {
   const account = await db
+    .selectFrom("account")
+    .innerJoin("clan", "account.clanID", "clan.ID")
+    .innerJoin("townhall", "account.townhallID", "townhall.ID")
+    .leftJoin("account as main", "account.accountID", "main.ID")
+    .select([
+      "account.ID",
+      "account.username",
+      "account.name",
+      "account.role",
+      "account.joined",
+      "account.left",
+      "account.nationality",
+      "account.accountID as mainID",
+      "clan.ID as clanID",
+      "townhall.ID as townhallID",
+    ])
+    .where("account.ID", "=", id)
+    .executeTakeFirst();
+
+  return account;
+};
+
+export const getAccountDetailsByID = async (id: number) => {
+  const account = await db
     .with("performances", (qb) =>
       qb
         .selectFrom("performance")
@@ -82,8 +106,8 @@ export const getAccountByID = async (id: number) => {
         .groupBy(["performance.accountID", "cwl.year"])
     )
     .selectFrom("account")
-    .leftJoin("townhall", "account.townhallID", "townhall.ID")
-    .leftJoin("clan", "account.clanID", "clan.ID")
+    .innerJoin("townhall", "account.townhallID", "townhall.ID")
+    .innerJoin("clan", "account.clanID", "clan.ID")
     .select([
       "account.ID",
       "account.username",
@@ -101,14 +125,16 @@ export const getAccountByID = async (id: number) => {
       "clan.cwl as cwl",
       "clan.longestWinStreak as longestWinStreak",
       "townhall.level as townhall",
-      sql<{
-        year: number;
-        totalStars: number;
-        avgStars: number;
-        totalDamage: number;
-        avgDamage: number;
-        totalAttacks: number;
-      }>`
+      sql<
+        {
+          year: number;
+          totalStars: number;
+          avgStars: number;
+          totalDamage: number;
+          avgDamage: number;
+          totalAttacks: number;
+        }[]
+      >`
       COALESCE(
         (
           SELECT jsonb_agg(
@@ -126,15 +152,17 @@ export const getAccountByID = async (id: number) => {
         '[]'
       )
       `.as("statistics"),
-      sql<{
-        month: number;
-        year: number;
-        stars: number;
-        damage: number;
-        attacks: number;
-        avgStars: number;
-        avgDamage: number;
-      }>`
+      sql<
+        {
+          month: number;
+          year: number;
+          stars: number;
+          damage: number;
+          attacks: number;
+          avgStars: number;
+          avgDamage: number;
+        }[]
+      >`
       COALESCE(
         (
           SELECT jsonb_agg(
