@@ -1,6 +1,8 @@
 import { db } from "../data/index";
 import { sql } from "kysely";
 import { PLACEMENTTYPES } from "../data/enums/placementTypes";
+import { MonthValue } from "../data/enums/months";
+import { RoleValue } from "../data/enums/roles";
 
 export const getAllClans = async () => {
   const clans = await db
@@ -87,7 +89,7 @@ export const getClanByID = async (id: number) => {
       "clan.language",
       "clan.cwl",
       "clan.longestWinStreak",
-      sql<{ value: number; amount: number }>`
+      sql<{ value: number; amount: number }[]>`
       COALESCE(
         (
           SELECT json_agg(
@@ -101,7 +103,7 @@ export const getClanByID = async (id: number) => {
         '[]'
       )
     `.as("townhalls"),
-      sql<{ value: string; amount: number }>`
+      sql<{ value: string; amount: number }[]>`
       COALESCE(
         (
           SELECT json_agg(
@@ -115,7 +117,7 @@ export const getClanByID = async (id: number) => {
         '[]'
       )
     `.as("nationalities"),
-      sql<{ value: number; amount: number }>`
+      sql<{ value: RoleValue; amount: number }[]>`
       COALESCE(
         (
           SELECT json_agg(
@@ -129,12 +131,14 @@ export const getClanByID = async (id: number) => {
         '[]'
       )
     `.as("roles"),
-      sql<{
-        year: number;
-        promotions: number;
-        safes: number;
-        demotions: number;
-      }>`
+      sql<
+        {
+          year: number;
+          promotions: number;
+          safes: number;
+          demotions: number;
+        }[]
+      >`
       COALESCE(
         (
           SELECT json_agg(
@@ -150,7 +154,7 @@ export const getClanByID = async (id: number) => {
         '[]'
       )
     `.as("statistics"),
-      sql<{ year: number; month: number; placement: number }>`
+      sql<{ year: number; month: MonthValue; placement: number }[]>`
       COALESCE(
         (
           SELECT json_agg(

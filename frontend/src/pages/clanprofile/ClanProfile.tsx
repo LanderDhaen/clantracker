@@ -1,38 +1,19 @@
-import { useNavigate } from "react-router-dom";
-
-import {
-  CreditCard,
-  Crown,
-  TrendingUp,
-  MapPin,
-  Languages,
-  Castle,
-} from "lucide-react";
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/Card";
-
-import { colorLeague, formatLeague } from "@/lib/formatLeague";
-
-import { Button } from "@/components/ui/Button";
-
 import NationatityChart from "./NationalityChart";
 import TownhallChart from "./TownhallChart";
 import RoleChart from "./RoleChart";
 import CWLChart from "./CWLChart";
 import ClanCard from "@/components/clan/ClanCard";
+import { getClanByIDResponse } from "@backend-types/clan";
 
-export default function ClanProfile({ data }) {
+interface ClanProfileProps {
+  data: getClanByIDResponse;
+}
+
+export default function ClanProfile({ data }: ClanProfileProps) {
   const { clan, statistics, leagues, nationalities, townhalls, roles } = data;
 
-  const filteredLeagues = (year) =>
-    leagues.filter((league) => league.year === parseInt(year));
+  const filteredLeagues = (year: number) =>
+    leagues.filter((league) => league.year === year);
 
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 w-full sm:px-20 pb-10">

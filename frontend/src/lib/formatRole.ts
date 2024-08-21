@@ -16,3 +16,18 @@ export const roleLabel: Record<RoleValue, string> = {
 };
 
 export const formatRole = (role: RoleValue) => roleLabel[role];
+
+export const colorChart = (role: RoleValue) => {
+  switch (role) {
+    case ROLES.LEADER:
+      return "#85CDFF";
+    case ROLES.COLEADER:
+      return "#47B1FF";
+    case ROLES.ELDER:
+      return "#0077FF";
+    case ROLES.MEMBER:
+      return "#364F7C";
+    default:
+      return "#000000";
+  }
+};

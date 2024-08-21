@@ -1,30 +1,30 @@
 import { Pie, PieChart } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import {
+  ChartConfig,
   ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
   ChartLegend,
   ChartLegendContent,
 } from "@/components/ui/Chart";
-import { MapPin } from "lucide-react";
+import { Shield } from "lucide-react";
 
-const COLORS = {
-  Dutch: "#364F7C",
-  Belgian: "#0077FF",
-};
+import { colorChart, formatRole } from "@/lib/formatRole";
+import { getClanByIDResponse } from "@backend-types/clan";
 
-export default function NationalityChart({ nationalities }) {
-  const chartData = nationalities.map((nationality) => ({
-    value: nationality.value,
-    amount: nationality.amount,
-    percent: nationality.percent,
-    fill: COLORS[nationality.value],
+interface RoleChartProps {
+  roles: getClanByIDResponse["roles"];
+}
+
+export default function NationalityChart({ roles }: RoleChartProps) {
+  const chartData = roles.map((role) => ({
+    value: role.value.toString(),
+    amount: role.amount,
+    fill: colorChart(role.value),
   }));
 
-  const chartConfig = nationalities.reduce((config, nationality) => {
-    config[nationality.value] = {
-      label: nationality.value,
+  const chartConfig = roles.reduce<ChartConfig>((config, role) => {
+    config[role.value] = {
+      label: formatRole(role.value),
     };
     return config;
   }, {});
@@ -34,8 +34,8 @@ export default function NationalityChart({ nationalities }) {
       <CardHeader>
         <CardTitle>
           <div className="flex items-center">
-            <MapPin className="mr-4" />
-            Nationalities
+            <Shield className="mr-4" />
+            Roles
           </div>
         </CardTitle>
       </CardHeader>
@@ -60,7 +60,7 @@ export default function NationalityChart({ nationalities }) {
                     dominantBaseline={props.dominantBaseline}
                     fill="hsla(var(--foreground))"
                   >
-                    {`(${payload.amount})`}
+                    {`${payload.amount}`}
                   </text>
                 );
               }}

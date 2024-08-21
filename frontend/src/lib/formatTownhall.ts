@@ -10,3 +10,26 @@ export const formatTownhall = (townhall: number) => {
   if (townhall === 16) return "bg-orange-500";
   return "";
 };
+
+export const colorChart = (townhall: number) => {
+  switch (townhall) {
+    case 9:
+      return "#B9B9B9";
+    case 10:
+      return "#FC8181";
+    case 11:
+      return "#F6E05E";
+    case 12:
+      return "#90CDF4";
+    case 13:
+      return "#3182CE";
+    case 14:
+      return "#48BB78";
+    case 15:
+      return "#9F7AEA";
+    case 16:
+      return "#ED8936";
+    default:
+      return "#FBD38D";
+  }
+};

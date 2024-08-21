@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Card,
   CardHeader,
@@ -8,11 +7,7 @@ import {
   CardFooter,
 } from "@/components/ui/Card";
 
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/Chart";
+import { ChartContainer } from "@/components/ui/Chart";
 
 import {
   LineChart,
@@ -20,17 +15,21 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
-  Label,
   LabelList,
 } from "recharts";
 
 import { formatMonth } from "@/lib/formatMonth";
 
 import { Swords } from "lucide-react";
+import { getClanByIDResponse } from "@backend-types/clan";
 
-export default function CWLChart({ leagues, statistics }) {
-  const { year, promotions, safe, demotions } = statistics;
+interface CWLChartProps {
+  leagues: getClanByIDResponse["leagues"];
+  statistics: getClanByIDResponse["statistics"][number];
+}
+
+export default function CWLChart({ leagues, statistics }: CWLChartProps) {
+  const { year, promotions, safes, demotions } = statistics;
 
   const data = leagues.map((league) => ({
     date: formatMonth(league.month),
@@ -60,7 +59,6 @@ export default function CWLChart({ leagues, statistics }) {
           }}
         >
           <LineChart
-            width="100%"
             data={data}
             margin={{
               left: 30,
@@ -101,8 +99,8 @@ export default function CWLChart({ leagues, statistics }) {
       <CardFooter>
         <CardDescription>
           In {year}, this clan had {promotions}{" "}
-          {promotions === 1 ? "promotion" : "promotions"}, {safe}{" "}
-          {safe === 1 ? "safe placement" : "safe placements"}, and {demotions}{" "}
+          {promotions === 1 ? "promotion" : "promotions"}, {safes}{" "}
+          {safes === 1 ? "safe placement" : "safe placements"}, and {demotions}{" "}
           {demotions === 1 ? "demotion" : "demotions"}.
         </CardDescription>
       </CardFooter>

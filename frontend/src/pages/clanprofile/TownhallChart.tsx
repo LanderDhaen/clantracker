@@ -6,36 +6,24 @@ import {
   ChartTooltipContent,
   ChartLegend,
   ChartLegendContent,
+  ChartConfig,
 } from "@/components/ui/Chart";
 import { Home } from "lucide-react";
+import { getClanByIDResponse } from "@backend-types/clan";
+import { colorChart } from "@/lib/formatTownhall";
 
-const COLORS = {
-  1: "#FBD38D",
-  2: "#FBD38D",
-  3: "#FBD38D",
-  4: "#FBD38D",
-  5: "#FBD38D",
-  6: "#FBD38D",
-  7: "#FBD38D",
-  8: "#FBD38D",
-  9: "#B9B9B9",
-  10: "#FC8181",
-  11: "#F6E05E",
-  12: "#90CDF4",
-  13: "#3182CE",
-  14: "#48BB78",
-  15: "#9F7AEA",
-  16: "#ED8936",
-};
+interface TownhallChartProps {
+  townhalls: getClanByIDResponse["townhalls"];
+}
 
-export default function TownhallChart({ townhalls }) {
+export default function TownhallChart({ townhalls }: TownhallChartProps) {
   const chartData = townhalls.map((townhall) => ({
     value: townhall.value.toString(),
     amount: townhall.amount,
-    fill: COLORS[townhall.value],
+    fill: colorChart(townhall.value),
   }));
 
-  const chartConfig = townhalls.reduce((config, townhall) => {
+  const chartConfig = townhalls.reduce<ChartConfig>((config, townhall) => {
     config[townhall.value] = {
       label: "TH" + townhall.value,
     };

@@ -1,45 +1,45 @@
 import { Pie, PieChart } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import {
+  ChartConfig,
   ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
   ChartLegend,
   ChartLegendContent,
 } from "@/components/ui/Chart";
-import { Shield } from "lucide-react";
+import { MapPin } from "lucide-react";
+import { getClanByIDResponse } from "@backend-types/clan";
+import { colorChart } from "@/lib/formatNationality";
 
-import { formatRole } from "@/lib/formatRole";
+interface NationalityChartProps {
+  nationalities: getClanByIDResponse["nationalities"];
+}
 
-const COLORS = {
-  10: "#85CDFF",
-  20: "#47B1FF",
-  30: "#0077FF",
-  40: "#364F7C",
-};
-
-export default function NationalityChart({ roles }) {
-  const chartData = roles.map((role) => ({
-    value: role.value.toString(),
-    amount: role.amount,
-    percent: role.percent,
-    fill: COLORS[role.value],
+export default function NationalityChart({
+  nationalities,
+}: NationalityChartProps) {
+  const chartData = nationalities.map((nationality) => ({
+    value: nationality.value,
+    amount: nationality.amount,
+    fill: colorChart(nationality.value),
   }));
 
-  const chartConfig = roles.reduce((config, role) => {
-    config[role.value] = {
-      label: formatRole(role.value),
-    };
-    return config;
-  }, {});
+  const chartConfig = nationalities.reduce<ChartConfig>(
+    (config, nationality) => {
+      config[nationality.value] = {
+        label: nationality.value,
+      };
+      return config;
+    },
+    {}
+  );
 
   return (
     <Card className="flex flex-col">
       <CardHeader>
         <CardTitle>
           <div className="flex items-center">
-            <Shield className="mr-4" />
-            Roles
+            <MapPin className="mr-4" />
+            Nationalities
           </div>
         </CardTitle>
       </CardHeader>
@@ -64,7 +64,7 @@ export default function NationalityChart({ roles }) {
                     dominantBaseline={props.dominantBaseline}
                     fill="hsla(var(--foreground))"
                   >
-                    {`${payload.amount}`}
+                    {`(${payload.amount})`}
                   </text>
                 );
               }}
