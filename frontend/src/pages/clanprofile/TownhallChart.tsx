@@ -2,8 +2,6 @@ import { Pie, PieChart } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import {
   ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
   ChartLegend,
   ChartLegendContent,
   ChartConfig,
@@ -31,7 +29,7 @@ export default function TownhallChart({ townhalls }: TownhallChartProps) {
   }, {});
 
   return (
-    <Card className="flex flex-col">
+    <Card className="flex flex-col w-full h-full shadow-lg rounded-3xl">
       <CardHeader>
         <CardTitle>
           <div className="flex items-center">

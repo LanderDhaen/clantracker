@@ -1,7 +1,10 @@
 export default function Loader() {
   return (
-    <div className="flex justify-center items-center min-h-screen">
-      <div className="w-16 h-16 border-4 border-t-4 border-blue-500 border-solid rounded-full animate-spin"></div>
+    <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75">
+      <div className="text-center">
+        <p className="text-lg font-semibold text-gray-700">Loading...</p>
+        <p className="text-sm text-gray-500">Please wait a moment</p>
+      </div>
     </div>
   );
 }

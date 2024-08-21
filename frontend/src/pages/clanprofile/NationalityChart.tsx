@@ -34,7 +34,7 @@ export default function NationalityChart({
   );
 
   return (
-    <Card className="flex flex-col">
+    <Card className="flex flex-col w-full h-full shadow-lg rounded-3xl">
       <CardHeader>
         <CardTitle>
           <div className="flex items-center">
@@ -64,7 +64,7 @@ export default function NationalityChart({
                     dominantBaseline={props.dominantBaseline}
                     fill="hsla(var(--foreground))"
                   >
-                    {`(${payload.amount})`}
+                    {payload.amount}
                   </text>
                 );
               }}
