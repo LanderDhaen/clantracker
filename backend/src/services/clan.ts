@@ -17,6 +17,7 @@ export const getAllClans = async () => {
       "clan.longestWinStreak",
     ])
     .orderBy("name")
+    .where("clan.isActive", "=", true)
     .execute();
 
   return clans;
@@ -27,6 +28,7 @@ export const checkClanExists = async (id: number) => {
     .selectFrom("clan")
     .selectAll()
     .where("ID", "=", id)
+    .where("clan.isActive", "=", true)
     .executeTakeFirst();
 
   return clan;
@@ -89,7 +91,11 @@ export const getClanByID = async (id: number) => {
     .selectFrom("clan")
     .select([
       "clan.ID",
+      "clan.createdAt",
+      "clan.updatedAt",
+      "clan.isActive",
       "clan.name",
+      "clan.abbreviation",
       "clan.level",
       "clan.location",
       "clan.language",
@@ -182,7 +188,11 @@ export const getClanByID = async (id: number) => {
   return {
     clan: {
       ID: clan.ID,
+      createdAt: clan.createdAt,
+      updatedAt: clan.updatedAt,
+      isActive: clan.isActive,
       name: clan.name,
+      abbreviation: clan.abbreviation,
       level: clan.level,
       location: clan.location,
       language: clan.language,

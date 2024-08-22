@@ -23,31 +23,20 @@ import { colorLeague, formatLeague, LeagueValue } from "@/lib/formatLeague";
 
 import { useNavigate } from "react-router-dom";
 import PrivateGuard from "../PrivateGuard";
-import { Separator } from "../ui/separator";
+import { Separator } from "../ui/Separator";
 import { format } from "date-fns";
+import { getClanByIDResponse } from "@backend-types/clan";
 
 interface ClanCardProps {
-  clan: {
-    ID: number;
-    createdAt: Date;
-    updatedAt: Date;
-    isActive: boolean;
-    name: string;
-    level: number;
-    location: string;
-    language: string;
-    cwl: LeagueValue;
-    longestWinStreak: number;
-  };
+  clan: getClanByIDResponse["clan"];
 }
 
 export default function ClanCard({ clan }: ClanCardProps) {
   const {
     ID,
-    createdAt,
     updatedAt,
-    isActive,
     name,
+    abbreviation,
     level,
     location,
     language,
@@ -81,7 +70,7 @@ export default function ClanCard({ clan }: ClanCardProps) {
             </Button>
           </PrivateGuard>
         </div>
-        <CardDescription>Clan Information</CardDescription>
+        <CardDescription>Clan Information {abbreviation} </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="flex items-center mb-4">
@@ -116,7 +105,7 @@ export default function ClanCard({ clan }: ClanCardProps) {
           </span>
         </div>
       </CardContent>
-      <Separator className="my-4" />
+      <Separator className="mb-4" />
       <CardFooter className="text-gray-500 italic">
         Last Updated: {format(new Date(updatedAt), "dd/MM/yyyy HH:mm")}
       </CardFooter>

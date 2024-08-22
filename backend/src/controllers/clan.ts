@@ -5,16 +5,15 @@ export const getAllClans = async () => {
   return clanService.getAllClans();
 };
 
+export const getClanByID = async (id: number) => {
+  await clanService.checkClanExists(id);
+  return clanService.getClanByID(id);
+};
+
 export const checkClanExists = async (id: number) => {
-  const clan = await clanService.getClanByID(id);
+  const clan = clanService.checkClanExists(id);
 
   if (!clan) {
     throw ServiceError.notFound(`Clan with ID ${id} does not exist`);
   }
-
-  return clanService.checkClanExists(id);
-};
-
-export const getClanByID = async (id: number) => {
-  return clanService.getClanByID(id);
 };

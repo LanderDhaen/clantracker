@@ -15,6 +15,7 @@ export interface ClanTable {
   updatedAt: ColumnType<Date>;
   isActive: ColumnType<boolean>;
   name: ColumnType<string>;
+  abbreviation: ColumnType<string>;
   level: ColumnType<number>;
   location: ColumnType<string>;
   language: ColumnType<string>;
