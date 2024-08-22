@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "start": "env-cmd nodemon",
+    "start": "env-cmd node dist/src/index.js",
     "start:dev": "env-cmd nodemon --exec ts-node src/index",
     "test": "env-cmd -f .env.test jest --runInBand",
     "test:coverage": "env-cmd -f .env.test jest --runInBand --coverage",
