@@ -14,6 +14,7 @@ import AccountPage from "./pages/accounts/AccountPage";
 import AccountProfilePage from "./pages/accountprofile/AccountProfilePage";
 import { useSessionUser } from "./hooks/useSessionUser";
 import LoginFormPage from "./pages/loginform/LoginFormPage";
+import NotFoundPage from "./components/NotFound";
 
 const privateRouter = createBrowserRouter([
   {
@@ -22,12 +23,12 @@ const privateRouter = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "/accounts", element: <AccountPage /> },
-      { path: "/accounts/:id", element: <AccountProfilePage /> },
-      { path: "/accounts/:id/edit", element: <AccountFormPage /> },
       { path: "/accounts/add", element: <AccountFormPage /> },
+      { path: "/accounts/:id(\\d+)", element: <AccountProfilePage /> },
+      { path: "/accounts/:id(\\d+)/edit", element: <AccountFormPage /> },
       { path: "/performances", element: <PerformancePage /> },
       { path: "/clans", element: <ClanPage /> },
-      { path: "/clans/:id", element: <ClanProfilePage /> },
+      { path: "/clans/:id(\\d+)", element: <ClanProfilePage /> },
     ],
   },
 ]);
@@ -40,10 +41,11 @@ const publicRouter = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "/login", element: <LoginFormPage /> },
       { path: "/accounts", element: <AccountPage /> },
-      { path: "/accounts/:id", element: <AccountProfilePage /> },
+      { path: "/accounts/:id(\\d+)", element: <AccountProfilePage /> },
       { path: "/performances", element: <PerformancePage /> },
       { path: "/clans", element: <ClanPage /> },
-      { path: "/clans/:id", element: <ClanProfilePage /> },
+      { path: "/clans/:id(\\d+)", element: <ClanProfilePage /> },
+      { path: "*", element: <NotFoundPage /> },
     ],
   },
 ]);

@@ -28,7 +28,7 @@ export const login = async (username: string, password: string) => {
   const session = await sessionService.createSession({
     sessionID: randomUUID(),
     userID: user.ID,
-    expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30),
+    expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30), // 30 days
   });
 
   return session;
