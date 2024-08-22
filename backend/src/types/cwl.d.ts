@@ -10,6 +10,9 @@ import { PlacementTypeValue } from "../data/enums/placementTypes";
 
 export interface CWLTable {
   ID: Generated<number>;
+  createdAt: ColumnType<Date>;
+  updatedAt: ColumnType<Date>;
+  isActive: ColumnType<boolean>;
   month: ColumnType<MonthValue>;
   year: ColumnType<number>;
   league: ColumnType<number>;

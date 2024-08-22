@@ -94,4 +94,6 @@ export const tables = Object.freeze({
   account: "account",
   cwl: "cwl",
   performance: "performance",
+  user: "user",
+  session: "session",
 });

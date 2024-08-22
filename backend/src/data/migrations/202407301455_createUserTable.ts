@@ -1,8 +1,9 @@
 import { Kysely } from "kysely";
+import { tables } from "..";
 
 export const up = async (db: Kysely<any>) => {
   await db.schema
-    .createTable("user")
+    .createTable(tables.user)
     .addColumn("ID", "serial", (c) => c.primaryKey())
     .addColumn("createdAt", "timestamp", (c) => c.notNull().defaultTo("now()"))
     .addColumn("updatedAt", "timestamp", (c) => c.notNull().defaultTo("now()"))
@@ -13,5 +14,5 @@ export const up = async (db: Kysely<any>) => {
 };
 
 export const down = async (db: Kysely<any>) => {
-  await db.schema.dropTable("user").execute();
+  await db.schema.dropTable(tables.user).execute();
 };

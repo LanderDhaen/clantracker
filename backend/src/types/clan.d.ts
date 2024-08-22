@@ -10,6 +10,9 @@ import * as clanController from "../controllers/clan";
 
 export interface ClanTable {
   ID: Generated<number>;
+  createdAt: ColumnType<Date>;
+  updatedAt: ColumnType<Date>;
+  isActive: ColumnType<boolean>;
   name: ColumnType<string>;
   level: ColumnType<number>;
   location: ColumnType<string>;
