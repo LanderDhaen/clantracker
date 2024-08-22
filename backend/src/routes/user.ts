@@ -24,7 +24,11 @@ login.validationScheme = {
   }),
 };
 
-const check = async (ctx: Context) => {};
+const check = async (ctx: Context) => {
+  const session = await authController.check(ctx.cookies.get("sessionID"));
+
+  ctx.body = { userID: session.userID };
+};
 
 check.validationScheme = {};
 
