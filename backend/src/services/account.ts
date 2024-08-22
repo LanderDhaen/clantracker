@@ -61,7 +61,6 @@ export const getAccountByID = async (id: number) => {
       "townhall.ID as townhallID",
     ])
     .where("account.ID", "=", id)
-    .where("account.isActive", "=", true)
     .executeTakeFirst();
 
   return account;

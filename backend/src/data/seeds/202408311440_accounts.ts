@@ -965,6 +965,7 @@ export const seed = async (db: Kysely<any>) => {
         ID: 77,
         createdAt: "2024-07-30 15:30:00",
         updatedAt: "2024-07-30 15:30:00",
+        isActive: false,
         username: "frank",
         name: "Frank",
         role: ROLES.ELDER,
