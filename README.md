@@ -2,6 +2,14 @@
 
 Welcome to the change log of **Dutch Legion's 3 Clantracker**
 
+## Version 3 - Bugfix
+
+#### _Released on 2024-08-22_
+
+### Fixed
+
+- **Import Issue:** Resolved issues related to wrong imports from shad/cn UI.
+
 ## Version 2 - Clan Update
 
 #### _Released on 2024-08-22_
@@ -17,7 +25,7 @@ Welcome to the change log of **Dutch Legion's 3 Clantracker**
 
 - **Migration to TypeScript**: Transitioned the codebase from JavaScript (JSX) to TypeScript (TSX) for better type safety and maintainability.
 
-## Version 1.2 - CORS Fix
+## Version 1.2 - Bugfix
 
 #### _Released on 2024-08-09_
 
