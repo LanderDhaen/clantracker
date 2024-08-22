@@ -196,18 +196,20 @@ export const getAccountDetailsByID = async (id: number) => {
     .executeTakeFirst();
 
   return {
-    ID: account.ID,
-    createdAt: account.createdAt,
-    updatedAt: account.updatedAt,
-    isActive: account.isActive,
-    username: account.username,
-    name: account.name,
-    role: account.role,
-    joined: account.joined,
-    left: account.left,
-    nationality: account.nationality,
-    townhall: account.townhall,
-    mainID: account.accountID,
+    account: {
+      ID: account.ID,
+      createdAt: account.createdAt,
+      updatedAt: account.updatedAt,
+      isActive: account.isActive,
+      username: account.username,
+      name: account.name,
+      role: account.role,
+      joined: account.joined,
+      left: account.left,
+      nationality: account.nationality,
+      townhall: account.townhall,
+      mainID: account.accountID,
+    },
     clan: {
       ID: account.clanID,
       createdAt: account.clanCreatedAt,

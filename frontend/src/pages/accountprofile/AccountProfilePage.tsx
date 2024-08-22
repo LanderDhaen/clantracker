@@ -7,11 +7,11 @@ import AsyncData from "@/components/AsyncData";
 export default function AccountProfilePage() {
   const { id } = useParams();
 
-  const { data: account, isLoading, error } = getAccountDetailsByID(id);
+  const { data, isLoading, error } = getAccountDetailsByID(id);
 
   return (
     <AsyncData loading={isLoading} error={error}>
-      <AccountProfile account={account!} />
+      <AccountProfile data={data!} />
     </AsyncData>
   );
 }
