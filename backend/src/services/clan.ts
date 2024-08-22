@@ -36,33 +36,32 @@ export const checkClanExists = async (id: number) => {
 
 export const getClanByID = async (id: number) => {
   const clan = await db
-    .with(
-      "townhallDistribution",
-      (qb) =>
-        qb
-          .selectFrom("account")
-          .innerJoin("townhall", "account.townhallID", "townhall.ID")
-          .select(["townhall.level", db.fn.count("account.ID").as("amount")])
-          .where("account.clanID", "=", id)
-          .groupBy("townhall.level")
-          .orderBy("townhall.level") // Ensure sorting by townhall.level
+    .with("townhallDistribution", (qb) =>
+      qb
+        .selectFrom("account")
+        .innerJoin("townhall", "account.townhallID", "townhall.ID")
+        .select(["townhall.level", db.fn.count("account.ID").as("amount")])
+        .where("account.clanID", "=", id)
+        .where("account.isActive", "=", true)
+        .groupBy("townhall.level")
+        .orderBy("townhall.level")
     )
     .with("nationalityDistribution", (qb) =>
       qb
         .selectFrom("account")
         .select(["account.nationality", db.fn.count("account.ID").as("amount")])
         .where("account.clanID", "=", id)
+        .where("account.isActive", "=", true)
         .groupBy("account.nationality")
     )
-    .with(
-      "roleDistribution",
-      (qb) =>
-        qb
-          .selectFrom("account")
-          .select(["account.role", db.fn.count("account.ID").as("amount")])
-          .where("account.clanID", "=", id)
-          .groupBy("account.role")
-          .orderBy("account.role") // Ensure sorting by account.role
+    .with("roleDistribution", (qb) =>
+      qb
+        .selectFrom("account")
+        .select(["account.role", db.fn.count("account.ID").as("amount")])
+        .where("account.clanID", "=", id)
+        .where("account.isActive", "=", true)
+        .groupBy("account.role")
+        .orderBy("account.role")
     )
     .with("cwlDistribution", (qb) =>
       qb
