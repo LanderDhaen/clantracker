@@ -1,48 +1,29 @@
-import { isAxiosError } from "axios";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface ErrorProps {
   error: Error;
 }
 
 export default function Error({ error }: ErrorProps) {
-  if (isAxiosError(error)) {
-    return (
-      <div
-        className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-        role="alert"
-        data-cy="axios_error_message"
-      >
-        <strong className="font-bold">Oops, something went wrong:</strong>
-        <span className="block sm:inline">
-          {error.response?.data.message || error.message}
-          {error.response?.data.details && (
-            <>
-              :
-              <br />
-              <span className="block whitespace-pre-wrap">
-                {JSON.stringify(error.response.data.details, null, 2)}
-              </span>
-            </>
-          )}
-        </span>
-      </div>
-    );
-  }
+  const navigate = useNavigate();
 
-  if (error) {
-    return (
-      <div
-        className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-        role="alert"
-        data-cy="error_message"
-      >
-        <strong className="font-bold">An unexpected error occurred:</strong>
-        <span className="block sm:inline">
-          {error.message || JSON.stringify(error)}
-        </span>
-      </div>
-    );
-  }
+  useEffect(() => {
+    console.error("Error: ", error);
 
-  return null;
+    const timeoutId = setTimeout(() => {
+      navigate("/");
+    }, 5000); // 5 seconds
+
+    return () => clearTimeout(timeoutId);
+  }, [error, navigate]);
+
+  return (
+    <div className="flex flex-col items-center justify-center bg-gray-100 py-60">
+      <h1 className="text-7xl font-extrabold">Oops!</h1>
+      <p className="text-2xl font-semibold my-4">
+        An unknow error occured. Redirecting to home page in 5 seconds...
+      </p>
+    </div>
+  );
 }
