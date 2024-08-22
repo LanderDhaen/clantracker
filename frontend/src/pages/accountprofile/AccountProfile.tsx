@@ -16,6 +16,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/Card";
@@ -27,6 +28,7 @@ import { Button } from "@/components/ui/Button";
 import ClanCard from "@/components/clan/ClanCard";
 import { GetAccountDetailsByIDResponse } from "@backend-types/account";
 import PrivateGuard from "@/components/PrivateGuard";
+import { Separator } from "@/components/ui/separator";
 
 interface AccountProfileProps {
   account: GetAccountDetailsByIDResponse;
@@ -114,6 +116,11 @@ export default function AccountProfile({ account }: AccountProfileProps) {
               Townhall: {townhall}
             </div>
           </CardContent>
+          <Separator className="my-4" />
+          <CardFooter className="text-gray-500 italic">
+            Last Updated:{" "}
+            {format(new Date(account.updatedAt), "dd/MM/yyyy HH:mm")}
+          </CardFooter>
         </Card>
         <ClanCard clan={clan} />
         {statistics.map((statistic) => (

@@ -7,6 +7,7 @@ import {
 } from "kysely";
 
 import * as clanController from "../controllers/clan";
+import { LeagueValue } from "../data/enums/leagues";
 
 export interface ClanTable {
   ID: Generated<number>;
@@ -17,7 +18,7 @@ export interface ClanTable {
   level: ColumnType<number>;
   location: ColumnType<string>;
   language: ColumnType<string>;
-  cwl: ColumnType<number>;
+  cwl: ColumnType<LeagueValue>;
   longestWinStreak: ColumnType<number>;
 }
 
