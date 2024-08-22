@@ -46,8 +46,9 @@ getAccountDetailsByID.validationScheme = {
 
 const createAccount = async (ctx: Context) => {
   const body = ctx.request.body as InsertableAccount;
-  await accountController.createAccount(body);
+  const account = await accountController.createAccount(body);
   ctx.status = 201;
+  ctx.body = account;
 };
 
 createAccount.validationScheme = {
@@ -67,8 +68,9 @@ createAccount.validationScheme = {
 const updateAccount = async (ctx: Context) => {
   const id = Number(ctx.params.id);
   const body = ctx.request.body as UpdateableAccount;
-  await accountController.updateAccount(id, body);
+  const account = await accountController.updateAccount(id, body);
   ctx.status = 204;
+  ctx.body = account;
 };
 
 updateAccount.validationScheme = {

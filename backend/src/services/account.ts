@@ -22,6 +22,7 @@ export const getAllAccounts = async () => {
       "townhall.level as townhall",
       "main.username as main",
     ])
+    .where("account.isActive", "=", true)
     .execute();
 
   return accounts;
@@ -34,6 +35,7 @@ export const getMainAccounts = async () => {
     .select(["account.ID", "account.username", "townhall.level as townhall"])
     .where("account.accountID", "is", null)
     .where("account.left", "is", null)
+    .where("account.isActive", "=", true)
     .orderBy("account.username")
     .execute();
 
@@ -59,6 +61,7 @@ export const getAccountByID = async (id: number) => {
       "townhall.ID as townhallID",
     ])
     .where("account.ID", "=", id)
+    .where("account.isActive", "=", true)
     .executeTakeFirst();
 
   return account;
@@ -111,6 +114,9 @@ export const getAccountDetailsByID = async (id: number) => {
     .innerJoin("clan", "account.clanID", "clan.ID")
     .select([
       "account.ID",
+      "account.createdAt",
+      "account.updatedAt",
+      "account.isActive",
       "account.username",
       "account.name",
       "account.role",
@@ -119,6 +125,9 @@ export const getAccountDetailsByID = async (id: number) => {
       "account.nationality",
       "account.accountID",
       "clan.ID as clanID",
+      "clan.createdAt as clanCreatedAt",
+      "clan.updatedAt as clanUpdatedAt",
+      "clan.isActive as clanIsActive",
       "clan.name as clanName",
       "clan.level as clanLevel",
       "clan.location as clanLocation",
@@ -188,6 +197,9 @@ export const getAccountDetailsByID = async (id: number) => {
 
   return {
     ID: account.ID,
+    createdAt: account.createdAt,
+    updatedAt: account.updatedAt,
+    isActive: account.isActive,
     username: account.username,
     name: account.name,
     role: account.role,
@@ -198,6 +210,9 @@ export const getAccountDetailsByID = async (id: number) => {
     mainID: account.accountID,
     clan: {
       ID: account.clanID,
+      createdAt: account.clanCreatedAt,
+      updatedAt: account.clanUpdatedAt,
+      isActive: account.clanIsActive,
       name: account.clanName,
       level: account.clanLevel,
       location: account.clanLocation,
@@ -210,10 +225,34 @@ export const getAccountDetailsByID = async (id: number) => {
   };
 };
 
+export const checkAccountExists = async (id: number) => {
+  const account = await db
+    .selectFrom("account")
+    .select("ID")
+    .where("ID", "=", id)
+    .where("isActive", "=", true)
+    .executeTakeFirst();
+
+  return account;
+};
+
 export const createAccount = async (account: InsertableAccount) => {
-  await db.insertInto("account").values(account).execute();
+  const newAccount = await db
+    .insertInto("account")
+    .values(account)
+    .returning("ID")
+    .executeTakeFirstOrThrow();
+
+  return getAccountByID(newAccount.ID);
 };
 
 export const updateAccount = async (id: number, account: UpdateableAccount) => {
-  await db.updateTable("account").set(account).where("ID", "=", id).execute();
+  const updatedAccount = await db
+    .updateTable("account")
+    .set(account)
+    .where("ID", "=", id)
+    .returning("ID")
+    .executeTakeFirstOrThrow();
+
+  return getAccountByID(updatedAccount.ID);
 };
