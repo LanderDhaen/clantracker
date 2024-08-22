@@ -15,8 +15,8 @@ const login = async (ctx: Context) => {
 
   ctx.cookies.set("sessionID", session.sessionID, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    secure: false,
+    sameSite: "lax",
     expires: session.expiresAt,
   });
 
