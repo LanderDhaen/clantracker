@@ -2,6 +2,14 @@
 
 Welcome to the change log of **Dutch Legion's 3 Clantracker**
 
+## Version 2.3 - Bugfix
+
+#### _Released on 2024-08-22_
+
+### Fixed
+
+- **CORS Issue**: Resolved issues related to Cross-Origin Resource Sharing (CORS), improving compatibility with external APIs.
+
 ## Version 2.2 - Bugfix
 
 #### _Released on 2024-08-22_
