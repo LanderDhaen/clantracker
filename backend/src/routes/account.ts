@@ -4,6 +4,7 @@ import { Context } from "koa";
 import * as accountController from "../controllers/account";
 import { validate } from "../middleware/validation";
 import { InsertableAccount, UpdateableAccount } from "../types/account";
+import { requireAuthentication } from "../middleware/auth";
 
 const getAllAccounts = async (ctx: Context) => {
   const data = await accountController.getAllAccounts();
@@ -114,11 +115,13 @@ export default (router: Router) => {
   );
   accountRouter.post(
     "/",
+    requireAuthentication,
     validate(createAccount.validationScheme),
     createAccount
   );
   accountRouter.put(
     "/:id",
+    requireAuthentication,
     validate(updateAccount.validationScheme),
     updateAccount
   );

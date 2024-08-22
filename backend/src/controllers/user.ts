@@ -34,7 +34,7 @@ export const login = async (username: string, password: string) => {
   return session;
 };
 
-export const check = async (sessionID: string) => {
+export const verifySession = async (sessionID: string) => {
   if (!sessionID) {
     throw ServiceError.unauthorized("This session is not valid.");
   }

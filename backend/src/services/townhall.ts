@@ -35,9 +35,10 @@ export const createTownhall = async (townhall: InsertableTownhall) => {
   const newTownhall = await db
     .insertInto("townhall")
     .values(townhall)
-    .execute();
+    .returning("ID")
+    .executeTakeFirstOrThrow();
 
-  return newTownhall;
+  return getTownhallByID(newTownhall.ID);
 };
 
 export const updateTownhall = async (
@@ -48,7 +49,8 @@ export const updateTownhall = async (
     .updateTable("townhall")
     .set(townhall)
     .where("ID", "=", id)
-    .execute();
+    .returning("ID")
+    .executeTakeFirstOrThrow();
 
-  return updatedTownhall;
+  return getTownhallByID(updatedTownhall.ID);
 };

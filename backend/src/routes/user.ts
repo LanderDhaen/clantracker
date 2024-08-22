@@ -24,13 +24,15 @@ login.validationScheme = {
   }),
 };
 
-const check = async (ctx: Context) => {
-  const session = await authController.check(ctx.cookies.get("sessionID"));
+const verifySession = async (ctx: Context) => {
+  const session = await authController.verifySession(
+    ctx.cookies.get("sessionID")
+  );
 
   ctx.body = { userID: session.userID };
 };
 
-check.validationScheme = {};
+verifySession.validationScheme = {};
 
 export default (router: Router): void => {
   const userRouter = new Router({
@@ -38,7 +40,11 @@ export default (router: Router): void => {
   });
 
   userRouter.post("/login", validate(login.validationScheme), login);
-  userRouter.get("/check", validate(check.validationScheme), check);
+  userRouter.get(
+    "/me",
+    validate(verifySession.validationScheme),
+    verifySession
+  );
 
   router.use(userRouter.routes()).use(userRouter.allowedMethods());
 };

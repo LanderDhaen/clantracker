@@ -3,6 +3,7 @@ import Router from "@koa/router";
 import * as townHallController from "../controllers/townhall";
 import { validate } from "../middleware/validation";
 import { Context } from "koa";
+import { requireAuthentication } from "../middleware/auth";
 
 const getAllTownhalls = async (ctx: Context) => {
   const data = await townHallController.getAllTownhalls();
@@ -30,7 +31,6 @@ const createTownhall = async (ctx: Context) => {
 
 createTownhall.validationScheme = {
   body: Joi.object({
-    name: Joi.string().required(),
     level: Joi.number().required(),
   }),
 };
@@ -47,7 +47,6 @@ updateTownhall.validationScheme = {
     id: Joi.number().required(),
   }),
   body: Joi.object({
-    name: Joi.string().required(),
     level: Joi.number().required(),
   }),
 };
@@ -71,12 +70,14 @@ export default (router: Router): void => {
 
   townHallRouter.post(
     "/",
+    requireAuthentication,
     validate(createTownhall.validationScheme),
     createTownhall
   );
 
   townHallRouter.put(
     "/:id",
+    requireAuthentication,
     validate(updateTownhall.validationScheme),
     updateTownhall
   );
