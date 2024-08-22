@@ -23,6 +23,7 @@ const LoginFormPage = lazy(() => import("./pages/loginform/LoginFormPage"));
 const NotFoundPage = lazy(() => import("./components/NotFound"));
 
 import { useSessionUser } from "./hooks/useSessionUser";
+import Loader from "./components/Loader";
 
 const privateRouter = createBrowserRouter([
   {
@@ -65,7 +66,7 @@ const App = () => {
   const router = data ? privateRouter : publicRouter;
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loader />}>
       <RouterProvider router={router} />
     </Suspense>
   );
