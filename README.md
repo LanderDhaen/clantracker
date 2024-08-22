@@ -2,7 +2,15 @@
 
 Welcome to the change log of **Dutch Legion's 3 Clantracker**
 
-## Version 3 - Bugfix
+## Version 2.2 - Bugfix
+
+#### _Released on 2024-08-22_
+
+### Fixed
+
+- **.env Issue:** Resolved issues related to visible environment files
+
+## Version 2.1 - Bugfix
 
 #### _Released on 2024-08-22_
 
