@@ -7,10 +7,18 @@ interface AsyncDataProps {
   children: React.ReactNode;
 }
 
-export default function AsyncData({ loading, error }: AsyncDataProps) {
+export default function AsyncData({
+  loading,
+  error,
+  children,
+}: AsyncDataProps) {
   if (loading) {
     return <Loader />;
   }
 
-  return <Error error={error} />;
+  if (error) {
+    return <Error error={error} />;
+  }
+
+  return <>{children}</>;
 }

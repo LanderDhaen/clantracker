@@ -9,8 +9,6 @@ export default function Error({ error }: ErrorProps) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.error("Error: ", error);
-
     const timeoutId = setTimeout(() => {
       navigate("/");
     }, 5000); // 5 seconds
