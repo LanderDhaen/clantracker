@@ -51,3 +51,11 @@ export const verifySession = async (sessionID: string) => {
 
   return session;
 };
+
+export const logout = async (sessionID: string) => {
+  if (!sessionID) {
+    throw ServiceError.unauthorized("This session is not valid.");
+  }
+
+  await sessionService.deleteSessionBySessionID(sessionID);
+};

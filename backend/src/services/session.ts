@@ -12,7 +12,15 @@ export const getSessionBySessionID = async (sessionID: string) => {
 };
 
 export const createSession = async (session: InsertableSession) => {
-  const newSession = await db.insertInto("session").values(session).execute();
+  const newSession = await db
+    .insertInto("session")
+    .values(session)
+    .returning("session.sessionID")
+    .executeTakeFirstOrThrow();
 
-  return getSessionBySessionID(session.sessionID);
+  return getSessionBySessionID(newSession.sessionID);
+};
+
+export const deleteSessionBySessionID = async (sessionID: string) => {
+  await db.deleteFrom("session").where("sessionID", "=", sessionID).execute();
 };

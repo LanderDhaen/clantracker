@@ -8,7 +8,11 @@ import useLogoutMutation from "@/hooks/useLogoutMutation";
 export default function Header() {
   const navigate = useNavigate();
   const logout = useLogoutMutation();
-  const { data: user } = useSessionUser();
+  const { data: user, isLoading } = useSessionUser();
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <header className="py-4 bg-gray-100 flex items-center px-20">
