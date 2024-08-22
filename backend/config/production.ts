@@ -4,7 +4,7 @@ export default {
     disabled: false,
   },
   cors: {
-    origins: ["http://localhost:5173"],
+    origins: ["https://clantracker-frontend.onrender.com"],
     maxAge: 3 * 60 * 60,
   },
 };
