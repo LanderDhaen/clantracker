@@ -1,20 +1,28 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Root from "./components/Root";
 
-import PerformancePage from "./pages/performances/PerformancePage";
-import Home from "./components/Home";
-import AccountFormPage from "./pages/accountform/AccountFormPage";
-import ClanPage from "./pages/clans/ClanPage";
-import ClanProfilePage from "./pages/clanprofile/ClanProfilePage";
-import AccountPage from "./pages/accounts/AccountPage";
-import AccountProfilePage from "./pages/accountprofile/AccountProfilePage";
+const Root = lazy(() => import("./components/Root"));
+const PerformancePage = lazy(
+  () => import("./pages/performances/PerformancePage")
+);
+const Home = lazy(() => import("./components/Home"));
+const AccountFormPage = lazy(
+  () => import("./pages/accountform/AccountFormPage")
+);
+const ClanPage = lazy(() => import("./pages/clans/ClanPage"));
+const ClanProfilePage = lazy(
+  () => import("./pages/clanprofile/ClanProfilePage")
+);
+const AccountPage = lazy(() => import("./pages/accounts/AccountPage"));
+const AccountProfilePage = lazy(
+  () => import("./pages/accountprofile/AccountProfilePage")
+);
+const LoginFormPage = lazy(() => import("./pages/loginform/LoginFormPage"));
+const NotFoundPage = lazy(() => import("./components/NotFound"));
+
 import { useSessionUser } from "./hooks/useSessionUser";
-import LoginFormPage from "./pages/loginform/LoginFormPage";
-import NotFoundPage from "./components/NotFound";
 
 const privateRouter = createBrowserRouter([
   {
@@ -56,7 +64,11 @@ const App = () => {
 
   const router = data ? privateRouter : publicRouter;
 
-  return <RouterProvider router={router} />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <RouterProvider router={router} />
+    </Suspense>
+  );
 };
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
