@@ -10,7 +10,10 @@ export const seed = async (db: Kysely<any>) => {
     .values([
       {
         ID: 1,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         name: "Dutch Legion 3",
+        abbreviation: "DL3",
         level: 25,
         location: "Netherlands",
         language: "Dutch",
@@ -19,7 +22,10 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 2,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         name: "Dutch Legion CW",
+        abbreviation: "DLCW",
         level: 10,
         location: "Netherlands",
         language: "Dutch",
@@ -28,7 +34,10 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 3,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         name: "Dutch Legion 4",
+        abbreviation: "DL4",
         level: 5,
         language: "Dutch",
         location: "Netherlands",

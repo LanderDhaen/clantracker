@@ -12,6 +12,8 @@ export const seed = async (db: Kysely<any>) => {
     .values([
       {
         ID: 1,
+        createdAt: "2024-08-02 15:00:00",
+        updatedAt: "2024-08-02 15:00:00",
         month: MONTHS.JULY,
         year: 2023,
         league: LEAGUES.MASTER2,
@@ -21,6 +23,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 2,
+        createdAt: "2024-08-02 15:00:00",
+        updatedAt: "2024-08-02 15:00:00",
         month: MONTHS.AUGUST,
         year: 2023,
         league: LEAGUES.MASTER2,
@@ -30,6 +34,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 3,
+        createdAt: "2024-08-02 15:00:00",
+        updatedAt: "2024-08-02 15:00:00",
         month: MONTHS.SEPTEMBER,
         year: 2023,
         league: LEAGUES.MASTER2,
@@ -39,6 +45,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 4,
+        createdAt: "2024-08-02 15:00:00",
+        updatedAt: "2024-08-02 15:00:00",
         month: MONTHS.OCTOBER,
         year: 2023,
         league: LEAGUES.MASTER3,
@@ -48,6 +56,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 5,
+        createdAt: "2024-08-02 15:00:00",
+        updatedAt: "2024-08-02 15:00:00",
         month: MONTHS.NOVEMBER,
         year: 2023,
         league: LEAGUES.MASTER2,
@@ -57,6 +67,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 6,
+        createdAt: "2024-08-02 15:00:00",
+        updatedAt: "2024-08-02 15:00:00",
         month: MONTHS.DECEMBER,
         year: 2023,
         league: LEAGUES.MASTER2,
@@ -66,6 +78,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 7,
+        createdAt: "2024-08-02 15:00:00",
+        updatedAt: "2024-08-02 15:00:00",
         month: MONTHS.JANUARY,
         year: 2024,
         league: LEAGUES.MASTER1,
@@ -75,6 +89,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 8,
+        createdAt: "2024-08-02 15:00:00",
+        updatedAt: "2024-08-02 15:00:00",
         month: MONTHS.FEBRUARY,
         year: 2024,
         league: LEAGUES.MASTER1,
@@ -84,6 +100,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 9,
+        createdAt: "2024-08-02 15:00:00",
+        updatedAt: "2024-08-02 15:00:00",
         month: MONTHS.MARCH,
         year: 2024,
         league: LEAGUES.MASTER1,
@@ -93,6 +111,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 10,
+        createdAt: "2024-08-02 15:00:00",
+        updatedAt: "2024-08-02 15:00:00",
         month: MONTHS.APRIL,
         year: 2024,
         league: LEAGUES.CHAMP3,
@@ -102,6 +122,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 11,
+        createdAt: "2024-08-02 15:00:00",
+        updatedAt: "2024-08-02 15:00:00",
         month: MONTHS.APRIL,
         year: 2024,
         league: LEAGUES.MASTER1,
@@ -111,6 +133,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 12,
+        createdAt: "2024-08-02 15:00:00",
+        updatedAt: "2024-08-02 15:00:00",
         month: MONTHS.MAY,
         year: 2024,
         league: LEAGUES.CHAMP3,
@@ -120,6 +144,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 13,
+        createdAt: "2024-08-02 15:00:00",
+        updatedAt: "2024-08-02 15:00:00",
         month: MONTHS.MAY,
         year: 2024,
         league: LEAGUES.MASTER2,
@@ -129,6 +155,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 14,
+        createdAt: "2024-08-02 15:00:00",
+        updatedAt: "2024-08-02 15:00:00",
         month: MONTHS.JUNE,
         year: 2024,
         league: LEAGUES.CHAMP2,
@@ -138,6 +166,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 15,
+        createdAt: "2024-08-02 15:00:00",
+        updatedAt: "2024-08-02 15:00:00",
         month: MONTHS.JUNE,
         year: 2024,
         league: LEAGUES.MASTER2,
@@ -147,6 +177,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 16,
+        createdAt: "2024-08-02 15:00:00",
+        updatedAt: "2024-08-02 15:00:00",
         month: MONTHS.JULY,
         year: 2024,
         league: LEAGUES.CHAMP2,
@@ -156,6 +188,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 17,
+        createdAt: "2024-08-02 15:00:00",
+        updatedAt: "2024-08-02 15:00:00",
         month: MONTHS.JULY,
         year: 2024,
         league: LEAGUES.MASTER2,

@@ -27,8 +27,8 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex items-center justify-center bg-gray-100">
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 px-20 pt-60">
+    <div className="flex items-center justify-center h-full w-full px-20 py-40">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
         {cards.map((card) => (
           <InfoCard
             key={card.URL}

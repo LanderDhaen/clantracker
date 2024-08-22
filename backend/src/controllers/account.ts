@@ -3,6 +3,7 @@ import * as townhallController from "../controllers/townhall";
 import * as clanController from "../controllers/clan";
 
 import { InsertableAccount, UpdateableAccount } from "../types/account";
+import ServiceError from "../middleware/serviceError";
 
 export const getAllAccounts = async () => {
   return accountService.getAllAccounts();
@@ -13,23 +14,38 @@ export const getMainAccounts = async () => {
 };
 
 export const getAccountByID = async (id: number) => {
+  await checkAccountExists(id);
+
   return accountService.getAccountByID(id);
 };
 
 export const getAccountDetailsByID = async (id: number) => {
+  await checkAccountExists(id);
+
   return accountService.getAccountDetailsByID(id);
+};
+
+export const checkAccountExists = async (id: number) => {
+  const account = await accountService.checkAccountExists(id);
+
+  if (!account) {
+    throw ServiceError.notFound(`Account with ID ${id} does not exist`);
+  }
 };
 
 export const createAccount = async (account: InsertableAccount) => {
   await townhallController.getTownhallByID(account.townhallID);
   await clanController.checkClanExists(account.clanID);
 
-  accountService.createAccount(account);
+  return accountService.createAccount(account);
 };
 
 export const updateAccount = async (id: number, account: UpdateableAccount) => {
+  await checkAccountExists(id);
   await townhallController.getTownhallByID(account.townhallID);
   await clanController.checkClanExists(account.clanID);
 
-  accountService.updateAccount(id, account);
+  account.updatedAt = new Date();
+
+  return accountService.updateAccount(id, account);
 };

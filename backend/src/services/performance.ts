@@ -99,6 +99,7 @@ export const getAllPerformances = async () => {
     `.as("yearly"),
     ])
     .where("account.ID", "is not", null)
+    .where("account.isActive", "=", true)
     .orderBy("account.username")
     .execute();
 

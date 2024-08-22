@@ -1,11 +1,11 @@
 import {
-  Castle,
   CreditCard,
-  Crown,
-  TrendingUp,
   MapPin,
-  Languages,
-  Flame,
+  Calendar,
+  Home,
+  Power,
+  Shield,
+  User,
 } from "lucide-react";
 
 import {
@@ -19,35 +19,25 @@ import {
 
 import { Button } from "@/components/ui/Button";
 
-import { colorLeague, formatLeague, LeagueValue } from "@/lib/formatLeague";
-
 import { useNavigate } from "react-router-dom";
 import PrivateGuard from "../PrivateGuard";
 import { Separator } from "../ui/Separator";
 import { format } from "date-fns";
-import { getClanByIDResponse } from "@backend-types/clan";
+import { GetAccountDetailsByIDResponse } from "@backend-types/account";
+import { formatRole, RoleValue } from "@/lib/formatRole";
 
-interface ClanCardProps {
-  clan: getClanByIDResponse["clan"];
+interface AccountCardProps {
+  account: GetAccountDetailsByIDResponse["account"];
 }
 
-export default function ClanCard({ clan }: ClanCardProps) {
-  const {
-    ID,
-    updatedAt,
-    name,
-    abbreviation,
-    level,
-    location,
-    language,
-    cwl,
-    longestWinStreak,
-  } = clan;
+export default function AccountCard({ account }: AccountCardProps) {
+  const { ID, updatedAt, username, role, nationality, joined, left, townhall } =
+    account;
 
   const navigate = useNavigate();
 
   const handleEditClick = () => {
-    navigate(`/clans/${ID}/edit`);
+    navigate(`/accounts/${ID}/edit`);
   };
 
   return (
@@ -56,8 +46,8 @@ export default function ClanCard({ clan }: ClanCardProps) {
         <div className="flex items-center justify-between">
           <CardTitle>
             <div className="flex items-center">
-              <Castle className="mr-4" />
-              {name}
+              <User className="mr-4" />
+              {username}
             </div>
           </CardTitle>
           <PrivateGuard>
@@ -70,7 +60,7 @@ export default function ClanCard({ clan }: ClanCardProps) {
             </Button>
           </PrivateGuard>
         </div>
-        <CardDescription>Clan Information {abbreviation} </CardDescription>
+        <CardDescription>Account Information</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="flex items-center mb-4">
@@ -78,31 +68,31 @@ export default function ClanCard({ clan }: ClanCardProps) {
           ID: {ID}
         </div>
         <div className="flex items-center mb-4">
-          <TrendingUp className="mr-2" />
-          Level: {level}
+          <Shield className="mr-2" />
+          Role: {formatRole(role as RoleValue)}
+        </div>
+        <div className="flex items-center mb-4">
+          <Calendar className="mr-2" />
+          Joined: {format(new Date(joined), "dd/MM/yyyy")}
         </div>
         <div className="flex items-center mb-4">
           <MapPin className="mr-2" />
-          Location: {location}
+          Nationality: {nationality}
         </div>
         <div className="flex items-center mb-4">
-          <Languages className="mr-2" />
-          Language: {language}
-        </div>
-        <div className="flex items-center mb-4">
-          <Flame className="mr-2" />
-          Longest Win Streak: {longestWinStreak}
+          <Power className="mr-2" />
+          Status:{" "}
+          <span
+            className={`ml-2 px-2 py-1 rounded-full text-sm font-semibold ${
+              left ? "bg-red-100 text-red-800" : "bg-green-100 text-green-800"
+            }`}
+          >
+            {left ? "Left" : "Active"}
+          </span>
         </div>
         <div className="flex items-center">
-          <Crown className="mr-2" />
-          Clan War League:{" "}
-          <span
-            className={`ml-2 px-2 py-1 rounded-full text-sm font-semibold ${colorLeague(
-              cwl
-            )}`}
-          >
-            {formatLeague(cwl)}
-          </span>
+          <Home className="mr-2" />
+          Townhall: {townhall}
         </div>
       </CardContent>
       <Separator className="mb-4" />

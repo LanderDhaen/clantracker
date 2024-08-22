@@ -10,6 +10,8 @@ export const seed = async (db: Kysely<any>) => {
     .values([
       {
         ID: 1,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Lander",
         name: "Lander",
         role: ROLES.LEADER,
@@ -20,6 +22,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 2,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Lander",
         name: "Lander",
         role: ROLES.COLEADER,
@@ -31,6 +35,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 3,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "SyNx_Viiper",
         name: "Lander",
         role: ROLES.COLEADER,
@@ -42,6 +48,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 4,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "(FC) Resham",
         name: "Lander",
         role: ROLES.COLEADER,
@@ -53,6 +61,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 5,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "LanderTM",
         name: "Lander",
         role: ROLES.ELDER,
@@ -64,6 +74,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 6,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "DL Lander",
         name: "Lander",
         role: ROLES.MEMBER,
@@ -75,6 +87,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 7,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Lvl.1 Lander",
         name: "Lander",
         role: ROLES.MEMBER,
@@ -86,6 +100,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 8,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "FC Gods",
         name: "Lander",
         role: ROLES.MEMBER,
@@ -97,6 +113,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 9,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Lvl.10 Lander",
         name: "Lander",
         role: ROLES.MEMBER,
@@ -108,6 +126,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 10,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Lvl.9 Lander",
         name: "Lander",
         role: ROLES.MEMBER,
@@ -119,6 +139,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 11,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Peace",
         name: "Lander",
         role: ROLES.MEMBER,
@@ -130,6 +152,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 12,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Lvl.8 Lander",
         name: "Lander",
         role: ROLES.MEMBER,
@@ -141,6 +165,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 13,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Lander - TH8",
         name: "Lander",
         role: ROLES.MEMBER,
@@ -152,6 +178,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 14,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Lvl.7 Lander",
         name: "Lander",
         role: ROLES.LEADER,
@@ -163,6 +191,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 15,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "oppieM",
         name: "Marius",
         role: ROLES.COLEADER,
@@ -173,6 +203,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 16,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "<oppieM>",
         name: "Marius",
         role: ROLES.COLEADER,
@@ -184,6 +216,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 17,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "-oppieM-",
         name: "Marius",
         role: ROLES.COLEADER,
@@ -195,6 +229,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 18,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: `"oppieM"`,
         name: "Marius",
         role: ROLES.COLEADER,
@@ -206,6 +242,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 19,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Oppie^-^",
         name: "Marius",
         role: ROLES.COLEADER,
@@ -217,6 +255,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 20,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "superclasher",
         name: "Thijs",
         role: ROLES.COLEADER,
@@ -227,6 +267,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 21,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "M1chel600",
         name: "Thijs",
         role: ROLES.COLEADER,
@@ -238,6 +280,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 22,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "fabian",
         name: "Thijs",
         role: ROLES.COLEADER,
@@ -249,6 +293,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 23,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "fabian2",
         name: "Thijs",
         role: ROLES.COLEADER,
@@ -260,6 +306,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 24,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "thijs2",
         name: "Thijs",
         role: ROLES.COLEADER,
@@ -271,6 +319,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 25,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "LV.99 Thijs",
         name: "Thijs",
         role: ROLES.COLEADER,
@@ -282,6 +332,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 26,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "LV.89 Thijs",
         name: "Thijs",
         role: ROLES.COLEADER,
@@ -293,6 +345,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 27,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Senne",
         name: "Senne",
         role: ROLES.COLEADER,
@@ -303,6 +357,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 28,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Mini Senne",
         name: "Senne",
         role: ROLES.COLEADER,
@@ -314,6 +370,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 29,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Bas.",
         name: "Bas",
         role: ROLES.MEMBER,
@@ -324,6 +382,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 30,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "RMBL",
         name: "Bas",
         role: ROLES.COLEADER,
@@ -335,6 +395,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 31,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "mitchell",
         name: "Mitchell",
         role: ROLES.COLEADER,
@@ -345,6 +407,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 32,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "DL DonateTM",
         name: "Mitchell",
         role: ROLES.MEMBER,
@@ -356,6 +420,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 33,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "mitchell 2",
         name: "Mitchell",
         role: ROLES.MEMBER,
@@ -367,6 +433,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 34,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "MitchellTM",
         name: "Mitchell",
         role: ROLES.MEMBER,
@@ -378,6 +446,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 35,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "~Mitch~",
         name: "Mitchell",
         role: ROLES.MEMBER,
@@ -389,6 +459,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 36,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Geerard",
         name: "Geerard",
         role: ROLES.COLEADER,
@@ -399,6 +471,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 37,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Alifoeroe",
         name: "Nardo",
         role: ROLES.COLEADER,
@@ -409,6 +483,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 38,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Mini Alifoeroe",
         name: "Nardo",
         role: ROLES.MEMBER,
@@ -420,6 +496,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 39,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Alifoeroe III",
         name: "Nardo",
         role: ROLES.COLEADER,
@@ -431,6 +509,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 40,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Alifoeroe IV",
         name: "Nardo",
         role: ROLES.MEMBER,
@@ -442,6 +522,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 41,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Alifoeroe V",
         name: "Nardo",
         role: ROLES.MEMBER,
@@ -453,6 +535,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 42,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Manatura",
         name: "Nardo",
         role: ROLES.MEMBER,
@@ -464,6 +548,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 43,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Manatura II",
         name: "Nardo",
         role: ROLES.MEMBER,
@@ -475,6 +561,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 44,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Manatura III",
         name: "Nardo",
         role: ROLES.MEMBER,
@@ -486,6 +574,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 45,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "VeniVidiVincie",
         name: "Vincent",
         role: ROLES.COLEADER,
@@ -496,6 +586,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 46,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "jassie02",
         name: "Jasper",
         role: ROLES.COLEADER,
@@ -506,6 +598,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 47,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Berg",
         name: "Jasper",
         role: ROLES.MEMBER,
@@ -517,6 +611,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 48,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "DL Berg",
         name: "Jasper",
         role: ROLES.COLEADER,
@@ -528,6 +624,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 49,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "YumZo",
         name: "Jasper",
         role: ROLES.MEMBER,
@@ -539,6 +637,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 50,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "aapje312",
         name: "Jasper",
         role: ROLES.MEMBER,
@@ -550,6 +650,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 51,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "BG_FREEZE",
         role: ROLES.MEMBER,
         joined: "2023-07-11",
@@ -559,6 +661,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 52,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "wolfie",
         role: ROLES.ELDER,
         joined: "2022-01-12",
@@ -568,6 +672,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 53,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Pak Boli",
         role: ROLES.MEMBER,
         joined: "2023-12-27",
@@ -577,6 +683,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 54,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Kars",
         name: "Kars",
         role: ROLES.MEMBER,
@@ -587,6 +695,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 55,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "kroesty",
         role: ROLES.MEMBER,
         joined: "2021-01-10",
@@ -596,6 +706,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 56,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Anass",
         name: "Anass",
         role: ROLES.MEMBER,
@@ -606,6 +718,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 57,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "DutchApolloHD",
         name: "Tom",
         role: ROLES.ELDER,
@@ -616,6 +730,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 58,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "jonasvginkel",
         name: "Jonas",
         role: ROLES.MEMBER,
@@ -626,6 +742,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 59,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "jelle(^o^)",
         name: "Jelle",
         role: ROLES.COLEADER,
@@ -636,6 +754,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 60,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "MaGuy",
         name: "Jelle",
         role: ROLES.COLEADER,
@@ -647,6 +767,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 61,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "jelle oy123",
         name: "Jelle",
         role: ROLES.MEMBER,
@@ -658,6 +780,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 62,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "DL Jelle",
         name: "Jelle",
         role: ROLES.MEMBER,
@@ -669,6 +793,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 63,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "jelle 5",
         name: "Jelle",
         role: ROLES.MEMBER,
@@ -680,6 +806,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 64,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Jesse",
         name: "Jesse",
         role: ROLES.COLEADER,
@@ -690,6 +818,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 65,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Mini Jesse",
         name: "Jesse",
         role: ROLES.MEMBER,
@@ -701,6 +831,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 66,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Dreamlord",
         name: "Miko",
         role: ROLES.MEMBER,
@@ -711,6 +843,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 67,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "!President!",
         role: ROLES.MEMBER,
         joined: "2024-01-24",
@@ -720,6 +854,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 68,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Bart",
         name: "Bart",
         role: ROLES.MEMBER,
@@ -730,6 +866,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 69,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Bart2",
         name: "Bart",
         role: ROLES.MEMBER,
@@ -741,6 +879,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 70,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Bart3",
         name: "Bart",
         role: ROLES.MEMBER,
@@ -752,6 +892,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 71,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Bart4",
         name: "Bart",
         role: ROLES.MEMBER,
@@ -763,6 +905,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 72,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Lord Aren",
         role: ROLES.MEMBER,
         joined: "2021-05-31",
@@ -772,6 +916,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 73,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "rubenvandebuurt",
         name: "Ruben",
         role: ROLES.MEMBER,
@@ -782,6 +928,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 74,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "bi3r",
         role: ROLES.MEMBER,
         joined: "2022-12-10",
@@ -791,6 +939,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 75,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "DL Zwekmetino",
         name: "Ino",
         role: ROLES.MEMBER,
@@ -801,6 +951,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 76,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "DL timvdb",
         name: "Tim",
         role: ROLES.MEMBER,
@@ -811,6 +963,9 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 77,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
+        isActive: false,
         username: "frank",
         name: "Frank",
         role: ROLES.ELDER,
@@ -821,6 +976,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 78,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Skillrex",
         role: ROLES.MEMBER,
         joined: "2024-01-15",
@@ -830,6 +987,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 79,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "yogibear",
         role: ROLES.MEMBER,
         joined: "2021-08-20",
@@ -839,6 +998,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 80,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "piters10",
         role: ROLES.MEMBER,
         joined: "2021-08-03",
@@ -848,6 +1009,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 81,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Heidi's City",
         name: "Heidi",
         role: ROLES.MEMBER,
@@ -858,6 +1021,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 82,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "z.h.",
         role: ROLES.MEMBER,
         joined: "2021-01-01",
@@ -867,6 +1032,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 83,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Gurby Beast",
         role: ROLES.MEMBER,
         joined: "2020-06-15",
@@ -876,6 +1043,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 84,
+        createdAt: "2024-07-30 15:30:00",
+        updatedAt: "2024-07-30 15:30:00",
         username: "Rukkert",
         role: ROLES.MEMBER,
         joined: "2022-05-25",
@@ -885,6 +1054,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 85,
+        createdAt: "2024-08-15 12:00:00",
+        updatedAt: "2024-08-15 12:00:00",
         username: "[SE] Dylan",
         name: "Dylan",
         role: ROLES.MEMBER,
@@ -895,6 +1066,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 86,
+        createdAt: "2024-08-15 12:00:00",
+        updatedAt: "2024-08-15 12:00:00",
         username: "[SE] Dylan Jr.",
         name: "Dylan",
         role: ROLES.MEMBER,
@@ -906,6 +1079,8 @@ export const seed = async (db: Kysely<any>) => {
       },
       {
         ID: 87,
+        createdAt: "2024-08-15 12:00:00",
+        updatedAt: "2024-08-15 12:00:00",
         username: "[SE] Dylan Th13",
         name: "Dylan",
         role: ROLES.MEMBER,

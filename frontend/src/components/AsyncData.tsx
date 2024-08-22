@@ -16,10 +16,9 @@ export default function AsyncData({
     return <Loader />;
   }
 
-  return (
-    <>
-      <Error error={error} />
-      {children}
-    </>
-  );
+  if (error) {
+    return <Error error={error} />;
+  }
+
+  return <>{children}</>;
 }

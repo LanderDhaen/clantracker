@@ -26,5 +26,6 @@ export const updateTownhall = async (
   townhall: UpdateableTownhall
 ) => {
   await checkTownhallExists(id);
+  townhall.updatedAt = new Date();
   return townhallService.updateTownhall(id, townhall);
 };

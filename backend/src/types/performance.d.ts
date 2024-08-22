@@ -10,6 +10,9 @@ import * as performanceController from "../controllers/performance";
 
 export interface PerformanceTable {
   ID: Generated<number>;
+  createdAt: ColumnType<Date>;
+  updatedAt: ColumnType<Date>;
+  isActive: ColumnType<boolean>;
   attacks: ColumnType<number>;
   stars: ColumnType<number>;
   damage: ColumnType<number>;

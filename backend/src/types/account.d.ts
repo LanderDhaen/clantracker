@@ -11,6 +11,9 @@ import { RoleValue } from "../data/enums/roles";
 
 export interface AccountTable {
   ID: Generated<number>;
+  createdAt: ColumnType<Date, string>;
+  updatedAt: ColumnType<Date, string>;
+  isActive: ColumnType<boolean>;
   username: ColumnType<string>;
   name: ColumnType<string> | null;
   role: ColumnType<RoleValue>;
