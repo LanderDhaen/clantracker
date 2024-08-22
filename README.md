@@ -2,7 +2,16 @@
 
 Welcome to the change log of **Dutch Legion's 3 Clantracker**
 
-## Version 2.3 - Bugfix
+## Version 2.4 - Bugfixes
+
+#### _Released on 2024-08-22_
+
+### Fixed
+
+- **Cookie Issue**: Resolved issues related to cookies, improving security.
+- **UI Issue**: Resolved issues related to loading, improving user experience
+
+## Version 2.3 - Bugfixes
 
 #### _Released on 2024-08-22_
 
@@ -10,7 +19,7 @@ Welcome to the change log of **Dutch Legion's 3 Clantracker**
 
 - **CORS Issue**: Resolved issues related to Cross-Origin Resource Sharing (CORS), improving compatibility with external APIs.
 
-## Version 2.2 - Bugfix
+## Version 2.2 - Bugfixes
 
 #### _Released on 2024-08-22_
 
@@ -18,7 +27,7 @@ Welcome to the change log of **Dutch Legion's 3 Clantracker**
 
 - **.env Issue:** Resolved issues related to visible environment files
 
-## Version 2.1 - Bugfix
+## Version 2.1 - Bugfixes
 
 #### _Released on 2024-08-22_
 
@@ -41,7 +50,7 @@ Welcome to the change log of **Dutch Legion's 3 Clantracker**
 
 - **Migration to TypeScript**: Transitioned the codebase from JavaScript (JSX) to TypeScript (TSX) for better type safety and maintainability.
 
-## Version 1.2 - Bugfix
+## Version 1.2 - Bugfixes
 
 #### _Released on 2024-08-09_
 
@@ -49,7 +58,7 @@ Welcome to the change log of **Dutch Legion's 3 Clantracker**
 
 - **CORS Issue**: Resolved issues related to Cross-Origin Resource Sharing (CORS), improving compatibility with external APIs.
 
-## Version 1.1 - Account Creation
+## Version 1.1 - Account Creation & Bugfixes
 
 #### _Released on 2024-08-09_
 
