@@ -2,9 +2,13 @@ import { Button } from "@/components/ui/Button";
 import { Label } from "@/components/ui/Label";
 import { useNavigate } from "react-router-dom";
 import { Users, BarChart2, Castle, Hammer, Crown, User } from "lucide-react";
+import { useSessionUser } from "@/hooks/useSessionUser";
+import useLogoutMutation from "@/hooks/useLogoutMutation";
 
 export default function Header() {
   const navigate = useNavigate();
+  const logout = useLogoutMutation();
+  const { data: user } = useSessionUser();
 
   return (
     <header className="py-4 bg-gray-100 flex items-center px-20">
@@ -35,14 +39,24 @@ export default function Header() {
             CWL (coming soon)
           </Button>
         </div>
-        <Button
-          className="ml-auto"
-          variant="outline"
-          onClick={() => navigate("/cwls")}
-        >
-          <User className="mr-2" />
-          Log in
-        </Button>
+        {user ? (
+          <Button
+            className="ml-auto"
+            variant="outline"
+            onClick={() => logout()}
+          >
+            Log out
+          </Button>
+        ) : (
+          <Button
+            className="ml-auto"
+            variant="outline"
+            onClick={() => navigate("/login")}
+          >
+            <User className="mr-2" />
+            Log in
+          </Button>
+        )}
       </div>
     </header>
   );

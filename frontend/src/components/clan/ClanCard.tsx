@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/Button";
 import { colorLeague, formatLeague, LeagueValue } from "@/lib/formatLeague";
 
 import { useNavigate } from "react-router-dom";
+import PrivateGuard from "../PrivateGuard";
 
 interface ClanCardProps {
   clan: {
@@ -53,9 +54,15 @@ export default function ClanCard({ clan }: ClanCardProps) {
               {name}
             </div>
           </CardTitle>
-          <Button onClick={handleEditClick} variant="outline" className="ml-4">
-            Edit
-          </Button>
+          <PrivateGuard>
+            <Button
+              onClick={handleEditClick}
+              variant="outline"
+              className="ml-4"
+            >
+              Edit
+            </Button>
+          </PrivateGuard>
         </div>
         <CardDescription>Clan Information</CardDescription>
       </CardHeader>

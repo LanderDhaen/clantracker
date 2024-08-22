@@ -26,6 +26,7 @@ import { format } from "date-fns";
 import { Button } from "@/components/ui/Button";
 import ClanCard from "@/components/clan/ClanCard";
 import { GetAccountDetailsByIDResponse } from "@backend-types/account";
+import PrivateGuard from "@/components/PrivateGuard";
 
 interface AccountProfileProps {
   account: GetAccountDetailsByIDResponse;
@@ -66,13 +67,15 @@ export default function AccountProfile({ account }: AccountProfileProps) {
                   {username}
                 </div>
               </CardTitle>
-              <Button
-                onClick={handleEditClick}
-                variant="outline"
-                className="ml-4"
-              >
-                Edit
-              </Button>
+              <PrivateGuard>
+                <Button
+                  onClick={handleEditClick}
+                  variant="outline"
+                  className="ml-4"
+                >
+                  Edit
+                </Button>
+              </PrivateGuard>
             </div>
             <CardDescription>Account Information</CardDescription>
           </CardHeader>

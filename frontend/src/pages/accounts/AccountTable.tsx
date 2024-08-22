@@ -27,6 +27,7 @@ import TownhallFilterPopover from "../../components/townhall/TownhallFilter";
 import { GetAllAccountsResponse } from "@backend-types/account";
 import { getAllClansResponse } from "@backend-types/clan";
 import { getAllTownhallsResponse } from "@backend-types/townhall";
+import PrivateGuard from "@/components/PrivateGuard";
 
 interface AccountTableProps {
   columns: ColumnDef<GetAllAccountsResponse[number]>[];
@@ -127,12 +128,14 @@ export function AccountTable({
             onSelectChange={handleNumberChange}
           />
         </div>
-        <div className="flex items-center">
-          <Button variant="outline" onClick={() => navigate("/accounts/add")}>
-            <ListPlus className="mr-2" />
-            Create member
-          </Button>
-        </div>
+        <PrivateGuard>
+          <div className="flex items-center">
+            <Button variant="outline" onClick={() => navigate("/accounts/add")}>
+              <ListPlus className="mr-2" />
+              Create member
+            </Button>
+          </div>
+        </PrivateGuard>
       </div>
       <div className="rounded-md border p-2">
         <Table>
