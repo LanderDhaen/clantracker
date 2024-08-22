@@ -1,6 +1,7 @@
 import Koa from "koa";
 import Router from "@koa/router";
 import installHealthRouter from "./health";
+import installUserRouter from "./user";
 import installAccountRouter from "./account";
 import installClanRouter from "./clan";
 import installTownhallRouter from "./townhall";
@@ -12,6 +13,7 @@ export default (app: Koa): Koa => {
   });
 
   installHealthRouter(router);
+  installUserRouter(router);
   installAccountRouter(router);
   installClanRouter(router);
   installTownhallRouter(router);

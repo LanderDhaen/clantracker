@@ -3,6 +3,8 @@ import { TownhallTable } from "./townhall";
 import { ClanTable } from "./clan";
 import { CWLTable } from "./cwl";
 import { PerformanceTable } from "./performance";
+import { UserTable } from "./user";
+import { SessionTable } from "./session";
 
 export interface Database {
   townhall: TownhallTable;
@@ -10,4 +12,6 @@ export interface Database {
   account: AccountTable;
   cwl: CWLTable;
   performance: PerformanceTable;
+  user: UserTable;
+  session: SessionTable;
 }

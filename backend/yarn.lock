@@ -1081,7 +1081,7 @@ arg@^4.1.0:
 
 argon2@^0.40.3:
   version "0.40.3"
-  resolved "https://registry.npmjs.org/argon2/-/argon2-0.40.3.tgz"
+  resolved "https://registry.yarnpkg.com/argon2/-/argon2-0.40.3.tgz#7d9e9aea534ae52e0de708659a1761ab0eb77ac0"
   integrity sha512-FrSmz4VeM91jwFvvjsQv9GYp6o/kARWoYKjbjDB2U5io1H3e5X67PYGclFDeQff6UXIhUd4aHR3mxCdBbMMuQw==
   dependencies:
     "@phc/format" "^1.0.0"
