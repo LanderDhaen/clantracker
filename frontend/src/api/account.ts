@@ -1,4 +1,4 @@
-import useSWR, { SWRResponse } from "swr";
+import useSWR from "swr";
 import { get } from "./index.js";
 import {
   GetAllAccountsResponse,
