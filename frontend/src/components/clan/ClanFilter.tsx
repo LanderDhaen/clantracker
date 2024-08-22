@@ -6,10 +6,10 @@ import {
 
 import { Button } from "@/components/ui/Button";
 import { Filter } from "lucide-react";
-import { ClanListEntry } from "@/api/clan";
+import { getAllClansResponse } from "@backend-types/clan";
 
 interface ClanFilterProps {
-  clans: ClanListEntry[];
+  clans: getAllClansResponse;
   filterClans: number[];
   onSelectChange: (key: string, value: number) => void;
 }

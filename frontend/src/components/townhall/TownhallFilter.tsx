@@ -6,11 +6,11 @@ import {
 
 import { Button } from "@/components/ui/Button";
 import { Filter } from "lucide-react";
-import { TownhallListEntry } from "@/api/townhall";
 import TownhallLabel from "./TownhallLabel";
+import { getAllTownhallsResponse } from "@backend-types/townhall";
 
 interface TownhallFilterProps {
-  townhalls: TownhallListEntry[];
+  townhalls: getAllTownhallsResponse;
   filterTownhalls: number[];
   onSelectChange: (key: string, value: number) => void;
 }
