@@ -45,8 +45,8 @@ const logout = async (ctx: Context) => {
 
   ctx.cookies.set("sessionID", "", {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    secure: false,
+    sameSite: "lax",
     expires: new Date(0),
   });
 
