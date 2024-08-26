@@ -11,6 +11,7 @@ import {
 } from "../ui/Table";
 import { Card, CardContent } from "../ui/Card";
 import { colorTownhall } from "@/lib/formatTownhall";
+import { Medal } from "lucide-react";
 
 interface DamageTableProps {
   stars: CWLDetail["statistics"]["stars"];
@@ -26,6 +27,7 @@ export default function StarsTable({ stars }: DamageTableProps) {
           </TableCaption>
           <TableHeader>
             <TableRow>
+              <TableHead className="text-center px-0" />
               <TableHead className="text-center">Username</TableHead>
               <TableHead className="text-center">Townhall</TableHead>
               <TableHead className="text-center">Attacks</TableHead>
@@ -36,6 +38,9 @@ export default function StarsTable({ stars }: DamageTableProps) {
           <TableBody>
             {stars.map((s) => (
               <TableRow key={s.username}>
+                <TableCell className="text-center px-0">
+                  {s.bonus && <Medal size={12} />}
+                </TableCell>
                 <TableCell className="text-center">{s.username}</TableCell>
                 <TableCell className="text-center">
                   <Badge color={colorTownhall(s.townhall)}>

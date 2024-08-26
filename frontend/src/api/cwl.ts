@@ -44,6 +44,7 @@ export type CWLDetail = {
     stars: {
       username: string;
       townhall: number;
+      bonus: boolean;
       stars: number;
       attacks: number;
       avgStars: number;
@@ -51,6 +52,7 @@ export type CWLDetail = {
     damage: {
       username: string;
       townhall: number;
+      bonus: boolean;
       damage: number;
       attacks: number;
       avgDamage: number;

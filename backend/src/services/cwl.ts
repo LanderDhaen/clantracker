@@ -33,6 +33,7 @@ export const getCWLDetailsByID = async (id: number) => {
         .select([
           "account.username",
           "townhall.level as townhall",
+          "performance.bonus",
           "performance.stars",
           "performance.attacks",
           sql`ROUND(performance.stars * 1.0 / NULLIF(performance.attacks, 0), 1)`.as(
@@ -50,6 +51,7 @@ export const getCWLDetailsByID = async (id: number) => {
         .select([
           "account.username",
           "townhall.level as townhall",
+          "performance.bonus",
           "performance.damage",
           "performance.attacks",
           sql`ROUND(performance.damage * 1.0 / NULLIF(performance.attacks, 0), 1)`.as(
@@ -86,9 +88,11 @@ export const getCWLDetailsByID = async (id: number) => {
       sql<
         {
           username: string;
-          totalStars: number;
+          townhall: number;
+          bonus: boolean;
+          stars: number;
           avgStars: number;
-          totalAttacks: number;
+          attacks: number;
         }[]
       >`
     COALESCE(
@@ -97,6 +101,7 @@ export const getCWLDetailsByID = async (id: number) => {
             jsonb_build_object(
               'username', stars.username,
               'townhall', stars.townhall,
+              'bonus', stars.bonus,
               'stars', stars.stars,
               'attacks', stars.attacks,
               'avgStars', stars.avgstars
@@ -112,9 +117,11 @@ export const getCWLDetailsByID = async (id: number) => {
       sql<
         {
           username: string;
-          totalDamage: number;
+          townhall: number;
+          bonus: boolean;
+          damage: number;
           avgDamage: number;
-          totalAttacks: number;
+          attacks: number;
         }[]
       >`
     COALESCE(
@@ -123,6 +130,7 @@ export const getCWLDetailsByID = async (id: number) => {
             jsonb_build_object(
               'username', damage.username,
               'townhall', damage.townhall,
+              'bonus', damage.bonus,
               'damage', damage.damage,
               'attacks', damage.attacks,
               'avgDamage', damage.avgdamage
