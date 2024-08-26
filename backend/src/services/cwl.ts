@@ -25,23 +25,39 @@ export const getAllCWLs = async () => {
 
 export const getCWLDetailsByID = async (id: number) => {
   const cwl = await db
-    .with("performances", (qb) =>
+    .with("stars", (qb) =>
       qb
         .selectFrom("performance")
         .innerJoin("account", "performance.accountID", "account.ID")
+        .innerJoin("townhall", "account.townhallID", "townhall.ID")
         .select([
-          "account.name",
+          "account.username",
+          "townhall.level as townhall",
           "performance.stars",
-          "performance.damage",
           "performance.attacks",
           sql`ROUND(performance.stars * 1.0 / NULLIF(performance.attacks, 0), 1)`.as(
             "avgstars"
           ),
-          sql`ROUND(performance.damage * 1.0 / NULLIF(performance.attacks, 0), 0)`.as(
+        ])
+        .where("performance.cwlID", "=", id)
+        .orderBy("avgstars", "desc")
+    )
+    .with("damage", (qb) =>
+      qb
+        .selectFrom("performance")
+        .innerJoin("account", "performance.accountID", "account.ID")
+        .innerJoin("townhall", "account.townhallID", "townhall.ID")
+        .select([
+          "account.username",
+          "townhall.level as townhall",
+          "performance.damage",
+          "performance.attacks",
+          sql`ROUND(performance.damage * 1.0 / NULLIF(performance.attacks, 0), 1)`.as(
             "avgdamage"
           ),
         ])
         .where("performance.cwlID", "=", id)
+        .orderBy("avgdamage", "desc")
     )
     .selectFrom("cwl")
     .innerJoin("clan", "cwl.clanID", "clan.ID")
@@ -69,9 +85,33 @@ export const getCWLDetailsByID = async (id: number) => {
       "clan.longestWinStreak",
       sql<
         {
-          accountName: string;
+          username: string;
           totalStars: number;
           avgStars: number;
+          totalAttacks: number;
+        }[]
+      >`
+    COALESCE(
+        (
+          SELECT jsonb_agg(
+            jsonb_build_object(
+              'username', stars.username,
+              'townhall', stars.townhall,
+              'stars', stars.stars,
+              'attacks', stars.attacks,
+              'avgStars', stars.avgstars
+            )
+          )
+          FROM "stars"
+        ),
+        '[]'
+      )
+      `.as("stars"),
+    ])
+    .select(
+      sql<
+        {
+          username: string;
           totalDamage: number;
           avgDamage: number;
           totalAttacks: number;
@@ -81,20 +121,19 @@ export const getCWLDetailsByID = async (id: number) => {
         (
           SELECT jsonb_agg(
             jsonb_build_object(
-              'name', performances.name,
-              'stars', performances.stars,
-              'damage', performances.damage,
-              'attacks', performances.attacks,
-              'avgStars', performances.avgstars,
-              'avgDamage', performances.avgdamage
+              'username', damage.username,
+              'townhall', damage.townhall,
+              'damage', damage.damage,
+              'attacks', damage.attacks,
+              'avgDamage', damage.avgdamage
             )
           )
-          FROM "performances"
+          FROM "damage"
         ),
         '[]'
       )
-      `.as("performances"),
-    ])
+      `.as("damage")
+    )
     .where("cwl.ID", "=", id)
     .executeTakeFirst();
 
@@ -124,7 +163,10 @@ export const getCWLDetailsByID = async (id: number) => {
       cwl: cwl.cwl,
       longestWinStreak: cwl.longestWinStreak,
     },
-    performances: cwl.performances,
+    statistics: {
+      stars: cwl.stars,
+      damage: cwl.damage,
+    },
   };
 };
 

@@ -1,10 +1,7 @@
 import useSWR from "swr";
 import { get } from "./index.js";
 import { LeagueValue } from "@/lib/formatLeague.js";
-import {
-  PlacementTypeKey,
-  PlacementTypeValue,
-} from "@/lib/formatPlacementTypes.js";
+import { PlacementTypeValue } from "@/lib/formatPlacementTypes.js";
 
 export type CWL = {
   ID: number;
@@ -43,14 +40,22 @@ export type CWLDetail = {
     cwl: LeagueValue;
     longestWinStreak: number;
   };
-  performances: {
-    accountName: string;
-    stars: number;
-    damage: number;
-    attacks: number;
-    avgstars: number;
-    avgdamage: number;
-  }[];
+  statistics: {
+    stars: {
+      username: string;
+      townhall: number;
+      stars: number;
+      attacks: number;
+      avgStars: number;
+    }[];
+    damage: {
+      username: string;
+      townhall: number;
+      damage: number;
+      attacks: number;
+      avgDamage: number;
+    }[];
+  };
 };
 
 export function getCWLs() {
