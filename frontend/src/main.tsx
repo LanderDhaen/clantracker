@@ -22,6 +22,8 @@ const AccountProfilePage = lazy(
 const LoginFormPage = lazy(() => import("./pages/loginform/LoginFormPage"));
 const NotFoundPage = lazy(() => import("./components/NotFound"));
 
+const CWLPage = lazy(() => import("./pages/cwls/CWLPage"));
+
 import { useSessionUser } from "./hooks/useSessionUser";
 import Loader from "./components/Loader";
 
@@ -38,6 +40,7 @@ const privateRouter = createBrowserRouter([
       { path: "/performances", element: <PerformancePage /> },
       { path: "/clans", element: <ClanPage /> },
       { path: "/clans/:id", element: <ClanProfilePage /> },
+      { path: "/cwls", element: <CWLPage /> },
       { path: "*", element: <NotFoundPage /> },
     ],
   },
@@ -55,6 +58,7 @@ const publicRouter = createBrowserRouter([
       { path: "/performances", element: <PerformancePage /> },
       { path: "/clans", element: <ClanPage /> },
       { path: "/clans/:id", element: <ClanProfilePage /> },
+      { path: "/cwls", element: <CWLPage /> },
       { path: "*", element: <NotFoundPage /> },
     ],
   },
