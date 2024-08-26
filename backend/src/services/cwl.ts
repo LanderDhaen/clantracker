@@ -47,11 +47,15 @@ export const getCWLDetailsByID = async (id: number) => {
     .innerJoin("clan", "cwl.clanID", "clan.ID")
     .select([
       "cwl.ID",
+      "cwl.updatedAt",
+      "cwl.createdAt",
+      "cwl.isActive",
       "cwl.month",
       "cwl.year",
       "cwl.league",
       "cwl.placement",
       "cwl.placementType",
+      "cwl.size",
       "clan.ID",
       "clan.createdAt",
       "clan.updatedAt",
@@ -97,11 +101,15 @@ export const getCWLDetailsByID = async (id: number) => {
   return {
     cwl: {
       ID: cwl.ID,
+      updatedAt: cwl.updatedAt,
+      createdAt: cwl.createdAt,
+      isActive: cwl.isActive,
       month: cwl.month,
       year: cwl.year,
       league: cwl.league,
       placement: cwl.placement,
       placementType: cwl.placementType,
+      size: cwl.size,
     },
     clan: {
       ID: cwl.ID,

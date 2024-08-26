@@ -7,6 +7,7 @@ import {
 } from "kysely";
 import { MonthValue } from "../data/enums/months";
 import { PlacementTypeValue } from "../data/enums/placementTypes";
+import { LeagueValue } from "../data/enums/leagues";
 
 export interface CWLTable {
   ID: Generated<number>;
@@ -15,9 +16,10 @@ export interface CWLTable {
   isActive: ColumnType<boolean>;
   month: ColumnType<MonthValue>;
   year: ColumnType<number>;
-  league: ColumnType<number>;
+  league: ColumnType<LeagueValue>;
   placement: ColumnType<number>;
   placementType: ColumnType<PlacementTypeValue>;
+  size: ColumnType<number>;
   clanID: ColumnType<number>;
 }
 

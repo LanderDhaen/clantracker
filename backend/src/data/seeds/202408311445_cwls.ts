@@ -19,6 +19,7 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER2,
         placement: 4,
         placementType: PLACEMENTTYPES.SAFE,
+        size: 30,
         clanID: 1,
       },
       {
@@ -30,6 +31,7 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER2,
         placement: 4,
         placementType: PLACEMENTTYPES.SAFE,
+        size: 30,
         clanID: 1,
       },
       {
@@ -41,6 +43,7 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER2,
         placement: 7,
         placementType: PLACEMENTTYPES.DEMOTION,
+        size: 30,
         clanID: 1,
       },
       {
@@ -52,6 +55,7 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER3,
         placement: 1,
         placementType: PLACEMENTTYPES.PROMOTION,
+        size: 30,
         clanID: 1,
       },
       {
@@ -63,6 +67,7 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER2,
         placement: 3,
         placementType: PLACEMENTTYPES.SAFE,
+        size: 30,
         clanID: 1,
       },
       {
@@ -74,6 +79,7 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER2,
         placement: 1,
         placementType: PLACEMENTTYPES.PROMOTION,
+        size: 30,
         clanID: 1,
       },
       {
@@ -85,6 +91,7 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER1,
         placement: 3,
         placementType: PLACEMENTTYPES.SAFE,
+        size: 30,
         clanID: 1,
       },
       {
@@ -96,6 +103,7 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER1,
         placement: 4,
         placementType: PLACEMENTTYPES.SAFE,
+        size: 30,
         clanID: 1,
       },
       {
@@ -107,6 +115,7 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER1,
         placement: 1,
         placementType: PLACEMENTTYPES.PROMOTION,
+        size: 30,
         clanID: 1,
       },
       {
@@ -118,6 +127,7 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.CHAMP3,
         placement: 2,
         placementType: PLACEMENTTYPES.SAFE,
+        size: 15,
         clanID: 1,
       },
       {
@@ -129,6 +139,7 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER1,
         placement: 8,
         placementType: PLACEMENTTYPES.DEMOTION,
+        size: 30,
         clanID: 2,
       },
       {
@@ -140,6 +151,7 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.CHAMP3,
         placement: 1,
         placementType: PLACEMENTTYPES.PROMOTION,
+        size: 15,
         clanID: 1,
       },
       {
@@ -151,6 +163,7 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER2,
         placement: 6,
         placementType: PLACEMENTTYPES.SAFE,
+        size: 30,
         clanID: 2,
       },
       {
@@ -162,6 +175,7 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.CHAMP2,
         placement: 4,
         placementType: PLACEMENTTYPES.SAFE,
+        size: 15,
         clanID: 1,
       },
       {
@@ -173,6 +187,7 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER2,
         placement: 4,
         placementType: PLACEMENTTYPES.SAFE,
+        size: 30,
         clanID: 2,
       },
       {
@@ -184,6 +199,7 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.CHAMP2,
         placement: 2,
         placementType: PLACEMENTTYPES.SAFE,
+        size: 15,
         clanID: 1,
       },
       {
@@ -195,6 +211,7 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER2,
         placement: 5,
         placementType: PLACEMENTTYPES.SAFE,
+        size: 30,
         clanID: 2,
       },
     ])
