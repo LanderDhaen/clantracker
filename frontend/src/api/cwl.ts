@@ -1,14 +1,18 @@
 import useSWR from "swr";
 import { get } from "./index.js";
 import { LeagueValue } from "@/lib/formatLeague.js";
+import {
+  PlacementTypeKey,
+  PlacementTypeValue,
+} from "@/lib/formatPlacementTypes.js";
 
 export type CWL = {
   ID: number;
   month: number;
   year: number;
-  league: string;
+  league: LeagueValue;
   placement: number;
-  placementType: string;
+  placementType: PlacementTypeValue;
   clanID: number;
   clanName: string;
 };
@@ -16,11 +20,15 @@ export type CWL = {
 export type CWLDetail = {
   cwl: {
     ID: number;
+    createdAt: Date;
+    updatedAt: Date;
+    isActive: boolean;
     month: number;
     year: number;
-    league: string;
+    league: LeagueValue;
     placement: number;
-    placementType: string;
+    placementType: PlacementTypeValue;
+    size: number;
   };
   clan: {
     ID: number;

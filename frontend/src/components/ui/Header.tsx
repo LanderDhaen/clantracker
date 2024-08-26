@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/Button";
 import { Label } from "@/components/ui/Label";
 import { useNavigate } from "react-router-dom";
-import { Users, BarChart2, Castle, Hammer, Crown, User } from "lucide-react";
+import { Users, BarChart2, Castle, Hammer, Swords, User } from "lucide-react";
 import { useSessionUser } from "@/hooks/useSessionUser";
 import useLogoutMutation from "@/hooks/useLogoutMutation";
 
@@ -39,7 +39,7 @@ export default function Header() {
             Clans
           </Button>
           <Button variant="link" onClick={() => navigate("/cwls")}>
-            <Crown className="mr-2" />
+            <Swords className="mr-2" />
             CWL
           </Button>
         </div>

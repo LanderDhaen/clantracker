@@ -77,9 +77,7 @@ export const columns: ColumnDef<CWL>[] = [
     },
     cell: ({ row, getValue }) => {
       const placement = getValue() as number;
-      const placementType = parseInt(
-        row.original.placementType
-      ) as PlacementTypeValue;
+      const placementType = row.original.placementType;
 
       return (
         <Badge color={colorPlacementType(placementType)}>
