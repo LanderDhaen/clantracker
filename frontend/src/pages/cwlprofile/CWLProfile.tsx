@@ -3,6 +3,8 @@ import ClanCard from "@/components/infocards/ClanCard";
 import CWLCard from "@/components/infocards/CWLCard";
 import DamageTable from "@/components/tables/DamageTable";
 import StarsTable from "@/components/tables/StarsTable";
+import TownhallChart from "../clanprofile/TownhallChart";
+import NationalityChart from "../clanprofile/NationalityChart";
 
 interface CWLProfileProps {
   data: CWLDetail;
@@ -17,6 +19,8 @@ export default function CWLProfile({ data }: CWLProfileProps) {
       <ClanCard clan={clan} />
       <StarsTable stars={statistics.stars} />
       <DamageTable damage={statistics.damage} />
+      <TownhallChart townhalls={statistics.townhalls} />
+      <NationalityChart nationalities={statistics.nationalities} />
     </div>
   );
 }

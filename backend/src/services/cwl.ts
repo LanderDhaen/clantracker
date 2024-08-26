@@ -61,6 +61,24 @@ export const getCWLDetailsByID = async (id: number) => {
         .where("performance.cwlID", "=", id)
         .orderBy("avgdamage", "desc")
     )
+    .with("townhalls", (qb) =>
+      qb
+        .selectFrom("performance")
+        .innerJoin("account", "performance.accountID", "account.ID")
+        .innerJoin("townhall", "account.townhallID", "townhall.ID")
+        .select(["townhall.level", db.fn.count("account.ID").as("amount")])
+        .where("performance.cwlID", "=", id)
+        .groupBy("townhall.level")
+        .orderBy("townhall.level")
+    )
+    .with("nationalities", (qb) =>
+      qb
+        .selectFrom("performance")
+        .innerJoin("account", "performance.accountID", "account.ID")
+        .select(["account.nationality", db.fn.count("account.ID").as("amount")])
+        .where("performance.cwlID", "=", id)
+        .groupBy("account.nationality")
+    )
     .selectFrom("cwl")
     .innerJoin("clan", "cwl.clanID", "clan.ID")
     .select([
@@ -112,8 +130,6 @@ export const getCWLDetailsByID = async (id: number) => {
         '[]'
       )
       `.as("stars"),
-    ])
-    .select(
       sql<
         {
           username: string;
@@ -140,8 +156,36 @@ export const getCWLDetailsByID = async (id: number) => {
         ),
         '[]'
       )
-      `.as("damage")
+      `.as("damage"),
+      sql<{ value: number; amount: number }[]>`
+      COALESCE(
+        (
+          SELECT json_agg(
+            json_build_object(
+              'value', level,
+              'amount', amount
+            )
+          )
+          FROM "townhalls"
+        ),
+        '[]'
+      )
+    `.as("townhalls"),
+      sql<{ value: string; amount: number }[]>`
+    COALESCE(
+      (
+        SELECT json_agg(
+          json_build_object(
+            'value', nationality,
+            'amount', amount
+          )
+        )
+        FROM "nationalities"
+      ),
+      '[]'
     )
+  `.as("nationalities"),
+    ])
     .where("cwl.ID", "=", id)
     .executeTakeFirst();
 
@@ -174,6 +218,8 @@ export const getCWLDetailsByID = async (id: number) => {
     statistics: {
       stars: cwl.stars,
       damage: cwl.damage,
+      townhalls: cwl.townhalls,
+      nationalities: cwl.nationalities,
     },
   };
 };

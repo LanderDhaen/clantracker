@@ -57,6 +57,14 @@ export type CWLDetail = {
       attacks: number;
       avgDamage: number;
     }[];
+    townhalls: {
+      value: number;
+      amount: number;
+    }[];
+    nationalities: {
+      value: string;
+      amount: number;
+    }[];
   };
 };
 
