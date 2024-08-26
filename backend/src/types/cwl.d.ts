@@ -19,6 +19,8 @@ export interface CWLTable {
   league: ColumnType<LeagueValue>;
   placement: ColumnType<number>;
   placementType: ColumnType<PlacementTypeValue>;
+  stars: ColumnType<number>;
+  damage: ColumnType<number>;
   size: ColumnType<number>;
   clanID: ColumnType<number>;
 }
