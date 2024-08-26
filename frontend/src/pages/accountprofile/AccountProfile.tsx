@@ -1,5 +1,5 @@
-import DamageChart from "./DamageChart";
-import StarsChart from "./StarsChart";
+import DamageChart from "../../components/charts/DamageChart";
+import StarsChart from "../../components/charts/StarsChart";
 
 import ClanCard from "@/components/infocards/ClanCard";
 import { GetAccountDetailsByIDResponse } from "@backend-types/account";

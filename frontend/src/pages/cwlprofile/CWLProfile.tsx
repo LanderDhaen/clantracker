@@ -3,8 +3,8 @@ import ClanCard from "@/components/infocards/ClanCard";
 import CWLCard from "@/components/infocards/CWLCard";
 import DamageTable from "@/components/tables/DamageTable";
 import StarsTable from "@/components/tables/StarsTable";
-import TownhallChart from "../clanprofile/TownhallChart";
-import NationalityChart from "../clanprofile/NationalityChart";
+import TownhallChart from "../../components/charts/TownhallChart";
+import NationalityChart from "../../components/charts/NationalityChart";
 
 interface CWLProfileProps {
   data: CWLDetail;
