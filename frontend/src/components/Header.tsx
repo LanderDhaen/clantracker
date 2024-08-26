@@ -38,9 +38,9 @@ export default function Header() {
             <Castle className="mr-2" />
             Clans
           </Button>
-          <Button variant="link" onClick={() => navigate("/cwls")} disabled>
+          <Button variant="link" onClick={() => navigate("/cwls")}>
             <Crown className="mr-2" />
-            CWL (coming soon)
+            CWL
           </Button>
         </div>
         {user ? (

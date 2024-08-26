@@ -6,6 +6,7 @@ import installAccountRouter from "./account";
 import installClanRouter from "./clan";
 import installTownhallRouter from "./townhall";
 import installPerformanceRouter from "./performance";
+import installCWLRouter from "./cwl";
 
 export default (app: Koa): Koa => {
   const router = new Router({
@@ -18,6 +19,7 @@ export default (app: Koa): Koa => {
   installClanRouter(router);
   installTownhallRouter(router);
   installPerformanceRouter(router);
+  installCWLRouter(router);
 
   app.use(router.routes()).use(router.allowedMethods());
 
