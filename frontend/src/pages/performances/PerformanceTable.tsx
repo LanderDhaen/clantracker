@@ -24,7 +24,7 @@ import { useNavigate } from "react-router-dom";
 
 import { Input } from "@/components/ui/Input";
 
-import TownhallFilterPopover from "@/components/townhall/TownhallFilter";
+import TownhallFilterPopover from "@/components/filters/TownhallFilter";
 import { getAllTownhallsResponse } from "@backend-types/townhall";
 import { GetAllPerformancesResponse } from "@backend-types/performance";
 

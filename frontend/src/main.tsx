@@ -7,7 +7,7 @@ const Root = lazy(() => import("./components/Root"));
 const PerformancePage = lazy(
   () => import("./pages/performances/PerformancePage")
 );
-const Home = lazy(() => import("./components/Home"));
+const Home = lazy(() => import("./pages/home/HomePage"));
 const AccountFormPage = lazy(
   () => import("./pages/accountform/AccountFormPage")
 );

@@ -28,9 +28,9 @@ import { ListPlus } from "lucide-react";
 
 import { CWLListEntry } from "@/api/cwl";
 import { getAllClansResponse } from "@backend-types/clan";
-import ClanFilterPopover from "../../components/clan/ClanFilter";
+import ClanFilterPopover from "../../components/filters/ClanFilter";
 import PrivateGuard from "@/components/PrivateGuard";
-import YearFilterPopover from "./YearFilterPopover";
+import YearFilterPopover from "../../components/filters/YearFilter";
 
 interface ClanTableProps {
   columns: ColumnDef<CWLListEntry>[];

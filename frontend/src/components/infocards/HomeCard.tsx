@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/Card";
 import { Link } from "react-router-dom";
 
-interface InfoCardProps {
+interface HomeCardProps {
   title: string;
   info: string;
   text: string;
@@ -15,13 +15,13 @@ interface InfoCardProps {
   icon: JSX.Element;
 }
 
-export default function InfoCard({
+export default function HomeCard({
   title,
   info,
   text,
   URL,
   icon,
-}: InfoCardProps) {
+}: HomeCardProps) {
   return (
     <Card className="shadow-lg rounded-3xl">
       <CardHeader className="">

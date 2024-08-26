@@ -1,7 +1,7 @@
 import { Users, BarChart2, Castle } from "lucide-react";
-import InfoCard from "./InfoCard";
+import InfoCard from "../../components/infocards/HomeCard";
 
-export default function Home() {
+export default function HomePage() {
   const cards = [
     {
       title: "Accounts",

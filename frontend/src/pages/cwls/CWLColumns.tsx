@@ -6,11 +6,10 @@ import { format } from "date-fns";
 import { formatLeague, LeagueValue } from "@/lib/formatLeague";
 import {
   colorPlacementType,
-  formatPlacementType,
   PlacementTypeValue,
 } from "@/lib/formatPlacementTypes";
 import { formatPlacement } from "@/lib/formatPlacement";
-import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/Badge";
 
 export const columns: ColumnDef<CWLListEntry>[] = [
   {
@@ -83,15 +82,9 @@ export const columns: ColumnDef<CWLListEntry>[] = [
       ) as PlacementTypeValue;
 
       return (
-        <div className="flex items-center justify-center">
-          <span
-            className={cn(
-              "w-2 h-2 rounded-full mr-2",
-              colorPlacementType(placementType)
-            )}
-          ></span>
+        <Badge color={colorPlacementType(placementType)}>
           {formatPlacement(placement)}
-        </div>
+        </Badge>
       );
     },
   },

@@ -1,9 +1,9 @@
 import DamageChart from "./DamageChart";
 import StarsChart from "./StarsChart";
 
-import ClanCard from "@/components/clan/ClanCard";
+import ClanCard from "@/components/infocards/ClanCard";
 import { GetAccountDetailsByIDResponse } from "@backend-types/account";
-import AccountCard from "@/components/account/AccountCard";
+import AccountCard from "@/components/infocards/AccountCard";
 
 interface AccountProfileProps {
   data: GetAccountDetailsByIDResponse;

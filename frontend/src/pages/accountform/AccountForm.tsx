@@ -49,7 +49,8 @@ import {
 } from "@backend-types/account";
 import { getAllClansResponse } from "@backend-types/clan";
 import { getAllTownhallsResponse } from "@backend-types/townhall";
-import TownhallLabel from "@/components/townhall/TownhallLabel";
+import { Badge } from "@/components/ui/Badge";
+import { colorTownhall } from "@/lib/formatTownhall";
 
 interface AccountFormProps {
   mainAccounts: GetMainAccountsResponse;
@@ -212,7 +213,9 @@ export default function AccountForm({
                       key={townhall.ID}
                       value={townhall.ID.toString()}
                     >
-                      <TownhallLabel townhall={townhall.ID} />
+                      <Badge color={colorTownhall(townhall.level)}>
+                        TH {townhall.level}
+                      </Badge>
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -297,7 +300,9 @@ export default function AccountForm({
                           value={account.ID.toString()}
                         >
                           <div className="flex items-center space-x-1">
-                            <TownhallLabel townhall={account.townhall} />
+                            <Badge color={colorTownhall(account.townhall)}>
+                              TH {account.townhall}
+                            </Badge>
                             <span>| {account.username}</span>
                           </div>
                         </SelectItem>

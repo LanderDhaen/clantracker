@@ -3,7 +3,8 @@ import { ArrowUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ColumnDef } from "@tanstack/react-table";
 import { GetAllPerformancesResponse } from "@backend-types/performance";
-import TownhallLabel from "@/components/townhall/TownhallLabel";
+import { Badge } from "@/components/ui/Badge";
+import { colorTownhall } from "@/lib/formatTownhall";
 
 export const columns: ColumnDef<GetAllPerformancesResponse[number]>[] = [
   {
@@ -36,7 +37,7 @@ export const columns: ColumnDef<GetAllPerformancesResponse[number]>[] = [
     cell: ({ getValue }) => {
       const townhall = getValue() as number;
 
-      return <TownhallLabel townhall={townhall} />;
+      return <Badge color={colorTownhall(townhall)}>TH {townhall}</Badge>;
     },
     filterFn: (row, columnId, filterTownhalls) => {
       if (filterTownhalls.length === 0) return true;
@@ -97,15 +98,9 @@ export const columns: ColumnDef<GetAllPerformancesResponse[number]>[] = [
       }
 
       return (
-        <div className={"flex items-center justify-center"}>
-          <span
-            className={cn(
-              "w-2 h-2 rounded-full mr-2",
-              avgStars >= 2 ? "bg-green-500" : "bg-red-500"
-            )}
-          ></span>
+        <Badge color={avgStars >= 2 ? "bg-green-500" : "bg-red-500"}>
           {avgStars}
-        </div>
+        </Badge>
       );
     },
     sortingFn: (rowA, rowB, columnId) => {
@@ -140,15 +135,9 @@ export const columns: ColumnDef<GetAllPerformancesResponse[number]>[] = [
       }
 
       return (
-        <div className={"flex items-center justify-center"}>
-          <span
-            className={cn(
-              "w-2 h-2 rounded-full mr-2",
-              avgStars >= 2 ? "bg-green-500" : "bg-red-500"
-            )}
-          ></span>
+        <Badge color={avgStars >= 2 ? "bg-green-500" : "bg-red-500"}>
           {avgStars}
-        </div>
+        </Badge>
       );
     },
     sortingFn: (rowA, rowB, columnId) => {
