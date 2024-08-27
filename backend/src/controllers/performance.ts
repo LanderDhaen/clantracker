@@ -78,15 +78,11 @@ const formatPerformances = async (
             memberData.damage += attack.destructionPercentage;
           }
         } else {
+          memberData.attacks += 1;
           memberData.missed = true;
         }
       } catch (error) {
-        throw ServiceError.notFound(
-          `Account with tag ${member.tag} does not exist`,
-          {
-            member,
-          }
-        );
+        throw new Error(error);
       }
     }
   }

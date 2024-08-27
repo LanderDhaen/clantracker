@@ -28,8 +28,6 @@ export const getAccountDetailsByID = async (id: number) => {
 export const getAccountByTag = async (tag: string) => {
   const account = await accountService.getAccountByTag(tag);
 
-  console.log(tag, account);
-
   if (!account) {
     throw ServiceError.notFound(`Account with tag ${tag} does not exist`);
   }

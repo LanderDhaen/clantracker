@@ -79,10 +79,10 @@ export const getAccountDetailsByID = async (id: number) => {
           "performance.attacks",
           "cwl.month",
           "cwl.year",
-          sql`ROUND(performance.stars * 1.0 / NULLIF(performance.attacks, 0), 1)`.as(
+          sql`ROUND(CASE WHEN performance.attacks > 0 THEN performance.stars * 1.0 / performance.attacks ELSE 0 END, 1)`.as(
             "avg_stars"
           ),
-          sql`ROUND(performance.damage * 1.0 / NULLIF(performance.attacks, 0), 1)`.as(
+          sql`ROUND(CASE WHEN performance.attacks > 0 THEN performance.damage * 1.0 / performance.attacks ELSE 0 END, 1)`.as(
             "avg_damage"
           ),
         ])
@@ -98,10 +98,10 @@ export const getAccountDetailsByID = async (id: number) => {
           sql`SUM(performance.stars)`.as("total_stars"),
           sql`SUM(performance.damage)`.as("total_damage"),
           sql`SUM(performance.attacks)`.as("total_attacks"),
-          sql`ROUND(SUM(performance.stars) * 1.0 / NULLIF(SUM(performance.attacks), 0), 1)`.as(
+          sql`ROUND(CASE WHEN SUM(performance.attacks) > 0 THEN SUM(performance.stars) * 1.0 / SUM(performance.attacks) ELSE 0 END, 1)`.as(
             "avg_stars"
           ),
-          sql`ROUND(SUM(performance.damage) * 1.0 / NULLIF(SUM(performance.attacks), 0), 1)`.as(
+          sql`ROUND(CASE WHEN SUM(performance.attacks) > 0 THEN SUM(performance.damage) * 1.0 / SUM(performance.attacks) ELSE 0 END, 1)`.as(
             "avg_damage"
           ),
         ])

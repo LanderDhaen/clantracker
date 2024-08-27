@@ -12,10 +12,10 @@ export const getAllPerformances = async () => {
           sql`SUM(performance.stars)`.as("total_stars"),
           sql`SUM(performance.damage)`.as("total_damage"),
           sql`SUM(performance.attacks)`.as("total_attacks"),
-          sql`ROUND(SUM(performance.stars) * 1.0 / NULLIF(SUM(performance.attacks), 0), 1)`.as(
+          sql`ROUND(CASE WHEN SUM(performance.attacks) > 0 THEN SUM(performance.stars) * 1.0 / SUM(performance.attacks) ELSE 0 END, 1)`.as(
             "avg_stars"
           ),
-          sql`ROUND(SUM(performance.damage) * 1.0 / NULLIF(SUM(performance.attacks), 0), 1)`.as(
+          sql`ROUND(CASE WHEN SUM(performance.attacks) > 0 THEN SUM(performance.damage) * 1.0 / SUM(performance.attacks) ELSE 0 END, 1)`.as(
             "avg_damage"
           ),
         ])
@@ -31,10 +31,10 @@ export const getAllPerformances = async () => {
           sql`SUM(performance.stars)`.as("total_stars"),
           sql`SUM(performance.damage)`.as("total_damage"),
           sql`SUM(performance.attacks)`.as("total_attacks"),
-          sql`ROUND(SUM(performance.stars) * 1.0 / NULLIF(SUM(performance.attacks), 0), 1)`.as(
+          sql`ROUND(CASE WHEN SUM(performance.attacks) > 0 THEN SUM(performance.stars) * 1.0 / SUM(performance.attacks) ELSE 0 END, 1)`.as(
             "avg_stars"
           ),
-          sql`ROUND(SUM(performance.damage) * 1.0 / NULLIF(SUM(performance.attacks), 0), 1)`.as(
+          sql`ROUND(CASE WHEN SUM(performance.attacks) > 0 THEN SUM(performance.damage) * 1.0 / SUM(performance.attacks) ELSE 0 END, 1)`.as(
             "avg_damage"
           ),
         ])

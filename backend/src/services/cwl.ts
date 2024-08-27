@@ -52,7 +52,7 @@ export const getCWLDetailsByID = async (id: number) => {
           "performance.bonus",
           "performance.stars",
           "performance.attacks",
-          sql`ROUND(performance.stars * 1.0 / NULLIF(performance.attacks, 0), 1)`.as(
+          sql`ROUND(CASE WHEN performance.attacks > 0 THEN performance.stars * 1.0 / performance.attacks ELSE 0 END, 1)`.as(
             "avg_stars"
           ),
         ])
@@ -70,7 +70,7 @@ export const getCWLDetailsByID = async (id: number) => {
           "performance.bonus",
           "performance.damage",
           "performance.attacks",
-          sql`ROUND(performance.damage * 1.0 / NULLIF(performance.attacks, 0), 1)`.as(
+          sql`ROUND(CASE WHEN performance.attacks > 0 THEN performance.damage * 1.0 / performance.attacks ELSE 0 END, 1)`.as(
             "avg_damage"
           ),
         ])
