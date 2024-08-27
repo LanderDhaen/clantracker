@@ -2,7 +2,6 @@ import ServiceError from "../middleware/serviceError";
 import * as performanceService from "../services/performance";
 import * as clanController from "./clan";
 import * as accountController from "./account";
-import * as cwlController from "./cwl";
 import * as clashKingAPI from "../api/clashking";
 import { CWLData, InsertableCWL } from "../types/cwl";
 import { InsertablePerformance } from "../types/performance";
@@ -65,20 +64,28 @@ const formatPerformances = async (
             attacks: 0,
             stars: 0,
             damage: 0,
+            missed: false,
             cwlID: cwlID,
           };
         }
 
         const memberData = memberDataMap[member.tag];
 
-        for (const attack of member.attacks) {
-          memberData.attacks += 1;
-          memberData.stars += attack.stars;
-          memberData.damage += attack.destructionPercentage;
+        if (member.attacks) {
+          for (const attack of member.attacks) {
+            memberData.attacks += 1;
+            memberData.stars += attack.stars;
+            memberData.damage += attack.destructionPercentage;
+          }
+        } else {
+          memberData.missed = true;
         }
       } catch (error) {
         throw ServiceError.notFound(
-          `Account with tag ${member.tag} does not exist`
+          `Account with tag ${member.tag} does not exist`,
+          {
+            member,
+          }
         );
       }
     }
@@ -87,7 +94,7 @@ const formatPerformances = async (
   return Object.values(memberDataMap);
 };
 
-const getIDByTag = async (tag: string): Promise<number> => {
+const getIDByTag = async (tag: string) => {
   const account = await accountController.getAccountByTag(tag);
   return account.ID;
 };

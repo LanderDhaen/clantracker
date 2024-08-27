@@ -1182,6 +1182,19 @@ export const seed = async (db: Kysely<any>) => {
         townhallID: 13,
         clanID: 1,
       },
+      {
+        ID: 88,
+        createdAt: "2024-08-28 00:30:00",
+        updatedAt: "2024-08-28 00:30:00",
+        tag: "#2RR9CR8YP",
+        username: "wolf 2",
+        role: ROLES.MEMBER,
+        joined: "2021-12-23",
+        nationality: "Dutch",
+        townhallID: 14,
+        clanID: 1,
+        accountID: 52,
+      },
     ])
     .execute();
 
