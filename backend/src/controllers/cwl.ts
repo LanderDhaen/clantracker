@@ -1,14 +1,20 @@
 import ServiceError from "../middleware/serviceError";
 import * as cwlService from "../services/cwl";
 import * as cwlDayController from "./cwlday";
-import * as accountController from "./account";
-import * as performanceController from "./performance";
 import * as clanController from "./clan";
-import { CWLData, InsertableCWL, WarTag } from "../types/cwl";
+import * as clashKingAPI from "../api/clashking";
+import { CWLClan, CWLData, InsertableCWL, WarTag } from "../types/cwl";
 import { format } from "date-fns";
+import { MonthValue } from "../data/enums/months";
 
 export const getAllCWLs = async () => {
   return cwlService.getAllCWLs();
+};
+
+export const getCWLByID = async (id: number) => {
+  await checkCWlExists(id);
+
+  return cwlService.getCWLByID(id);
 };
 
 export const getCWLDetailsByID = async (id: number) => {
@@ -25,23 +31,35 @@ export const checkCWlExists = async (id: number) => {
   }
 };
 
-export const createCWL = async (cwl: InsertableCWL) => {
-  // Checking if a CWL for the given month, year and clan already exists
+export const getCWLByMonthYearClan = async (
+  month: MonthValue,
+  year: number,
+  clanID: number
+) => {
+  const cwl = await cwlService.getCWLByMonthYearClan(month, year, clanID);
 
-  // Getting the Clan Tag
+  if (cwl) {
+    throw ServiceError.validationFailed(
+      `CWL for month ${month} and year ${year} for clan ${clanID} already exists`
+    );
+  }
+};
+
+export const createCWL = async (cwl: InsertableCWL) => {
+  await getCWLByMonthYearClan(cwl.month, cwl.year, cwl.clanID);
 
   const targetClanTag = (await clanController.getClanByID(cwl.clanID)).tag;
-  const month = format(new Date(cwl.year, cwl.month - 1), "yyyy-MM");
+  const targetMonth = format(new Date(cwl.year, cwl.month - 1), "yyyy-MM");
 
-  // Fetch the data and ensure it's awaited before further processing
+  const data = await clashKingAPI.fetchCWLData(targetClanTag, targetMonth);
 
-  const data: CWLData = await fetch(
-    `https://api.clashking.xyz/cwl/${encodeURIComponent(
-      targetClanTag
-    )}/${month}`
-  ).then((res) => res.json());
+  // Finding the rank & data of the target clan
 
-  const rank = data.clan_rankings.find((rank) => rank.tag === targetClanTag);
+  const rank =
+    data.clan_rankings.findIndex((clan) => clan.tag === targetClanTag) + 1;
+  const rankData = data.clan_rankings.find(
+    (rank) => rank.tag === targetClanTag
+  );
 
   // Creating the CWL object
 
@@ -49,64 +67,49 @@ export const createCWL = async (cwl: InsertableCWL) => {
     month: cwl.month,
     year: cwl.year,
     league: cwl.league,
-    placement:
-      data.clan_rankings.findIndex((clan) => clan.tag === targetClanTag) + 1,
+    placement: rank,
     placementType: cwl.placementType,
-    stars: rank.stars,
-    damage: rank.destruction,
+    stars: rankData.stars,
+    damage: rankData.destruction,
     size: cwl.size,
     clanID: cwl.clanID,
   });
 
-  // Getting the war tags for the clan
+  const cwlDays = await formatCWLDays(newCWL.ID, data, targetClanTag);
 
-  const warTags = data.rounds.flatMap((round) =>
+  await cwlDayController.createCWLDays(cwlDays);
+
+  return getCWLByID(newCWL.ID);
+};
+
+const formatCWLDays = async (
+  cwlID: number,
+  data: CWLData,
+  targetClanTag: string
+) => {
+  const wars = data.rounds.flatMap((round) =>
     round.warTags.filter(
       (war) =>
         war.clan.tag === targetClanTag || war.opponent.tag === targetClanTag
     )
   );
 
-  // Creating the cwlDays
-
-  const cwlDays = await formatCWLDays(newCWL.ID, warTags, targetClanTag);
-
-  await cwlDayController.createCWLDays(cwlDays);
-
-  // Creating the performances
-
-  const performances = await formatPerformances(
-    newCWL.ID,
-    warTags,
-    targetClanTag
-  );
-
-  await performanceController.createPerformances(performances);
-
-  return cwlService.getCWLDetailsByID(newCWL.ID);
-};
-
-const formatCWLDays = async (
-  cwlID: number,
-  warTags: WarTag[],
-  targetClanTag: string
-) => {
-  const cwlDays = warTags.map((warTag, index) => {
+  const cwlDays = wars.map((war, index) => {
     const day = index + 1;
 
-    const isClan = warTag.clan.tag === targetClanTag;
-    const myClan = isClan ? warTag.clan : warTag.opponent;
-    const opponentClan = isClan ? warTag.opponent : warTag.clan;
+    const isClan = war.clan.tag === targetClanTag;
+    const clan = isClan ? war.clan : war.opponent;
+    const opponent = isClan ? war.opponent : war.clan;
 
     return {
       cwlID: cwlID,
-      stars: myClan.stars,
-      damage: parseFloat(myClan.destructionPercentage.toFixed(1)),
-      attacks: myClan.attacks,
-      starsAgainst: opponentClan.stars,
-      damageAgainst: parseFloat(opponentClan.destructionPercentage.toFixed(1)),
-      attacksAgainst: opponentClan.attacks,
-      win: myClan.stars > opponentClan.stars,
+      stars: clan.stars,
+      damage: parseFloat(clan.destructionPercentage.toFixed(1)),
+      attacks: clan.attacks,
+      starsAgainst: opponent.stars,
+      damageAgainst: parseFloat(opponent.destructionPercentage.toFixed(1)),
+      attacksAgainst: opponent.attacks,
+      win: calculateWinner(clan, opponent),
       day: day,
     };
   });
@@ -114,47 +117,10 @@ const formatCWLDays = async (
   return cwlDays;
 };
 
-const formatPerformances = async (
-  cwlID: number,
-  warTags: WarTag[],
-  targetClanTag: string
-) => {
-  const memberDataMap: Record<string, any> = {};
-
-  // Use a for...of loop for asynchronous operations
-  for (const warTag of warTags) {
-    const isClan = warTag.clan.tag === targetClanTag;
-    const myClan = isClan ? warTag.clan : warTag.opponent;
-
-    for (const member of myClan.members) {
-      if (!memberDataMap[member.tag]) {
-        // Await the asynchronous function call
-        const ID = await getIDFromTag(member.tag);
-
-        memberDataMap[member.tag] = {
-          accountID: ID,
-          attacks: 0,
-          stars: 0,
-          damage: 0,
-          cwlID: cwlID,
-        };
-      }
-
-      const memberData = memberDataMap[member.tag];
-
-      // Accumulate attack data
-      for (const attack of member.attacks) {
-        memberData.attacks += 1;
-        memberData.stars += attack.stars;
-        memberData.damage += attack.destructionPercentage;
-      }
-    }
+const calculateWinner = (clan: CWLClan, opponent: CWLClan) => {
+  if ((clan.stars = opponent.stars)) {
+    return clan.destructionPercentage > opponent.destructionPercentage;
+  } else {
+    return clan.stars > opponent.stars;
   }
-
-  return Object.values(memberDataMap);
-};
-
-const getIDFromTag = async (tag: string) => {
-  const account = await accountController.getAccountByTag(tag);
-  return account.ID;
 };

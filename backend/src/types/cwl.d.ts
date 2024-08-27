@@ -54,14 +54,14 @@ export type WarTag = {
   preparationStartTime: string;
   startTime: string;
   endTime: string;
-  clan: Clan;
-  opponent: Clan;
+  clan: CWLClan;
+  opponent: CWLClan;
   warStartTime: string;
   tag: string;
   season: string;
 };
 
-type Clan = {
+type CWLClan = {
   tag: string;
   name: string;
   badgeUrls: {

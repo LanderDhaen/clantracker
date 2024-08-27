@@ -2,6 +2,7 @@ import { db } from "../data/index";
 import { sql } from "kysely";
 import { CWLDay } from "../types/cwlday";
 import { InsertableCWL } from "../types/cwl";
+import { MonthValue } from "../data/enums/months";
 
 export const getAllCWLs = async () => {
   const cwls = await db
@@ -26,6 +27,16 @@ export const getAllCWLs = async () => {
     .execute();
 
   return cwls;
+};
+
+export const getCWLByID = async (id: number) => {
+  const cwl = await db
+    .selectFrom("cwl")
+    .selectAll()
+    .where("cwl.ID", "=", id)
+    .executeTakeFirst();
+
+  return cwl;
 };
 
 export const getCWLDetailsByID = async (id: number) => {
@@ -275,6 +286,22 @@ export const checkCWlExists = async (id: number) => {
   const cwl = await db
     .selectFrom("cwl")
     .where("cwl.ID", "=", id)
+    .executeTakeFirst();
+
+  return cwl;
+};
+
+export const getCWLByMonthYearClan = async (
+  month: MonthValue,
+  year: number,
+  clanID: number
+) => {
+  const cwl = await db
+    .selectFrom("cwl")
+    .selectAll()
+    .where("month", "=", month)
+    .where("year", "=", year)
+    .where("clanID", "=", clanID)
     .executeTakeFirst();
 
   return cwl;
