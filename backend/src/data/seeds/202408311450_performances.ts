@@ -2497,7 +2497,7 @@ export const seed = async (db: Kysely<any>) => {
         attacks: 6,
         stars: 13,
         damage: 522,
-        cwlID: 17,
+        cwlID: 16,
         accountID: 58,
       },
 
