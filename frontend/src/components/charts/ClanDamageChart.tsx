@@ -12,6 +12,7 @@ import { ChartContainer } from "@/components/ui/Chart";
 import { LineChart, Line, XAxis, CartesianGrid, LabelList } from "recharts";
 
 import { CWLDetail } from "@/api/cwl";
+import { Sword } from "lucide-react";
 
 interface ClanDamageChartProps {
   rounds: CWLDetail["rounds"];
@@ -24,8 +25,11 @@ export default function ClanDamageChart({ rounds }: ClanDamageChartProps) {
       x-chunk="charts-01-chunk-0"
     >
       <CardHeader className="space-y-0 pb-2">
-        <CardTitle className="text-4xl tabular-nums">
-          Clan Stars Chart
+        <CardTitle>
+          <div className="flex items-center">
+            <Sword className="mr-4" />
+            Damage
+          </div>
         </CardTitle>
       </CardHeader>
       <CardContent className="flex-1">
@@ -47,7 +51,10 @@ export default function ClanDamageChart({ rounds }: ClanDamageChartProps) {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="day" label={{ value: "Day", position: "bottom" }} />
+            <XAxis
+              dataKey="day"
+              label={{ value: "CWL Day", position: "bottom" }}
+            />
             <Line
               type="monotone"
               dataKey="damage"
@@ -60,16 +67,12 @@ export default function ClanDamageChart({ rounds }: ClanDamageChartProps) {
                 offset={10}
                 fill="black"
                 fontSize={12}
+                formatter={(value: number) => `${value}%`}
               />
             </Line>
           </LineChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter>
-        <CardDescription>
-          This chart shows the stars for each round.
-        </CardDescription>
-      </CardFooter>
     </Card>
   );
 }

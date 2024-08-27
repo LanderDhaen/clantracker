@@ -12,6 +12,7 @@ import { ChartContainer } from "@/components/ui/Chart";
 import { LineChart, Line, XAxis, CartesianGrid, LabelList } from "recharts";
 
 import { CWLDetail } from "@/api/cwl";
+import { Star } from "lucide-react";
 
 interface ClanStarsChartProps {
   rounds: CWLDetail["rounds"];
@@ -23,9 +24,12 @@ export default function ClanStarsChart({ rounds }: ClanStarsChartProps) {
       className="flex flex-col w-full h-full shadow-lg rounded-3xl"
       x-chunk="charts-01-chunk-0"
     >
-      <CardHeader className="space-y-0 pb-2">
-        <CardTitle className="text-4xl tabular-nums">
-          Clan Stars Chart
+      <CardHeader>
+        <CardTitle>
+          <div className="flex items-center">
+            <Star className="mr-4" />
+            Stars
+          </div>
         </CardTitle>
       </CardHeader>
       <CardContent className="flex-1">
@@ -47,7 +51,10 @@ export default function ClanStarsChart({ rounds }: ClanStarsChartProps) {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="day" label={{ value: "Day", position: "bottom" }} />
+            <XAxis
+              dataKey="day"
+              label={{ value: "CWL Day", position: "bottom" }}
+            />
             <Line
               type="monotone"
               dataKey="stars"
@@ -65,11 +72,6 @@ export default function ClanStarsChart({ rounds }: ClanStarsChartProps) {
           </LineChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter>
-        <CardDescription>
-          This chart shows the stars for each round.
-        </CardDescription>
-      </CardFooter>
     </Card>
   );
 }
