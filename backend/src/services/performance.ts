@@ -106,6 +106,16 @@ export const getAllPerformances = async () => {
   return performances;
 };
 
+export const getPerformancesByCWLID = async (id: number) => {
+  const performances = await db
+    .selectFrom("performance")
+    .selectAll()
+    .where("performance.cwlID", "=", id)
+    .execute();
+
+  return performances;
+};
+
 export const createPerformances = async (
   performances: InsertablePerformance[]
 ) => {
