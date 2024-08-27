@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/Button";
-import { Label } from "@/components/ui/Label";
 import { useNavigate } from "react-router-dom";
-import { Users, BarChart2, Castle, Hammer, Swords, User } from "lucide-react";
+import { Users, BarChart2, Castle, Swords, User, Medal } from "lucide-react";
 import { useSessionUser } from "@/hooks/useSessionUser";
 import useLogoutMutation from "@/hooks/useLogoutMutation";
 
@@ -15,53 +14,39 @@ export default function Header() {
   }
 
   return (
-    <header className="py-4 bg-gray-100 flex items-center px-20">
-      <div className="flex flex-1 items-center justify-between">
-        <Label className="bg-green-600 text-white px-3 py-1 rounded-full flex items-center space-x-1">
-          <Hammer className="text-white" />
-          <span>Beta</span>
-        </Label>
-        <div className="flex space-x-4 ml-auto">
-          <Button variant="link" onClick={() => navigate("/accounts")}>
-            <Users className="mr-2" />
-            Accounts
-          </Button>
-          <Button variant="link" onClick={() => navigate("/performances")}>
-            <BarChart2 className="mr-2" />
-            Performances
-          </Button>
-        </div>
+    <header className="py-4 bg-gray-100 flex items-center justify-between px-20">
+      <div className="flex space">
+        <Button variant="link" onClick={() => navigate("/accounts")}>
+          <Users className="mr-2" />
+          Accounts
+        </Button>
+        <Button variant="link" onClick={() => navigate("/performances")}>
+          <BarChart2 className="mr-2" />
+          Performances
+        </Button>
+        <Button variant="link" onClick={() => navigate("/clans")}>
+          <Castle className="mr-2" />
+          Clans
+        </Button>
+        <Button variant="link" onClick={() => navigate("/cwls")}>
+          <Swords className="mr-2" />
+          CWL
+        </Button>
+        <Button variant="link" onClick={() => navigate("/bonus")} disabled>
+          <Medal className="mr-2" />
+          Bonus
+        </Button>
       </div>
-      <div className="flex flex-1">
-        <div className="flex space-x-4">
-          <Button variant="link" onClick={() => navigate("/clans")}>
-            <Castle className="mr-2" />
-            Clans
-          </Button>
-          <Button variant="link" onClick={() => navigate("/cwls")}>
-            <Swords className="mr-2" />
-            CWL
-          </Button>
-        </div>
-        {user ? (
-          <Button
-            className="ml-auto"
-            variant="outline"
-            onClick={() => logout()}
-          >
-            Log out
-          </Button>
-        ) : (
-          <Button
-            className="ml-auto"
-            variant="outline"
-            onClick={() => navigate("/login")}
-          >
-            <User className="mr-2" />
-            Log in
-          </Button>
-        )}
-      </div>
+      {user ? (
+        <Button variant="outline" onClick={() => logout()}>
+          Log out
+        </Button>
+      ) : (
+        <Button variant="outline" onClick={() => navigate("/login")}>
+          <User className="mr-2" />
+          Log in
+        </Button>
+      )}
     </header>
   );
 }
