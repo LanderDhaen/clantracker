@@ -7,18 +7,18 @@ export const getAllPerformances = async () => {
       qb
         .selectFrom("performance")
         .select([
-          "accountID",
-          sql`SUM(stars)`.as("total_stars"),
-          sql`SUM(damage)`.as("total_damage"),
-          sql`SUM(attacks)`.as("total_attacks"),
-          sql`CASE WHEN SUM(attacks) > 0 THEN ROUND(SUM(stars) * 1.0 / SUM(attacks), 1) ELSE NULL END`.as(
+          "performance.accountID",
+          sql`SUM(performance.stars)`.as("total_stars"),
+          sql`SUM(performance.damage)`.as("total_damage"),
+          sql`SUM(performance.attacks)`.as("total_attacks"),
+          sql`ROUND(SUM(performance.stars) * 1.0 / NULLIF(SUM(performance.attacks), 0), 1)`.as(
             "avg_stars"
           ),
-          sql`CASE WHEN SUM(attacks) > 0 THEN ROUND(SUM(damage) * 1.0 / SUM(attacks), 0) ELSE NULL END`.as(
+          sql`ROUND(SUM(performance.damage) * 1.0 / NULLIF(SUM(performance.attacks), 0), 1)`.as(
             "avg_damage"
           ),
         ])
-        .groupBy("accountID")
+        .groupBy("performance.accountID")
     )
     .with("yearly", (qb) =>
       qb
@@ -27,17 +27,16 @@ export const getAllPerformances = async () => {
         .select([
           "performance.accountID",
           "cwl.year",
-          sql`SUM(stars)`.as("total_stars"),
-          sql`SUM(damage)`.as("total_damage"),
-          sql`SUM(attacks)`.as("total_attacks"),
-          sql`CASE WHEN SUM(attacks) > 0 THEN ROUND(SUM(stars) * 1.0 / SUM(attacks), 1) ELSE NULL END`.as(
+          sql`SUM(performance.stars)`.as("total_stars"),
+          sql`SUM(performance.damage)`.as("total_damage"),
+          sql`SUM(performance.attacks)`.as("total_attacks"),
+          sql`ROUND(SUM(performance.stars) * 1.0 / NULLIF(SUM(performance.attacks), 0), 1)`.as(
             "avg_stars"
           ),
-          sql`CASE WHEN SUM(attacks) > 0 THEN ROUND(SUM(damage) * 1.0 / SUM(attacks), 0) ELSE NULL END`.as(
+          sql`ROUND(SUM(performance.damage) * 1.0 / NULLIF(SUM(performance.attacks), 0), 1)`.as(
             "avg_damage"
           ),
         ])
-        .where("cwl.year", "is not", null)
         .groupBy(["performance.accountID", "cwl.year"])
     )
     .selectFrom("account")

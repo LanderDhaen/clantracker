@@ -38,11 +38,11 @@ export const getCWLDetailsByID = async (id: number) => {
           "performance.stars",
           "performance.attacks",
           sql`ROUND(performance.stars * 1.0 / NULLIF(performance.attacks, 0), 1)`.as(
-            "avgstars"
+            "avg_stars"
           ),
         ])
         .where("performance.cwlID", "=", id)
-        .orderBy("avgstars", "desc")
+        .orderBy("avg_stars", "desc")
     )
     .with("damage", (qb) =>
       qb
@@ -56,11 +56,11 @@ export const getCWLDetailsByID = async (id: number) => {
           "performance.damage",
           "performance.attacks",
           sql`ROUND(performance.damage * 1.0 / NULLIF(performance.attacks, 0), 1)`.as(
-            "avgdamage"
+            "avg_damage"
           ),
         ])
         .where("performance.cwlID", "=", id)
-        .orderBy("avgdamage", "desc")
+        .orderBy("avg_damage", "desc")
     )
     .with("townhalls", (qb) =>
       qb
@@ -139,7 +139,7 @@ export const getCWLDetailsByID = async (id: number) => {
               'bonus', stars.bonus,
               'stars', stars.stars,
               'attacks', stars.attacks,
-              'avgStars', stars.avgstars
+              'avgStars', stars.avg_stars
             )
           )
           FROM "stars"
@@ -166,7 +166,7 @@ export const getCWLDetailsByID = async (id: number) => {
               'bonus', damage.bonus,
               'damage', damage.damage,
               'attacks', damage.attacks,
-              'avgDamage', damage.avgdamage
+              'avgDamage', damage.avg_damage
             )
           )
           FROM "damage"
