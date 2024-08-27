@@ -66,6 +66,17 @@ export type CWLDetail = {
       amount: number;
     }[];
   };
+  rounds: {
+    ID: number;
+    day: number;
+    stars: number;
+    damage: number;
+    attacks: number;
+    starsAgainst: number;
+    damageAgainst: number;
+    attacksAgainst: number;
+    win: boolean;
+  }[];
 };
 
 export function getCWLs() {

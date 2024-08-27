@@ -1,5 +1,6 @@
 import { db } from "../data/index";
 import { sql } from "kysely";
+import { CWLDay } from "../types/cwlday";
 
 export const getAllCWLs = async () => {
   const cwls = await db
@@ -78,6 +79,22 @@ export const getCWLDetailsByID = async (id: number) => {
         .select(["account.nationality", db.fn.count("account.ID").as("amount")])
         .where("performance.cwlID", "=", id)
         .groupBy("account.nationality")
+    )
+    .with("rounds", (qb) =>
+      qb
+        .selectFrom("cwlday")
+        .select([
+          "cwlday.ID",
+          "cwlday.day",
+          "cwlday.stars",
+          "cwlday.damage",
+          "cwlday.attacks",
+          "cwlday.starsAgainst",
+          "cwlday.damageAgainst",
+          "cwlday.attacksAgainst",
+          "cwlday.win",
+        ])
+        .where("cwlday.cwlID", "=", id)
     )
     .selectFrom("cwl")
     .innerJoin("clan", "cwl.clanID", "clan.ID")
@@ -185,6 +202,27 @@ export const getCWLDetailsByID = async (id: number) => {
       '[]'
     )
   `.as("nationalities"),
+      sql`
+    COALESCE(
+      (
+        SELECT json_agg(
+          json_build_object(
+            'ID', "ID",
+            'day', day,
+            'stars', stars,
+            'damage', damage,
+            'attacks', attacks,
+            'starsAgainst', "starsAgainst",
+            'damageAgainst', "damageAgainst",
+            'attacksAgainst', "attacksAgainst",
+            'win', win
+          )
+        )
+        FROM "rounds"
+      ),
+      '[]'
+    )
+  `.as("rounds"),
     ])
     .where("cwl.ID", "=", id)
     .executeTakeFirst();
@@ -221,6 +259,7 @@ export const getCWLDetailsByID = async (id: number) => {
       townhalls: cwl.townhalls,
       nationalities: cwl.nationalities,
     },
+    rounds: cwl.rounds,
   };
 };
 
