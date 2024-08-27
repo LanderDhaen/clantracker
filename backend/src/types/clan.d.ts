@@ -14,6 +14,7 @@ export interface ClanTable {
   createdAt: ColumnType<Date>;
   updatedAt: ColumnType<Date>;
   isActive: ColumnType<boolean>;
+  tag: ColumnType<string>;
   name: ColumnType<string>;
   abbreviation: ColumnType<string>;
   level: ColumnType<number>;
@@ -32,5 +33,5 @@ export type getAllClansResponse = Awaited<
 >;
 
 export type getClanByIDResponse = Awaited<
-  ReturnType<typeof clanController.getClanByID>
+  ReturnType<typeof clanController.getClanDetailsByID>
 >;

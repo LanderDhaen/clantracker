@@ -33,18 +33,7 @@ export type CWLData = {
   state: string;
   season: string;
   rounds: {
-    warTags: {
-      state: string;
-      teamSize: number;
-      preparationStartTime: string;
-      startTime: string;
-      endTime: string;
-      clan: Clan;
-      opponent: Clan;
-      warStartTime: string;
-      tag: string;
-      season: string;
-    }[];
+    warTags: WarTag[];
   }[];
   clan_rankings: {
     name: string;
@@ -57,6 +46,19 @@ export type CWLData = {
       lost: number;
     };
   }[];
+};
+
+export type WarTag = {
+  state: string;
+  teamSize: number;
+  preparationStartTime: string;
+  startTime: string;
+  endTime: string;
+  clan: Clan;
+  opponent: Clan;
+  warStartTime: string;
+  tag: string;
+  season: string;
 };
 
 type Clan = {

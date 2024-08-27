@@ -6,8 +6,13 @@ export const getAllClans = async () => {
 };
 
 export const getClanByID = async (id: number) => {
-  await clanService.checkClanExists(id);
+  await clanService.checkClanExists;
   return clanService.getClanByID(id);
+};
+
+export const getClanDetailsByID = async (id: number) => {
+  await clanService.checkClanExists(id);
+  return clanService.getClanDetailsByID(id);
 };
 
 export const checkClanExists = async (id: number) => {

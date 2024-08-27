@@ -36,6 +36,16 @@ export const checkClanExists = async (id: number) => {
 
 export const getClanByID = async (id: number) => {
   const clan = await db
+    .selectFrom("clan")
+    .selectAll()
+    .where("ID", "=", id)
+    .executeTakeFirst();
+
+  return clan;
+};
+
+export const getClanDetailsByID = async (id: number) => {
+  const clan = await db
     .with("townhallDistribution", (qb) =>
       qb
         .selectFrom("account")

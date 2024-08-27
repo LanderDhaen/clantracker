@@ -11,13 +11,13 @@ const getAllClans = async (ctx: Context): Promise<void> => {
 
 getAllClans.validationScheme = {};
 
-const getClanByID = async (ctx: Context): Promise<void> => {
+const getClanDetailsByID = async (ctx: Context): Promise<void> => {
   const id = Number(ctx.params.id);
-  const data = await clanController.getClanByID(id);
+  const data = await clanController.getClanDetailsByID(id);
   ctx.body = data;
 };
 
-getClanByID.validationScheme = {
+getClanDetailsByID.validationScheme = {
   params: Joi.object({
     id: Joi.number().required(),
   }),
@@ -29,7 +29,11 @@ export default (router: Router): void => {
   });
 
   clanRouter.get("/", validate(getAllClans.validationScheme), getAllClans);
-  clanRouter.get("/:id", validate(getClanByID.validationScheme), getClanByID);
+  clanRouter.get(
+    "/:id",
+    validate(getClanDetailsByID.validationScheme),
+    getClanDetailsByID
+  );
 
   router.use(clanRouter.routes()).use(clanRouter.allowedMethods());
 };
