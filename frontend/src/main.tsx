@@ -7,7 +7,7 @@ const Root = lazy(() => import("./components/Root"));
 const PerformancePage = lazy(
   () => import("./pages/performances/PerformancePage")
 );
-const Home = lazy(() => import("./components/Home"));
+const Home = lazy(() => import("./pages/home/HomePage"));
 const AccountFormPage = lazy(
   () => import("./pages/accountform/AccountFormPage")
 );
@@ -23,6 +23,7 @@ const LoginFormPage = lazy(() => import("./pages/loginform/LoginFormPage"));
 const NotFoundPage = lazy(() => import("./components/NotFound"));
 
 const CWLPage = lazy(() => import("./pages/cwls/CWLPage"));
+const CWLProfilePage = lazy(() => import("./pages/cwlprofile/CWLProfilePage"));
 
 import { useSessionUser } from "./hooks/useSessionUser";
 import Loader from "./components/Loader";
@@ -41,6 +42,7 @@ const privateRouter = createBrowserRouter([
       { path: "/clans", element: <ClanPage /> },
       { path: "/clans/:id", element: <ClanProfilePage /> },
       { path: "/cwls", element: <CWLPage /> },
+      { path: "/cwls/:id", element: <CWLProfilePage /> },
       { path: "*", element: <NotFoundPage /> },
     ],
   },
@@ -59,6 +61,7 @@ const publicRouter = createBrowserRouter([
       { path: "/clans", element: <ClanPage /> },
       { path: "/clans/:id", element: <ClanProfilePage /> },
       { path: "/cwls", element: <CWLPage /> },
+      { path: "/cwls/:id", element: <CWLProfilePage /> },
       { path: "*", element: <NotFoundPage /> },
     ],
   },

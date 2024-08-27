@@ -19,6 +19,9 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER2,
         placement: 4,
         placementType: PLACEMENTTYPES.SAFE,
+        stars: 469,
+        damage: 16161,
+        size: 30,
         clanID: 1,
       },
       {
@@ -30,6 +33,9 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER2,
         placement: 4,
         placementType: PLACEMENTTYPES.SAFE,
+        stars: 446,
+        damage: 16013,
+        size: 30,
         clanID: 1,
       },
       {
@@ -41,6 +47,9 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER2,
         placement: 7,
         placementType: PLACEMENTTYPES.DEMOTION,
+        stars: 412,
+        damage: 15449,
+        size: 30,
         clanID: 1,
       },
       {
@@ -52,6 +61,9 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER3,
         placement: 1,
         placementType: PLACEMENTTYPES.PROMOTION,
+        stars: 529,
+        damage: 17844,
+        size: 30,
         clanID: 1,
       },
       {
@@ -63,6 +75,9 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER2,
         placement: 3,
         placementType: PLACEMENTTYPES.SAFE,
+        stars: 488,
+        damage: 16745,
+        size: 30,
         clanID: 1,
       },
       {
@@ -74,6 +89,9 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER2,
         placement: 1,
         placementType: PLACEMENTTYPES.PROMOTION,
+        stars: 515,
+        damage: 17484,
+        size: 30,
         clanID: 1,
       },
       {
@@ -85,6 +103,9 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER1,
         placement: 3,
         placementType: PLACEMENTTYPES.SAFE,
+        stars: 501,
+        damage: 17682,
+        size: 30,
         clanID: 1,
       },
       {
@@ -96,6 +117,9 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER1,
         placement: 4,
         placementType: PLACEMENTTYPES.SAFE,
+        stars: 337,
+        damage: 12305,
+        size: 30,
         clanID: 1,
       },
       {
@@ -107,6 +131,9 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER1,
         placement: 1,
         placementType: PLACEMENTTYPES.PROMOTION,
+        stars: 602,
+        damage: 19385,
+        size: 30,
         clanID: 1,
       },
       {
@@ -118,6 +145,9 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.CHAMP3,
         placement: 2,
         placementType: PLACEMENTTYPES.SAFE,
+        stars: 319,
+        damage: 9707,
+        size: 15,
         clanID: 1,
       },
       {
@@ -129,6 +159,9 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER1,
         placement: 8,
         placementType: PLACEMENTTYPES.DEMOTION,
+        stars: 421,
+        damage: 15751,
+        size: 30,
         clanID: 2,
       },
       {
@@ -140,6 +173,9 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.CHAMP3,
         placement: 1,
         placementType: PLACEMENTTYPES.PROMOTION,
+        stars: 329,
+        damage: 9919,
+        size: 15,
         clanID: 1,
       },
       {
@@ -151,6 +187,9 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER2,
         placement: 6,
         placementType: PLACEMENTTYPES.SAFE,
+        stars: 482,
+        damage: 17,
+        size: 30,
         clanID: 2,
       },
       {
@@ -162,6 +201,9 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.CHAMP2,
         placement: 4,
         placementType: PLACEMENTTYPES.SAFE,
+        stars: 297,
+        damage: 9670,
+        size: 15,
         clanID: 1,
       },
       {
@@ -173,6 +215,9 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER2,
         placement: 4,
         placementType: PLACEMENTTYPES.SAFE,
+        stars: 491,
+        damage: 17399,
+        size: 30,
         clanID: 2,
       },
       {
@@ -184,6 +229,9 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.CHAMP2,
         placement: 2,
         placementType: PLACEMENTTYPES.SAFE,
+        stars: 326,
+        damage: 9543,
+        size: 15,
         clanID: 1,
       },
       {
@@ -195,6 +243,9 @@ export const seed = async (db: Kysely<any>) => {
         league: LEAGUES.MASTER2,
         placement: 5,
         placementType: PLACEMENTTYPES.SAFE,
+        stars: 553,
+        damage: 18088,
+        size: 30,
         clanID: 2,
       },
     ])

@@ -21,7 +21,7 @@ export const colorPlacementType = (placementType: PlacementTypeValue) => {
     case PLACEMENTTYPES.PROMOTION:
       return "bg-green-500";
     case PLACEMENTTYPES.SAFE:
-      return "bg-gray-500";
+      return "bg-gray-300";
     case PLACEMENTTYPES.DEMOTION:
       return "bg-red-500";
   }

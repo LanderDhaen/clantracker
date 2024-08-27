@@ -1,11 +1,11 @@
 import {
   Castle,
   CreditCard,
-  Crown,
-  TrendingUp,
+  Swords,
   MapPin,
   Languages,
   Flame,
+  TrendingUp,
 } from "lucide-react";
 
 import {
@@ -94,7 +94,7 @@ export default function ClanCard({ clan }: ClanCardProps) {
           Longest Win Streak: {longestWinStreak}
         </div>
         <div className="flex items-center">
-          <Crown className="mr-2" />
+          <Swords className="mr-2" />
           Clan War League:{" "}
           <span
             className={`ml-2 px-2 py-1 rounded-full text-sm font-semibold ${colorLeague(

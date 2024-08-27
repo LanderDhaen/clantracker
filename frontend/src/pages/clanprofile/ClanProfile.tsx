@@ -1,8 +1,8 @@
-import NationatityChart from "./NationalityChart";
-import TownhallChart from "./TownhallChart";
-import RoleChart from "./RoleChart";
-import CWLChart from "./CWLChart";
-import ClanCard from "@/components/clan/ClanCard";
+import NationatityChart from "../../components/charts/NationalityChart";
+import TownhallChart from "../../components/charts/TownhallChart";
+import RoleChart from "../../components/charts/RoleChart";
+import CWLChart from "../../components/charts/CWLChart";
+import ClanCard from "@/components/infocards/ClanCard";
 import { getClanByIDResponse } from "@backend-types/clan";
 
 interface ClanProfileProps {

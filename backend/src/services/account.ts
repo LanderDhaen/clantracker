@@ -80,10 +80,10 @@ export const getAccountDetailsByID = async (id: number) => {
           "cwl.month",
           "cwl.year",
           sql`ROUND(performance.stars * 1.0 / NULLIF(performance.attacks, 0), 1)`.as(
-            "avgstars"
+            "avg_stars"
           ),
-          sql`ROUND(performance.damage * 1.0 / NULLIF(performance.attacks, 0), 0)`.as(
-            "avgdamage"
+          sql`ROUND(performance.damage * 1.0 / NULLIF(performance.attacks, 0), 1)`.as(
+            "avg_damage"
           ),
         ])
         .where("performance.accountID", "=", id)
@@ -95,13 +95,13 @@ export const getAccountDetailsByID = async (id: number) => {
         .select([
           "performance.accountID",
           "cwl.year",
-          sql`SUM(stars)`.as("total_stars"),
-          sql`SUM(damage)`.as("total_damage"),
-          sql`SUM(attacks)`.as("total_attacks"),
-          sql`CASE WHEN SUM(attacks) > 0 THEN ROUND(SUM(stars) * 1.0 / SUM(attacks), 1) ELSE NULL END`.as(
+          sql`SUM(performance.stars)`.as("total_stars"),
+          sql`SUM(performance.damage)`.as("total_damage"),
+          sql`SUM(performance.attacks)`.as("total_attacks"),
+          sql`ROUND(SUM(performance.stars) * 1.0 / NULLIF(SUM(performance.attacks), 0), 1)`.as(
             "avg_stars"
           ),
-          sql`CASE WHEN SUM(attacks) > 0 THEN ROUND(SUM(damage) * 1.0 / SUM(attacks), 0) ELSE NULL END`.as(
+          sql`ROUND(SUM(performance.damage) * 1.0 / NULLIF(SUM(performance.attacks), 0), 1)`.as(
             "avg_damage"
           ),
         ])
@@ -182,8 +182,8 @@ export const getAccountDetailsByID = async (id: number) => {
               'stars', performances.stars,
               'damage', performances.damage,
               'attacks', performances.attacks,
-              'avgStars', performances.avgstars,
-              'avgDamage', performances.avgdamage
+              'avgStars', performances.avg_stars,
+              'avgDamage', performances.avg_damage
             )
           )
           FROM "performances"

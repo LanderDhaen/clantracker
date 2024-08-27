@@ -13,6 +13,9 @@ export const up = async (db: Kysely<any>) => {
     .addColumn("league", "integer", (c) => c.notNull())
     .addColumn("placement", "integer", (c) => c.notNull())
     .addColumn("placementType", "integer", (c) => c.notNull())
+    .addColumn("stars", "integer", (c) => c.notNull())
+    .addColumn("damage", "integer", (c) => c.notNull())
+    .addColumn("size", "integer", (c) => c.notNull())
     .addColumn("clanID", "integer", (c) =>
       c.notNull().references(`${tables.clan}.ID`).onDelete("cascade")
     )

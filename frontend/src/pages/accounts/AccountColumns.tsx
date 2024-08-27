@@ -4,11 +4,10 @@ import { formatRole, RoleValue } from "@/lib/formatRole";
 import { Button } from "@/components/ui/Button";
 import { ArrowUpDown } from "lucide-react";
 
-import { cn } from "@/lib/utils";
-
 import { ColumnDef } from "@tanstack/react-table";
 import { GetAllAccountsResponse } from "@backend-types/account";
-import TownhallLabel from "@/components/townhall/TownhallLabel";
+import { Badge } from "@/components/ui/Badge";
+import { colorTownhall } from "@/lib/formatTownhall";
 
 export const columns: ColumnDef<GetAllAccountsResponse[number]>[] = [
   {
@@ -109,15 +108,9 @@ export const columns: ColumnDef<GetAllAccountsResponse[number]>[] = [
       const left = row.original.left;
 
       return (
-        <div className={"flex items-center justify-center"}>
-          <span
-            className={cn(
-              "w-2 h-2 rounded-full mr-2",
-              left === null ? "bg-green-500" : "bg-red-500"
-            )}
-          ></span>
+        <Badge color={left === null ? "bg-green-500" : "bg-red-500"}>
           {formattedDate}
-        </div>
+        </Badge>
       );
     },
   },
@@ -159,7 +152,7 @@ export const columns: ColumnDef<GetAllAccountsResponse[number]>[] = [
     cell: ({ getValue }) => {
       const townhall = getValue() as number;
 
-      return <TownhallLabel townhall={townhall} />;
+      return <Badge color={colorTownhall(townhall)}>TH {townhall}</Badge>;
     },
     filterFn: (row, columnId, filterTownhalls) => {
       if (filterTownhalls.length === 0) return true;

@@ -6,44 +6,49 @@ import {
 
 import { Button } from "@/components/ui/Button";
 import { Filter } from "lucide-react";
+import { getAllTownhallsResponse } from "@backend-types/townhall";
+import { colorTownhall } from "@/lib/formatTownhall";
+import { Badge } from "@/components/ui/Badge";
 
-interface YearFilterProps {
-  years: number[];
-  filterYears: number[];
+interface TownhallFilterProps {
+  townhalls: getAllTownhallsResponse;
+  filterTownhalls: number[];
   onSelectChange: (key: string, value: number) => void;
 }
 
-export default function NationalityFilter({
-  years,
-  filterYears,
+export default function TownhallFilterr({
+  townhalls,
+  filterTownhalls,
   onSelectChange,
-}: YearFilterProps) {
+}: TownhallFilterProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="outline">
           <Filter className="h-5 w-5 mr-2" aria-hidden="true" />
-          Filter years
+          Filter townhalls
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-80">
+      <PopoverContent className="w-80 max-h-96 overflow-y-auto">
         <div className="grid gap-4">
           <div className="space-y-2">
             <h4 className="font-medium leading-none">Filter by:</h4>
-            <p className="text-sm text-muted-foreground">Year</p>
+            <p className="text-sm text-muted-foreground">Townhall</p>
           </div>
           <div className="grid gap-2">
-            {years.map((year) => {
-              const isItemSelected = filterYears.includes(year);
+            {townhalls.map((townhall) => {
+              const isItemSelected = filterTownhalls.includes(townhall.ID);
               return (
                 <div
-                  key={year}
+                  key={townhall.ID}
                   className={`flex items-center gap-4 p-2 rounded cursor-pointer ${
                     isItemSelected ? "bg-gray-200" : ""
                   }`}
-                  onClick={() => onSelectChange("year", year)}
+                  onClick={() => onSelectChange("townhall", townhall.ID)}
                 >
-                  {year}
+                  <Badge color={colorTownhall(townhall.level)}>
+                    TH {townhall.level}
+                  </Badge>
                 </div>
               );
             })}

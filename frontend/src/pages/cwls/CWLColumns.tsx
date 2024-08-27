@@ -1,18 +1,14 @@
-import { CWLListEntry } from "@/api/cwl";
+import { CWL } from "@/api/cwl";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { format } from "date-fns";
 import { formatLeague, LeagueValue } from "@/lib/formatLeague";
-import {
-  colorPlacementType,
-  formatPlacementType,
-  PlacementTypeValue,
-} from "@/lib/formatPlacementTypes";
+import { colorPlacementType } from "@/lib/formatPlacementTypes";
 import { formatPlacement } from "@/lib/formatPlacement";
-import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/Badge";
 
-export const columns: ColumnDef<CWLListEntry>[] = [
+export const columns: ColumnDef<CWL>[] = [
   {
     accessorKey: "year",
     header: ({ column }) => {
@@ -78,26 +74,56 @@ export const columns: ColumnDef<CWLListEntry>[] = [
     },
     cell: ({ row, getValue }) => {
       const placement = getValue() as number;
-      const placementType = parseInt(
-        row.original.placementType
-      ) as PlacementTypeValue;
+      const placementType = row.original.placementType;
 
       return (
-        <div className="flex items-center justify-center">
-          <span
-            className={cn(
-              "w-2 h-2 rounded-full mr-2",
-              colorPlacementType(placementType)
-            )}
-          ></span>
+        <Badge color={colorPlacementType(placementType)}>
           {formatPlacement(placement)}
-        </div>
+        </Badge>
+      );
+    },
+  },
+  {
+    accessorKey: "stars",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Stars
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: "damage",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Damage
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
       );
     },
   },
   {
     accessorKey: "clanID",
-    header: "Clan",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Clan
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       return row.original.clanName;
     },
@@ -105,6 +131,20 @@ export const columns: ColumnDef<CWLListEntry>[] = [
       if (filterClans.length === 0) return true;
       const clan = row.getValue(columnId);
       return filterClans.includes(clan);
+    },
+  },
+  {
+    accessorKey: "size",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Size
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
     },
   },
 ];
