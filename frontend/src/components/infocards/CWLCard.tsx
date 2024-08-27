@@ -1,11 +1,4 @@
-import {
-  CreditCard,
-  Flag,
-  Calendar,
-  ArrowUpDown,
-  Users,
-  Swords,
-} from "lucide-react";
+import { Flag, Sword, ArrowUpDown, Users, Swords, Star } from "lucide-react";
 
 import {
   Card,
@@ -32,8 +25,18 @@ interface CWLCardProps {
 }
 
 export default function CWLCard({ cwl }: CWLCardProps) {
-  const { ID, updatedAt, month, year, league, placement, placementType, size } =
-    cwl;
+  const {
+    ID,
+    updatedAt,
+    month,
+    year,
+    league,
+    placement,
+    placementType,
+    stars,
+    damage,
+    size,
+  } = cwl;
 
   const navigate = useNavigate();
 
@@ -61,17 +64,11 @@ export default function CWLCard({ cwl }: CWLCardProps) {
             </Button>
           </PrivateGuard>
         </div>
-        <CardDescription>CWL Information</CardDescription>
+        <CardDescription>
+          CWL Information for {format(new Date(year, month), "MMMM yyyy")}
+        </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="flex items-center mb-4">
-          <CreditCard className="mr-2" />
-          ID: {ID}
-        </div>
-        <div className="flex items-center mb-4">
-          <Calendar className="mr-2" />
-          Month: {format(new Date(year, month), "MMMM yyyy")}
-        </div>
         <div className="flex items-center mb-4">
           <Swords className="mr-2" />
           Clan War League:{" "}
@@ -90,6 +87,14 @@ export default function CWLCard({ cwl }: CWLCardProps) {
         <div className="flex items-center mb-4">
           <ArrowUpDown className="mr-2" />
           Result: {formatPlacementType(placementType)}
+        </div>
+        <div className="flex items-center mb-4">
+          <Star className="mr-2" />
+          Stars: {stars}
+        </div>
+        <div className="flex items-center mb-4">
+          <Sword className="mr-2" />
+          Damage: {damage}
         </div>
         <div className="flex items-center">
           <Users className="mr-2" />

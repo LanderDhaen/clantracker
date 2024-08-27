@@ -28,6 +28,8 @@ export type CWLDetail = {
     league: LeagueValue;
     placement: number;
     placementType: PlacementTypeValue;
+    stars: number;
+    damage: number;
     size: number;
   };
   clan: {
