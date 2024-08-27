@@ -3,13 +3,38 @@ import config from "config";
 import { PostgresDialect, Kysely, sql } from "kysely";
 import { Pool } from "pg";
 import { Database } from "../types/database";
+import { Client } from "clashofclans.js";
 
-const NODE_ENV = config.get<string>("env");
 const DATABASE_HOST = config.get<string>("database.host");
 const DATABASE_PORT = config.get<number>("database.port");
 const DATABASE_NAME = config.get<string>("database.name");
 const DATABASE_USERNAME = config.get<string>("database.username");
 const DATABASE_PASSWORD = config.get<string>("database.password");
+const CLASHPERK_EMAIL = config.get<string>("clashperk.email");
+const CLASHPERK_PASSWORD = config.get<string>("clashperk.password");
+
+let client = new Client();
+
+export async function initializeClient() {
+  const logger = getLogger();
+  logger.info("Initializing ClashPerk client");
+
+  try {
+    await client.login({
+      email: CLASHPERK_EMAIL,
+      password: CLASHPERK_PASSWORD,
+    });
+  } catch (error) {
+    logger.error((error as Error).message, { error });
+    throw new Error("Could not initialize the Clash of Clans client");
+  }
+
+  logger.info("ClashPerk client initialized");
+}
+
+export function getClient() {
+  return client;
+}
 
 export const dialect = new PostgresDialect({
   pool: new Pool({

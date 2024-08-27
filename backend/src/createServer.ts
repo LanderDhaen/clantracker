@@ -2,7 +2,7 @@ import config from "config";
 import Koa from "koa";
 import { initializeLogger, getLogger } from "./middleware/logging";
 import installRoutes from "./routes";
-import { initializeData, shutdownData } from "./data";
+import { initializeClient, initializeData, shutdownData } from "./data";
 import installMiddleware from "./middleware/installMiddleware";
 
 interface Server {
@@ -28,6 +28,7 @@ export default async function createServer(): Promise<Server> {
   });
 
   await initializeData();
+  await initializeClient();
 
   const app = new Koa();
 

@@ -8,4 +8,8 @@ export default {
     username: "DATABASE_USERNAME",
     password: "DATABASE_PASSWORD",
   },
+  clashperk: {
+    email: "CLASHPERK_EMAIL",
+    password: "CLASHPERK_PASSWORD",
+  },
 };
