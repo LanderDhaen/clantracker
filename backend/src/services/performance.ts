@@ -1,5 +1,6 @@
 import { db } from "../data/index";
 import { sql } from "kysely";
+import { InsertablePerformance } from "../types/performance";
 
 export const getAllPerformances = async () => {
   const performances = await db
@@ -103,4 +104,10 @@ export const getAllPerformances = async () => {
     .execute();
 
   return performances;
+};
+
+export const createPerformances = async (
+  performances: InsertablePerformance[]
+) => {
+  await db.insertInto("performance").values(performances).execute();
 };

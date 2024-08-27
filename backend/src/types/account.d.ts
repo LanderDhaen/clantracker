@@ -14,6 +14,7 @@ export interface AccountTable {
   createdAt: ColumnType<Date, string>;
   updatedAt: ColumnType<Date, string>;
   isActive: ColumnType<boolean>;
+  tag: ColumnType<string>;
   username: ColumnType<string>;
   name: ColumnType<string> | null;
   role: ColumnType<RoleValue>;

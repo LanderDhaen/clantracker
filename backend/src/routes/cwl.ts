@@ -22,6 +22,23 @@ getCWLDetailsByID.validationScheme = {
   }),
 };
 
+const createCWL = async (ctx: Context): Promise<void> => {
+  const data = await cwlController.createCWL(ctx.request.body);
+
+  ctx.body = data;
+};
+
+createCWL.validationScheme = {
+  body: Joi.object({
+    month: Joi.number().required(),
+    year: Joi.number().required(),
+    league: Joi.number().required(),
+    placementType: Joi.number().required(),
+    size: Joi.number().required(),
+    clanID: Joi.number().required(),
+  }),
+};
+
 export default (router: Router): void => {
   const cwlRouter = new Router({
     prefix: "/cwls",
@@ -33,6 +50,7 @@ export default (router: Router): void => {
     validate(getCWLDetailsByID.validationScheme),
     getCWLDetailsByID
   );
+  cwlRouter.post("/", validate(createCWL.validationScheme), createCWL);
 
   router.use(cwlRouter.routes()).use(cwlRouter.allowedMethods());
 };

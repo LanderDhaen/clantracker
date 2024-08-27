@@ -228,6 +228,17 @@ export const getAccountDetailsByID = async (id: number) => {
   };
 };
 
+export const getAccountByTag = async (tag: string) => {
+  const account = await db
+    .selectFrom("account")
+    .select(["ID", "username"])
+    .where("tag", "=", tag)
+    .where("isActive", "=", true)
+    .executeTakeFirst();
+
+  return account;
+};
+
 export const checkAccountExists = async (id: number) => {
   const account = await db
     .selectFrom("account")

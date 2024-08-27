@@ -25,6 +25,10 @@ export const getAccountDetailsByID = async (id: number) => {
   return accountService.getAccountDetailsByID(id);
 };
 
+export const getAccountByTag = async (tag: string) => {
+  return accountService.getAccountByTag(tag);
+};
+
 export const checkAccountExists = async (id: number) => {
   const account = await accountService.checkAccountExists(id);
 

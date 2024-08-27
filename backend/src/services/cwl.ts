@@ -1,6 +1,7 @@
 import { db } from "../data/index";
 import { sql } from "kysely";
 import { CWLDay } from "../types/cwlday";
+import { InsertableCWL } from "../types/cwl";
 
 export const getAllCWLs = async () => {
   const cwls = await db
@@ -277,4 +278,14 @@ export const checkCWlExists = async (id: number) => {
     .executeTakeFirst();
 
   return cwl;
+};
+
+export const createCWL = async (cwl: InsertableCWL) => {
+  const newCWL = await db
+    .insertInto("cwl")
+    .values(cwl)
+    .returning("ID")
+    .executeTakeFirstOrThrow();
+
+  return newCWL;
 };
