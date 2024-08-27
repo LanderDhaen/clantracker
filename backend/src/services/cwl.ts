@@ -13,6 +13,9 @@ export const getAllCWLs = async () => {
       "cwl.league",
       "cwl.placement",
       "cwl.placementType",
+      "cwl.stars",
+      "cwl.damage",
+      "cwl.size",
       "clan.ID as clanID",
       "clan.name as clanName",
     ])
@@ -202,7 +205,7 @@ export const getCWLDetailsByID = async (id: number) => {
       '[]'
     )
   `.as("nationalities"),
-      sql`
+      sql<CWLDay[]>`
     COALESCE(
       (
         SELECT json_agg(

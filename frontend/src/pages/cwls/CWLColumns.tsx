@@ -4,10 +4,7 @@ import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { format } from "date-fns";
 import { formatLeague, LeagueValue } from "@/lib/formatLeague";
-import {
-  colorPlacementType,
-  PlacementTypeValue,
-} from "@/lib/formatPlacementTypes";
+import { colorPlacementType } from "@/lib/formatPlacementTypes";
 import { formatPlacement } from "@/lib/formatPlacement";
 import { Badge } from "@/components/ui/Badge";
 
@@ -87,8 +84,46 @@ export const columns: ColumnDef<CWL>[] = [
     },
   },
   {
+    accessorKey: "stars",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Stars
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: "damage",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Damage
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+  {
     accessorKey: "clanID",
-    header: "Clan",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Clan
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       return row.original.clanName;
     },
@@ -96,6 +131,20 @@ export const columns: ColumnDef<CWL>[] = [
       if (filterClans.length === 0) return true;
       const clan = row.getValue(columnId);
       return filterClans.includes(clan);
+    },
+  },
+  {
+    accessorKey: "size",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Size
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
     },
   },
 ];

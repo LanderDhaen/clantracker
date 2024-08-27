@@ -10,6 +10,9 @@ export type CWL = {
   league: LeagueValue;
   placement: number;
   placementType: PlacementTypeValue;
+  stars: number;
+  damage: number;
+  size: number;
   clanID: number;
   clanName: string;
 };
