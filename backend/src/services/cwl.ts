@@ -282,15 +282,6 @@ export const getCWLDetailsByID = async (id: number) => {
   };
 };
 
-export const checkCWLExists = async (id: number) => {
-  const cwl = await db
-    .selectFrom("cwl")
-    .where("cwl.ID", "=", id)
-    .executeTakeFirst();
-
-  return cwl;
-};
-
 export const getCWLByMonthYearClan = async (
   month: MonthValue,
   year: number,
@@ -315,4 +306,13 @@ export const createCWL = async (cwl: InsertableCWL) => {
     .executeTakeFirstOrThrow();
 
   return newCWL;
+};
+
+export const checkCWLExists = async (id: number) => {
+  const cwl = await db
+    .selectFrom("cwl")
+    .where("cwl.ID", "=", id)
+    .executeTakeFirst();
+
+  return cwl;
 };

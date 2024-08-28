@@ -35,14 +35,6 @@ export const getAccountByTag = async (tag: string) => {
   return account;
 };
 
-export const checkAccountExists = async (id: number) => {
-  const account = await accountService.checkAccountExists(id);
-
-  if (!account) {
-    throw ServiceError.notFound(`Account with ID ${id} does not exist`);
-  }
-};
-
 export const createAccount = async (account: InsertableAccount) => {
   await townhallController.getTownhallByID(account.townhallID);
   await clanController.checkClanExists(account.clanID);
@@ -58,4 +50,12 @@ export const updateAccount = async (id: number, account: UpdateableAccount) => {
   account.updatedAt = new Date();
 
   return accountService.updateAccount(id, account);
+};
+
+export const checkAccountExists = async (id: number) => {
+  const account = await accountService.checkAccountExists(id);
+
+  if (!account) {
+    throw ServiceError.notFound(`Account with ID ${id} does not exist`);
+  }
 };

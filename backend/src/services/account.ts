@@ -239,17 +239,6 @@ export const getAccountByTag = async (tag: string) => {
   return account;
 };
 
-export const checkAccountExists = async (id: number) => {
-  const account = await db
-    .selectFrom("account")
-    .select("ID")
-    .where("ID", "=", id)
-    .where("isActive", "=", true)
-    .executeTakeFirst();
-
-  return account;
-};
-
 export const createAccount = async (account: InsertableAccount) => {
   const newAccount = await db
     .insertInto("account")
@@ -269,4 +258,15 @@ export const updateAccount = async (id: number, account: UpdateableAccount) => {
     .executeTakeFirstOrThrow();
 
   return getAccountByID(updatedAccount.ID);
+};
+
+export const checkAccountExists = async (id: number) => {
+  const account = await db
+    .selectFrom("account")
+    .select("ID")
+    .where("ID", "=", id)
+    .where("isActive", "=", true)
+    .executeTakeFirst();
+
+  return account;
 };

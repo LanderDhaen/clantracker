@@ -12,17 +12,6 @@ export const getAllTownhalls = async () => {
   return townhalls;
 };
 
-export const checkTownhallExists = async (id: number) => {
-  const townhall = await db
-    .selectFrom("townhall")
-    .selectAll()
-    .where("townhall.ID", "=", id)
-    .where("townhall.isActive", "=", true)
-    .executeTakeFirst();
-
-  return townhall;
-};
-
 export const getTownhallByID = async (id: number) => {
   const townhall = await db
     .selectFrom("townhall")
@@ -55,4 +44,15 @@ export const updateTownhall = async (
     .executeTakeFirstOrThrow();
 
   return getTownhallByID(updatedTownhall.ID);
+};
+
+export const checkTownhallExists = async (id: number) => {
+  const townhall = await db
+    .selectFrom("townhall")
+    .selectAll()
+    .where("townhall.ID", "=", id)
+    .where("townhall.isActive", "=", true)
+    .executeTakeFirst();
+
+  return townhall;
 };

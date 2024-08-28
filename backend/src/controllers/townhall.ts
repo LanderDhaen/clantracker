@@ -6,13 +6,6 @@ export const getAllTownhalls = async () => {
   return townhallService.getAllTownhalls();
 };
 
-export const checkTownhallExists = async (id: number) => {
-  const townhall = await townhallService.checkTownhallExists(id);
-  if (!townhall) {
-    throw ServiceError.notFound(`Townhall with ID ${id} does not exist`);
-  }
-};
-
 export const getTownhallByID = async (id: number) => {
   return townhallService.getTownhallByID(id);
 };
@@ -28,4 +21,11 @@ export const updateTownhall = async (
   await checkTownhallExists(id);
   townhall.updatedAt = new Date();
   return townhallService.updateTownhall(id, townhall);
+};
+
+export const checkTownhallExists = async (id: number) => {
+  const townhall = await townhallService.checkTownhallExists(id);
+  if (!townhall) {
+    throw ServiceError.notFound(`Townhall with ID ${id} does not exist`);
+  }
 };

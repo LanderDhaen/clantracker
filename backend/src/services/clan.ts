@@ -23,17 +23,6 @@ export const getAllClans = async () => {
   return clans;
 };
 
-export const checkClanExists = async (id: number) => {
-  const clan = await db
-    .selectFrom("clan")
-    .selectAll()
-    .where("ID", "=", id)
-    .where("clan.isActive", "=", true)
-    .executeTakeFirst();
-
-  return clan;
-};
-
 export const getClanByID = async (id: number) => {
   const clan = await db
     .selectFrom("clan")
@@ -214,4 +203,15 @@ export const getClanDetailsByID = async (id: number) => {
     statistics: clan.statistics,
     leagues: clan.leagues,
   };
+};
+
+export const checkClanExists = async (id: number) => {
+  const clan = await db
+    .selectFrom("clan")
+    .selectAll()
+    .where("ID", "=", id)
+    .where("clan.isActive", "=", true)
+    .executeTakeFirst();
+
+  return clan;
 };

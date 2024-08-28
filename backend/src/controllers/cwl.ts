@@ -23,14 +23,6 @@ export const getCWLDetailsByID = async (id: number) => {
   return cwlService.getCWLDetailsByID(id);
 };
 
-export const checkCWLExists = async (id: number) => {
-  const cwl = await cwlService.checkCWLExists(id);
-
-  if (!cwl) {
-    throw ServiceError.notFound(`CWL with ID ${id} does not exist`);
-  }
-};
-
 export const getCWLByMonthYearClan = async (
   month: MonthValue,
   year: number,
@@ -81,6 +73,16 @@ export const createCWL = async (cwl: InsertableCWL) => {
 
   return getCWLByID(newCWL.ID);
 };
+
+export const checkCWLExists = async (id: number) => {
+  const cwl = await cwlService.checkCWLExists(id);
+
+  if (!cwl) {
+    throw ServiceError.notFound(`CWL with ID ${id} does not exist`);
+  }
+};
+
+// Utility functions
 
 const formatCWLDays = async (
   cwlID: number,

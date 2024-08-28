@@ -16,6 +16,11 @@ export const getPerformancesByCWLID = async (id: number) => {
   return await performanceService.getPerformancesByCWLID(id);
 };
 
+const getIDByTag = async (tag: string) => {
+  const account = await accountController.getAccountByTag(tag);
+  return account.ID;
+};
+
 export const createPerformances = async (cwl: InsertableCWL) => {
   await cwlController.checkCWLExists(cwl.ID);
 
@@ -41,6 +46,8 @@ export const createPerformances = async (cwl: InsertableCWL) => {
 
   return getPerformancesByCWLID(cwl.ID);
 };
+
+// Utility functions
 
 const formatPerformances = async (
   data: CWLData,
@@ -94,9 +101,4 @@ const formatPerformances = async (
   }
 
   return Object.values(memberDataMap);
-};
-
-const getIDByTag = async (tag: string) => {
-  const account = await accountController.getAccountByTag(tag);
-  return account.ID;
 };
