@@ -3,7 +3,7 @@ import { get } from "./index.js";
 import { LeagueValue } from "@/lib/formatLeague.js";
 import { PlacementTypeValue } from "@/lib/formatPlacementTypes.js";
 
-export type CWL = {
+export type CWLListEntry = {
   ID: number;
   month: number;
   year: number;
@@ -85,9 +85,9 @@ export type CWLDetail = {
 };
 
 export function getCWLs() {
-  return useSWR<CWL[]>("/cwls", get);
+  return useSWR<CWLListEntry[]>("/cwls", get);
 }
 
 export function getCWLDetailsByID(id: string | undefined) {
-  return useSWR<CWLDetail>(`/cwls/${id}`, get);
+  return useSWR<CWLDetail>(`/cwls/${id}/details`, get);
 }

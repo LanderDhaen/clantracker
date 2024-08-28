@@ -1,4 +1,4 @@
-import { CWL } from "@/api/cwl";
+import { CWLListEntry } from "@/api/cwl";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/Button";
@@ -8,7 +8,7 @@ import { colorPlacementType } from "@/lib/formatPlacementTypes";
 import { formatPlacement } from "@/lib/formatPlacement";
 import { Badge } from "@/components/ui/Badge";
 
-export const columns: ColumnDef<CWL>[] = [
+export const columns: ColumnDef<CWLListEntry>[] = [
   {
     accessorKey: "year",
     header: ({ column }) => {

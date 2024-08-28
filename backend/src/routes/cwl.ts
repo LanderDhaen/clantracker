@@ -11,6 +11,17 @@ const getAllCWLs = async (ctx: Context): Promise<void> => {
 
 getAllCWLs.validationScheme = {};
 
+const getCWLByID = async (ctx: Context): Promise<void> => {
+  const data = await cwlController.getCWLByID(ctx.params.id);
+  ctx.body = data;
+};
+
+getCWLByID.validationScheme = {
+  params: Joi.object({
+    id: Joi.number().required(),
+  }),
+};
+
 const getCWLDetailsByID = async (ctx: Context): Promise<void> => {
   const data = await cwlController.getCWLDetailsByID(ctx.params.id);
   ctx.body = data;
@@ -45,8 +56,9 @@ export default (router: Router): void => {
   });
 
   cwlRouter.get("/", validate(getAllCWLs.validationScheme), getAllCWLs);
+  cwlRouter.get("/:id", validate(getCWLByID.validationScheme), getCWLByID);
   cwlRouter.get(
-    "/:id",
+    "/:id/details",
     validate(getCWLDetailsByID.validationScheme),
     getCWLDetailsByID
   );
