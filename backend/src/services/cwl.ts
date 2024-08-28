@@ -308,6 +308,17 @@ export const createCWL = async (cwl: InsertableCWL) => {
   return newCWL;
 };
 
+export const updateCWL = async (id: number, cwl: InsertableCWL) => {
+  const updatedCWL = await db
+    .updateTable("cwl")
+    .set(cwl)
+    .where("ID", "=", id)
+    .returning("ID")
+    .executeTakeFirstOrThrow();
+
+  return getCWLByID(updatedCWL.ID);
+};
+
 export const checkCWLExists = async (id: number) => {
   const cwl = await db
     .selectFrom("cwl")

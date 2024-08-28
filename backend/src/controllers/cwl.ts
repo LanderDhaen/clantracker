@@ -3,7 +3,13 @@ import * as cwlService from "../services/cwl";
 import * as cwlDayController from "./cwlday";
 import * as clanController from "./clan";
 import * as clashKingAPI from "../api/clashking";
-import { CWLClan, CWLData, InsertableCWL, WarTag } from "../types/cwl";
+import {
+  CWLClan,
+  CWLData,
+  InsertableCWL,
+  UpdateableCWL,
+  WarTag,
+} from "../types/cwl";
 import { format } from "date-fns";
 import { MonthValue } from "../data/enums/months";
 
@@ -72,6 +78,15 @@ export const createCWL = async (cwl: InsertableCWL) => {
   await cwlDayController.createCWLDays(cwlDays);
 
   return getCWLByID(newCWL.ID);
+};
+
+export const updateCWL = async (id: number, cwl: UpdateableCWL) => {
+  await checkCWLExists(id);
+  await clanController.checkClanExists(cwl.clanID);
+
+  cwl.updatedAt = new Date();
+
+  return cwlService.updateCWL(id, cwl);
 };
 
 export const checkCWLExists = async (id: number) => {
