@@ -282,7 +282,7 @@ export const getCWLDetailsByID = async (id: number) => {
   };
 };
 
-export const checkCWlExists = async (id: number) => {
+export const checkCWLExists = async (id: number) => {
   const cwl = await db
     .selectFrom("cwl")
     .where("cwl.ID", "=", id)

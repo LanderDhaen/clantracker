@@ -12,19 +12,19 @@ export const getAllCWLs = async () => {
 };
 
 export const getCWLByID = async (id: number) => {
-  await checkCWlExists(id);
+  await checkCWLExists(id);
 
   return cwlService.getCWLByID(id);
 };
 
 export const getCWLDetailsByID = async (id: number) => {
-  await checkCWlExists(id);
+  await checkCWLExists(id);
 
   return cwlService.getCWLDetailsByID(id);
 };
 
-export const checkCWlExists = async (id: number) => {
-  const cwl = await cwlService.checkCWlExists(id);
+export const checkCWLExists = async (id: number) => {
+  const cwl = await cwlService.checkCWLExists(id);
 
   if (!cwl) {
     throw ServiceError.notFound(`CWL with ID ${id} does not exist`);

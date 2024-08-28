@@ -2,6 +2,7 @@ import ServiceError from "../middleware/serviceError";
 import * as performanceService from "../services/performance";
 import * as clanController from "./clan";
 import * as accountController from "./account";
+import * as cwlController from "./cwl";
 import * as clashKingAPI from "../api/clashking";
 import { CWLData, InsertableCWL } from "../types/cwl";
 import { InsertablePerformance } from "../types/performance";
@@ -12,28 +13,33 @@ export const getAllPerformances = async () => {
 };
 
 export const getPerformancesByCWLID = async (id: number) => {
-  const performances = await performanceService.getPerformancesByCWLID(id);
-
-  if (performances.length != 0) {
-    throw ServiceError.validationFailed(
-      `Performances for CWL with ID ${id} already exist`
-    );
-  }
+  return await performanceService.getPerformancesByCWLID(id);
 };
 
 export const createPerformances = async (cwl: InsertableCWL) => {
-  await getPerformancesByCWLID(cwl.ID);
+  await cwlController.checkCWLExists(cwl.ID);
 
+  const performances = await getPerformancesByCWLID(cwl.ID);
+
+  if (performances.length != 0) {
+    throw ServiceError.validationFailed(
+      `Performances for CWL with ID ${cwl.ID} already exist`
+    );
+  }
   const targetClanTag = (await clanController.getClanByID(cwl.clanID)).tag;
   const targetMonth = format(new Date(cwl.year, cwl.month - 1), "yyyy-MM");
 
   const data = await clashKingAPI.fetchCWLData(targetClanTag, targetMonth);
 
-  const performances = await formatPerformances(data, cwl.ID, targetClanTag);
+  const formattedPerformances = await formatPerformances(
+    data,
+    cwl.ID,
+    targetClanTag
+  );
 
-  await performanceService.createPerformances(performances);
+  await performanceService.createPerformances(formattedPerformances);
 
-  return performances;
+  return getPerformancesByCWLID(cwl.ID);
 };
 
 const formatPerformances = async (
