@@ -4,14 +4,14 @@ import { Context } from "koa";
 import * as clanController from "../controllers/clan";
 import { validate } from "../middleware/validation";
 
-const getAllClans = async (ctx: Context): Promise<void> => {
+const getAllClans = async (ctx: Context) => {
   const data = await clanController.getAllClans();
   ctx.body = data;
 };
 
 getAllClans.validationScheme = {};
 
-const getClanDetailsByID = async (ctx: Context): Promise<void> => {
+const getClanDetailsByID = async (ctx: Context) => {
   const id = Number(ctx.params.id);
   const data = await clanController.getClanDetailsByID(id);
   ctx.body = data;
@@ -23,7 +23,7 @@ getClanDetailsByID.validationScheme = {
   }),
 };
 
-export default (router: Router): void => {
+export default (router: Router) => {
   const clanRouter = new Router({
     prefix: "/clans",
   });

@@ -51,7 +51,7 @@ updateTownhall.validationScheme = {
   }),
 };
 
-export default (router: Router): void => {
+export default (router: Router) => {
   const townHallRouter = new Router({
     prefix: "/townhalls",
   });

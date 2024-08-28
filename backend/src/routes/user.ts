@@ -57,7 +57,7 @@ const logout = async (ctx: Context) => {
 
 logout.validationScheme = {};
 
-export default (router: Router): void => {
+export default (router: Router) => {
   const userRouter = new Router({
     prefix: "/users",
   });

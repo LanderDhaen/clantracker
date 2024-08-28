@@ -26,7 +26,7 @@ createPerformances.validationScheme = {
   }),
 };
 
-export default (router: Router): void => {
+export default (router: Router) => {
   const performanceRouter = new Router({
     prefix: "/performances",
   });

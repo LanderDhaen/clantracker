@@ -17,7 +17,7 @@ const getVersion = async (ctx: Context) => {
 
 getVersion.validationScheme = {};
 
-export default (router: Router): void => {
+export default (router: Router) => {
   const healthRouter = new Router({
     prefix: "/health",
   });
